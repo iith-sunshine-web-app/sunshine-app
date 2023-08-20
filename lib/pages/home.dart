@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sunshine_iith/pages/sunshine_teams.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -8,12 +9,15 @@ class HomePage extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             "Sunshine IITH",
             style: TextStyle(
+              fontWeight: FontWeight.w500,
+              letterSpacing: 1.1,
               color: Colors.black87,
             ),
           ),
+          
           backgroundColor: Colors.orange[300],
         ),
         body: Center(
@@ -67,7 +71,10 @@ class HomeScreen extends StatelessWidget {
                 width: 95,
                 height: 159,
                 child: ElevatedButton(
-                  onPressed:(){},
+                  onPressed:(){
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => TeamPage()));
+                    // Navigator.push(context, MaterialPageRoute(builder: (context) => TeamPage(),));
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor:const Color.fromARGB(255, 217, 229, 250),
                     elevation: 10.0,
