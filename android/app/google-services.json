@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "104215692812",
+    "project_id": "sunshine-iith-newapp",
+    "storage_bucket": "sunshine-iith-newapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104215692812:android:f01e38eba996ec891b9029",
+        "android_client_info": {
+          "package_name": "com.iith.sunshine_iith"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "104215692812-m7l4jh1bbhbkpb6dcuunjl1dmnpsj9rn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBOdTBbbdyg1y9kgYv7yZjmsa6tTF6wn0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "104215692812-m7l4jh1bbhbkpb6dcuunjl1dmnpsj9rn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

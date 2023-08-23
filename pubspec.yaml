@@ -44,6 +44,9 @@ dependencies:
   url_launcher: ^6.1.12
   whatsapp_unilink: ^2.1.0
   open_share_plus: ^1.2.0
+  firebase_core: ^2.15.1
+  firebase_auth: ^4.7.3
+  firebase_database: ^10.2.5
 
 dev_dependencies:
   flutter_test:

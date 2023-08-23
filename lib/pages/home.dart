@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sunshine_iith/pages/login.dart';
 import 'package:sunshine_iith/pages/sunshine_teams.dart';
 
 class HomePage extends StatelessWidget {
@@ -20,7 +22,7 @@ class HomePage extends StatelessWidget {
           
           backgroundColor: Colors.orange[300],
         ),
-        body: Center(
+        body:const Center(
           child: HomeScreen(),
         ),
       ),
@@ -29,6 +31,17 @@ class HomePage extends StatelessWidget {
 }
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  Future<void> logout() async{
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    await googleSignIn.signOut();
+  }
+
+  void addData(){
+    
+  }
+
   @override
   Widget build(BuildContext context){
     return Padding(
@@ -117,7 +130,9 @@ class HomeScreen extends StatelessWidget {
                 width: 95,
                 height: 159,
                 child: ElevatedButton(
-                  onPressed:(){},
+                  onPressed:(){
+                    
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor:const Color.fromARGB(255, 229, 255, 228),
                     elevation: 10.0,
@@ -159,7 +174,11 @@ class HomeScreen extends StatelessWidget {
                 width: 95,
                 height: 159,
                 child: ElevatedButton(
-                  onPressed:(){},
+                  onPressed:() async{
+                   await logout();
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const LoginPage()));
+
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor:const Color.fromARGB(255, 255, 246, 236),
                     elevation: 10.0,

@@ -1,13 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sunshine_iith/pages/home.dart';
 
 
 class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: Scaffold(
         body: Center(
           child: LoginScreen(),
@@ -17,7 +20,54 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  Future<void> signInWithGoogle() async{
+    FirebaseAuth auth = FirebaseAuth.instance;
+    final GoogleSignIn googleSignIn = GoogleSignIn(); 
+    try {
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+
+      if (googleUser != null) {
+        final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+        final AuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+
+        await auth.signInWithCredential(credential);
+      }
+    } catch (error) {
+      _showSnackBar('Failed to sign in with Google.');
+    }
+  }
+
+
+  Future<void> logout() async{
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    await googleSignIn.signOut();
+  }
+
+
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          message,
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -45,9 +95,24 @@ class LoginScreen extends StatelessWidget {
           ),
           const SizedBox(height: 60.0),
           ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
               // Add your Google login logic here
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage()));
+              await signInWithGoogle();
+
+              var email = FirebaseAuth.instance.currentUser!.email.toString();
+
+              if(email.isEmpty){
+                await logout();
+                _showSnackBar('Erorr!');
+              }
+              else if(email.contains('iith.ac.in')){
+                email="";
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const HomePage()));
+              }else{
+                await logout();
+                _showSnackBar( 'Please Login with IITH email-Id');
+              }
+              // if (!mounted) return; 
             },
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.all(16.0),

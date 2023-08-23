@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -6,9 +5,10 @@ import 'package:open_share_plus/open.dart';
 
 class DataShowingWidget extends StatelessWidget {
 
-  String name,email,phone,position,imageLink;
+  final String name,email,phone,position,imageLink;
+  final bool facRep;
 
-  DataShowingWidget({super.key, required this.name,required this.email,required this.phone,required this.position,required this.imageLink,});
+  const DataShowingWidget({super.key, this.facRep = false ,required this.name,required this.email,required this.phone,required this.position,required this.imageLink,});
 
   @override
   Widget build(BuildContext context) {
@@ -36,23 +36,21 @@ class DataShowingWidget extends StatelessWidget {
                       ),
                       child: Column(
                         children: [
+                          
                           Container(
                             margin: const EdgeInsets.all(20),
-                            width: 200,
-                            height: 200,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                image: NetworkImage(imageLink),
-                                fit: BoxFit.fill
-                              ),
-                              ),
+                            child: CircleAvatar(
+                              // child: Image.network(imageLink),
+                              radius: 100,
+                              backgroundImage: NetworkImage(imageLink),
                             ),
+                          ),
 
-                            const SizedBox(height : 30.0),
+                            const SizedBox(height : 25.0),
 
                             Text(
                               name,
+                              textAlign: TextAlign.center,
                               style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w400,
@@ -72,7 +70,26 @@ class DataShowingWidget extends StatelessWidget {
 
                             Padding(
                               padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-                              child: Row(
+                              child: 
+                              
+                              facRep ? 
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  IconButton(
+                                    onPressed: (){
+                                      Open.mail(toAddress: email);
+                                    },
+                                    icon: Icon(
+                                      CupertinoIcons.mail,
+                                      size: 45,
+                                      color: Colors.grey[700],
+                                    ),
+                                  ),
+                                ],
+                              )
+                                  
+                              : Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   IconButton(
@@ -85,7 +102,8 @@ class DataShowingWidget extends StatelessWidget {
                                       color: Colors.grey[700],
                                     ),
                                   ),
-                                  IconButton(
+
+                                IconButton(
                                     onPressed: (){
                                       Open.phone(phoneNumber: "+91-$phone");
                                     },
@@ -95,9 +113,10 @@ class DataShowingWidget extends StatelessWidget {
                                       color: Colors.grey[700],
                                     ),
                                   ),
+
                                   IconButton(
                                     onPressed: (){
-                                      Open.whatsApp(whatsAppNumber: "91$phone" , text: "Hello $name ,");
+                                      Open.whatsApp(whatsAppNumber: "91$phone" , text: "Hello $name, ");
                                     },
                                     icon: FaIcon(
                                       FontAwesomeIcons.whatsapp,
@@ -118,7 +137,6 @@ class DataShowingWidget extends StatelessWidget {
             ),
           ),
         ),
-      );
-    
+      ); 
   }
 }

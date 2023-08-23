@@ -1,11 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:sunshine_iith/pages/home.dart';
+import 'package:flutter/services.dart';
+import 'package:sunshine_iith/firebase_options.dart';
 import 'package:sunshine_iith/pages/login.dart';
-import 'package:sunshine_iith/pages/sunshine_teams.dart';
-import 'package:sunshine_iith/widgets/team_data_list_view.dart';
-import 'package:sunshine_iith/widgets/team_data_widget.dart';
 
-void main() {
+void main() async  {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -14,13 +17,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Color(0xfff2b545),
+      statusBarBrightness: Brightness.dark,
+    ));
     return MaterialApp(
       title: 'Sunshine IITH',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red , primary: Colors.red,secondary: Colors.red),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 244, 197, 54) , primary: const Color(0xfff2b545)),
         useMaterial3: true,
       ),
-      home: DataShowingList(),
+      home: const LoginPage(),
       // home: DataShowingWidget(name: 'Bhaskar Mandal', phone: '9647598624', position: 'App-Web Dev Team',email: 'ms22btech11010@iith.ac.in',imageLink: 'https://media.licdn.com/dms/image/D4D03AQH5hluDGyJmRg/profile-displayphoto-shrink_800_800/0/1689757969646?e=2147483647&v=beta&t=fRwpAbHJ-7meh6Fmi1UzaT-sbnJMxyhOZxdnLV4LyzY' ,),
       // routes: {
       //   '/login' : (context) => LoginPage(),
