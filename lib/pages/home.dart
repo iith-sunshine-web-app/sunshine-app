@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sunshine_iith/pages/login.dart';
+import 'package:sunshine_iith/pages/session_book.dart/session_book_intro.dart';
 import 'package:sunshine_iith/pages/sunshine_teams.dart';
 
 class HomePage extends StatelessWidget {
@@ -131,7 +132,7 @@ class HomeScreen extends StatelessWidget {
                 height: 159,
                 child: ElevatedButton(
                   onPressed:(){
-                    
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SessionBookIntro()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor:const Color.fromARGB(255, 229, 255, 228),
