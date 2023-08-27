@@ -10,9 +10,12 @@ class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  MaterialApp(
       home: Scaffold(
-        body: Center(
+        appBar: AppBar(
+          toolbarHeight: 0.0,
+        ),
+        body: const Center(
           child: LoginScreen(),
         ),
       ),
@@ -28,6 +31,14 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  Future<bool> checkLoggedIn(){
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+
+    return googleSignIn.isSignedIn();
+    
+  }
+
   Future<void> signInWithGoogle() async{
     FirebaseAuth auth = FirebaseAuth.instance;
     final GoogleSignIn googleSignIn = GoogleSignIn(); 
@@ -67,9 +78,17 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  void isLoggedIn() async{
+     bool isLoggedIn = await checkLoggedIn();
+     if(isLoggedIn){
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const HomePage()));
+     }
+  }
+
 
   @override
   Widget build(BuildContext context) {
+    // isLoggedIn();
     return Padding(
       padding: const EdgeInsets.fromLTRB(35, 0, 35, 0),
       child: Column(

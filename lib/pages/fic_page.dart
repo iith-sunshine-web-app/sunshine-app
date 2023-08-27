@@ -1,5 +1,6 @@
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sunshine_iith/services/data_fetch.dart';
 import 'package:sunshine_iith/widgets/team_data_widget.dart';
 
@@ -14,20 +15,20 @@ class FICDataShow extends StatelessWidget {
           // crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.max,
           children: [
-            const Padding(
-            padding:  EdgeInsets.fromLTRB(10, 25, 10, 25),
+            Padding(
+            padding: const EdgeInsets.fromLTRB(10, 25, 10, 25),
             child:  Text(
               "FACULTY IN-CHARGE",
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 24,
-                wordSpacing: 1.5,
-                fontWeight: FontWeight.w500,
-              ),
+              style:  GoogleFonts.openSans(
+                  // fontStyle: ,
+                  fontSize: 33,
+                  fontWeight: FontWeight.w600,
+                ),
             ),
           ),
 
-            const SizedBox(height: 100.0,),
+            const SizedBox(height: 75.0,),
 
 
             Expanded(

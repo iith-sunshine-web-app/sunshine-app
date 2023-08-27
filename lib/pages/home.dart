@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:sunshine_iith/pages/login.dart';
+import 'package:sunshine_iith/pages/chat_bot.dart';
 import 'package:sunshine_iith/pages/session_book.dart/session_book_intro.dart';
 import 'package:sunshine_iith/pages/sunshine_teams.dart';
+
+import '../widgets/drawer_nav_bar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -11,9 +12,29 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        drawer: const NavBar(),
         appBar: AppBar(
+
+          leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(
+                Icons.menu,
+                color: Colors.black,
+                size: 28,
+              ),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+            );
+          },
+        ),
+
+          centerTitle: true,
           title: const Text(
-            "Sunshine IITH",
+            "Sunshine IITH", 
+            
             style: TextStyle(
               fontWeight: FontWeight.w500,
               letterSpacing: 1.1,
@@ -21,7 +42,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
           
-          backgroundColor: Colors.orange[300],
+          backgroundColor: const Color(0xfff2b545),
         ),
         body:const Center(
           child: HomeScreen(),
@@ -33,15 +54,6 @@ class HomePage extends StatelessWidget {
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  Future<void> logout() async{
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-    await googleSignIn.signOut();
-  }
-
-  void addData(){
-    
-  }
 
   @override
   Widget build(BuildContext context){
@@ -175,9 +187,8 @@ class HomeScreen extends StatelessWidget {
                 width: 95,
                 height: 159,
                 child: ElevatedButton(
-                  onPressed:() async{
-                   await logout();
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const LoginPage()));
+                  onPressed:(){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const ChatBot()));
 
                   },
                   style: ElevatedButton.styleFrom(

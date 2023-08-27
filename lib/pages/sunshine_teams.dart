@@ -25,6 +25,10 @@ class TeamPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          leading: const BackButton(
+            color: Colors.black
+          ), 
+        centerTitle: true,
         title: const Text(
           'Sunshine Team',
           style: TextStyle(
@@ -33,7 +37,7 @@ class TeamPage extends StatelessWidget {
               letterSpacing: 1.1,
             ),
           ),
-          backgroundColor: Colors.orange[300],
+          backgroundColor: const Color(0xfff2b545),
       ),
       body: ListView(
         children: [

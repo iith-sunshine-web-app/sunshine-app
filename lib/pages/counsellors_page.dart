@@ -1,15 +1,27 @@
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sunshine_iith/services/firestore_data.dart';
 import 'package:sunshine_iith/widgets/team_data_widget.dart';
 
 import '../services/data_fetch.dart';
 
-class DataShowingPage extends StatelessWidget {
+class CounsellorsPage extends StatefulWidget {
 
-  final String type,pos;
+  const CounsellorsPage({super.key});
 
-  const DataShowingPage({super.key,required this.pos, required this.type,});
+  @override
+  State<CounsellorsPage> createState() => _CounsellorsPageState();
+}
+
+class _CounsellorsPageState extends State<CounsellorsPage> {
+  var data;
+
+  @override
+  void initState() {
+    FirestoreData.getData('counsellors');
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +34,7 @@ class DataShowingPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(10, 25, 10, 25),
               child:  Text(
-                type,
+                'COUNSELLORS',
                 textAlign: TextAlign.center,
                 style:  GoogleFonts.openSans(
                   // fontStyle: ,
@@ -36,7 +48,7 @@ class DataShowingPage extends StatelessWidget {
 
             Expanded(
               child: FirebaseAnimatedList(
-                query: DataFetch.dataFromRTDB(pos),
+                query: DataFetch.dataFromRTDB('counsellors'),
                 itemBuilder: (context , snapshot , animation , index){
                     return Padding(
                       padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),

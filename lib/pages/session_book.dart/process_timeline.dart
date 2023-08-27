@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:open_share_plus/open.dart';
-import 'package:sunshine_iith/services/data.dart';
+import 'package:sunshine_iith/services/data_model.dart';
 
 
 class ProcessTimeline extends StatefulWidget {
@@ -25,7 +25,7 @@ class _ProcessTimelineState extends State<ProcessTimeline> {
   DateTime _date = DateTime.now();
   String time ='';
   TimeOfDay _time = TimeOfDay.now();
-  bool time_function_call = false;
+  bool timeFunctionCall = false;
 
   List<DataModel> counsellorsData = [
     DataModel(name: 'Maria Morris', email: 'maria.morris@admin.iith.ac.in', phone: '8331036081', position: 'no need', image: 'no need'),
@@ -72,219 +72,225 @@ class _ProcessTimelineState extends State<ProcessTimeline> {
   @override
   Widget build(BuildContext context) {
 
-    if(!time_function_call){
+    if(!timeFunctionCall){
       time = currTime(TimeOfDay.now());
     }
 
     return MaterialApp(
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 244, 197, 54) , primary: const Color.fromARGB(255,21, 101, 192)),
-        useMaterial3: true,
-      ),
-      home: SafeArea(
-        child: Scaffold(
-          body: Column(
-            children: [
-              const Padding(
-                padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
-                child: Text(
-                  'Book Slot Now',
-                  style: TextStyle(
-                    fontSize: 35,
-                    fontWeight: FontWeight.w500
+      // theme: ThemeData(
+      //   colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 244, 197, 54) , primary: const Color.fromARGB(255,21, 101, 192)),
+      //   useMaterial3: true,
+      // ),
+      home: Theme(
+        data: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 244, 197, 54) , primary: const Color.fromARGB(255,21, 101, 192)),
+          useMaterial3: true,
+        ),
+        child: SafeArea(
+          child: Scaffold(
+            body: Column(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
+                  child: Text(
+                    'Book Slot Now',
+                    style: TextStyle(
+                      fontSize: 35,
+                      fontWeight: FontWeight.w500
+                    ),
                   ),
                 ),
-              ),
+        
+                Stepper(
+                  
+                  currentStep: currStep,
+                  onStepContinue: onStepContinue,
+                  onStepCancel: onStepCancel,
+                  controlsBuilder: controls,
+                  steps: [
+          
+                    Step(
+                      
+                      state: currStep>0 ? StepState.complete : StepState.disabled,
+                      isActive: currStep>=0,
+                      title:  const Text('Select a counsellor for the session'), 
+                      content: Column(
+                        children: [
+          
+                          RadioListTile<Counsellors>(
+                            contentPadding: const EdgeInsets.all(0.0),
+                            title: Text(
+                              counsellorsData.elementAt(0).name,
+                            ),
+                            value: Counsellors.counsellor1,
+                            groupValue: _valueCounsellors,
+                            onChanged: (value) => setState(() {
+                              _valueCounsellors = value;
+                            }),
+                          ),
       
-              Stepper(
-                
-                currentStep: currStep,
-                onStepContinue: onStepContinue,
-                onStepCancel: onStepCancel,
-                controlsBuilder: controls,
-                steps: [
-    
-                  Step(
-                    
-                    state: currStep>0 ? StepState.complete : StepState.disabled,
-                    isActive: currStep>=0,
-                    title:  const Text('Select a counsellor for the session'), 
-                    content: Column(
-                      children: [
-    
-                        RadioListTile<Counsellors>(
-                          contentPadding: const EdgeInsets.all(0.0),
-                          title: Text(
-                            counsellorsData.elementAt(0).name,
+                           RadioListTile<Counsellors>(
+                            contentPadding: const EdgeInsets.all(0.0),
+                            title: Text(
+                              counsellorsData.elementAt(1).name,
+                            ),
+                            value: Counsellors.counsellor2,
+                            groupValue: _valueCounsellors,
+                            onChanged: (value) => setState(() {
+                              _valueCounsellors = value;
+                            }),
                           ),
-                          value: Counsellors.counsellor1,
-                          groupValue: _valueCounsellors,
-                          onChanged: (value) => setState(() {
-                            _valueCounsellors = value;
-                          }),
-                        ),
-
-                         RadioListTile<Counsellors>(
-                          contentPadding: const EdgeInsets.all(0.0),
-                          title: Text(
-                            counsellorsData.elementAt(1).name,
+      
+                           RadioListTile<Counsellors>(
+                            contentPadding: const EdgeInsets.all(0.0),
+                            title: Text(
+                              counsellorsData.elementAt(2).name,
+                            ),
+                            value: Counsellors.counsellor3,
+                            groupValue: _valueCounsellors,
+                            onChanged: (value) => setState(() {
+                              _valueCounsellors = value;
+                            }),
                           ),
-                          value: Counsellors.counsellor2,
-                          groupValue: _valueCounsellors,
-                          onChanged: (value) => setState(() {
-                            _valueCounsellors = value;
-                          }),
-                        ),
-
-                         RadioListTile<Counsellors>(
-                          contentPadding: const EdgeInsets.all(0.0),
-                          title: Text(
-                            counsellorsData.elementAt(2).name,
-                          ),
-                          value: Counsellors.counsellor3,
-                          groupValue: _valueCounsellors,
-                          onChanged: (value) => setState(() {
-                            _valueCounsellors = value;
-                          }),
-                        ),
-                      ],
-                    ),
-                    ),
-    
-    
-                  Step(
-                    state: currStep>1 ? StepState.complete : StepState.disabled,
-                    isActive: currStep>=1,
-                    title: const Text('Select the mode of session'), 
-                    content: Column(
-                      children:[
-                      RadioListTile<Mode>(
-                          contentPadding: const EdgeInsets.all(0.0),
-                          title: const Text(
-                            'Online',
-                          ),
-                          value: Mode.online,
-                          groupValue: _valueMode,
-                          onChanged: (value) => setState(() {
-                            _valueMode = value;
-                          }),
-                        ),
-
+                        ],
+                      ),
+                      ),
+          
+          
+                    Step(
+                      state: currStep>1 ? StepState.complete : StepState.disabled,
+                      isActive: currStep>=1,
+                      title: const Text('Select the mode of session'), 
+                      content: Column(
+                        children:[
                         RadioListTile<Mode>(
-                          contentPadding: const EdgeInsets.all(0.0),
-                          title: const Text(
-                            "Offline",
-                          ),
-                          value: Mode.offline,
-                          groupValue: _valueMode,
-                          onChanged: (value) => setState(() {
-                            _valueMode = value;
-                          }),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Step(
-                    state: currStep>2 ? StepState.complete : StepState.disabled,
-                    isActive: currStep>=2,
-                    title: const Text('Pick a date and time for the session'),
-                    content: Column(
-                      children: [
-                        Row(
-                          children: [
-                            InkWell(
-                              // splashColor: Colors.transparent,
-                              onTap: (){
-                                datePicker();
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
-                                child: Container(
-                                  
-                                  width: 170,
-                                  child: InputDecorator(
-                                    decoration: InputDecoration(
-                                      suffixIcon: const Icon(Icons.calendar_today_outlined),
-                                      labelText: 'Date',
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                    ),
-                                    child:  Text(
-                                      date,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                            contentPadding: const EdgeInsets.all(0.0),
+                            title: const Text(
+                              'Online',
                             ),
-                          ],
-                        ),
-
-                        Row(
-                          children: [
-                            InkWell(
-                              // splashColor: Colors.transparent,
-                              onTap: (){
-                                timePicker();
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
-                                child: Container(
-                                  width: 170,
-                                  child: InputDecorator(
+                            value: Mode.online,
+                            groupValue: _valueMode,
+                            onChanged: (value) => setState(() {
+                              _valueMode = value;
+                            }),
+                          ),
+      
+                          RadioListTile<Mode>(
+                            contentPadding: const EdgeInsets.all(0.0),
+                            title: const Text(
+                              "Offline",
+                            ),
+                            value: Mode.offline,
+                            groupValue: _valueMode,
+                            onChanged: (value) => setState(() {
+                              _valueMode = value;
+                            }),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Step(
+                      state: currStep>2 ? StepState.complete : StepState.disabled,
+                      isActive: currStep>=2,
+                      title: const Text('Pick a date and time for the session'),
+                      content: Column(
+                        children: [
+                          Row(
+                            children: [
+                              InkWell(
+                                // splashColor: Colors.transparent,
+                                onTap: (){
+                                  datePicker();
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
+                                  child: SizedBox(
                                     
-                                    decoration: InputDecoration(
-                                      suffixIcon: const Icon(Icons.schedule_outlined),
-                                      labelText: 'Time',
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(5.0),
+                                    width: 170,
+                                    child: InputDecorator(
+                                      decoration: InputDecoration(
+                                        suffixIcon: const Icon(Icons.calendar_today_outlined),
+                                        labelText: 'Date',
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(5),
+                                        ),
+                                      ),
+                                      child:  Text(
+                                        date,
                                       ),
                                     ),
-                                    child: Text(time),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Step(
-                    state: currStep>3 ? StepState.complete : StepState.disabled,
-                    isActive: currStep>=3,
-                    title: const Text('Select your prefered mode of communication'), 
-                    content: Column(
-                      children:[
-                      RadioListTile<Communication>(
-                          contentPadding: const EdgeInsets.all(0.0),
-                          title: const Text(
-                            'Whatsapp',
+                            ],
                           ),
-                          value: Communication.whatsapp,
-                          groupValue: _valueCommunication,
-                          onChanged: (value) => setState(() {
-                            _valueCommunication = value;
-                          }),
-                        ),
-
+      
+                          Row(
+                            children: [
+                              InkWell(
+                                // splashColor: Colors.transparent,
+                                onTap: (){
+                                  timePicker();
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
+                                  child: SizedBox(
+                                    width: 170,
+                                    child: InputDecorator(
+                                      
+                                      decoration: InputDecoration(
+                                        suffixIcon: const Icon(Icons.schedule_outlined),
+                                        labelText: 'Time',
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(5.0),
+                                        ),
+                                      ),
+                                      child: Text(time),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Step(
+                      state: currStep>3 ? StepState.complete : StepState.disabled,
+                      isActive: currStep>=3,
+                      title: const Text('Select your prefered mode of communication'), 
+                      content: Column(
+                        children:[
                         RadioListTile<Communication>(
-                          contentPadding: const EdgeInsets.all(0.0),
-                          title: const Text(
-                            "Mail",
+                            contentPadding: const EdgeInsets.all(0.0),
+                            title: const Text(
+                              'Whatsapp',
+                            ),
+                            value: Communication.whatsapp,
+                            groupValue: _valueCommunication,
+                            onChanged: (value) => setState(() {
+                              _valueCommunication = value;
+                            }),
                           ),
-                          value: Communication.mail,
-                          groupValue: _valueCommunication,
-                          onChanged: (value) => setState(() {
-                            _valueCommunication = value;
-                          }),
-                        ),
-                      ],
+      
+                          RadioListTile<Communication>(
+                            contentPadding: const EdgeInsets.all(0.0),
+                            title: const Text(
+                              "Mail",
+                            ),
+                            value: Communication.mail,
+                            groupValue: _valueCommunication,
+                            onChanged: (value) => setState(() {
+                              _valueCommunication = value;
+                            }),
+                          ),
+                        ],
+                      ),
                     ),
+                  ]
                   ),
-                ]
-                ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -338,6 +344,13 @@ class _ProcessTimelineState extends State<ProcessTimeline> {
     }
     DateTime currDateTime = DateTime.now();
     await showDatePicker(
+      builder: (context, child) => Theme(
+        data: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 244, 197, 54) , primary: const Color.fromARGB(255, 244, 197, 54)),
+          useMaterial3: true,
+        ), 
+        child: child!,
+        ),
       context: context, 
       initialDate: selectDate, 
       firstDate:  currDateTime, 
@@ -360,14 +373,21 @@ class _ProcessTimelineState extends State<ProcessTimeline> {
   }
 
   void timePicker() async{
-    time_function_call = true;
+    timeFunctionCall = true;
 
     TimeOfDay selectedTime = _time;
     if(selectedTime.hour>21){
-      selectedTime = TimeOfDay(hour: 9, minute: 00);
+      selectedTime = const TimeOfDay(hour: 9, minute: 00);
     }
 
     final TimeOfDay? pickedTime =  await showTimePicker(
+      builder: (context, child) => Theme(
+        data: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 244, 197, 54) , primary: const Color.fromARGB(255, 244, 197, 54)),
+          useMaterial3: true,
+        ), 
+        child: child!,
+      ),
       context: context, 
       initialTime: selectedTime,
       initialEntryMode: TimePickerEntryMode.dialOnly,
@@ -382,7 +402,7 @@ class _ProcessTimelineState extends State<ProcessTimeline> {
   String currTime(TimeOfDay time){
     int hour = time.hour;
     if(hour>21){
-      time = TimeOfDay(hour: 9, minute: 00);
+      time =const TimeOfDay(hour: 9, minute: 00);
     }else{
       time = TimeOfDay(hour: hour+1, minute: 00);
     }
