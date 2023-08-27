@@ -1,28 +1,35 @@
-import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sunshine_iith/services/firestore_data.dart';
 import 'package:sunshine_iith/widgets/team_data_widget.dart';
 
-import '../services/data_fetch.dart';
 
+// ignore: must_be_immutable
 class CounsellorsPage extends StatefulWidget {
-
-  const CounsellorsPage({super.key});
+  List data = [];
+  CounsellorsPage({super.key,required this.data});
 
   @override
   State<CounsellorsPage> createState() => _CounsellorsPageState();
 }
 
 class _CounsellorsPageState extends State<CounsellorsPage> {
-  var data;
+
+  List setData = [];
 
   @override
   void initState() {
-    FirestoreData.getData('counsellors');
+    setData = widget.data;
+     if(widget.data.isEmpty){
+      FirestoreData.getData('counsellors').then((List list){
+      setState(() {
+        setData = list;
+      });
+    });
+    }
+    // print('hhh');<
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     
@@ -47,20 +54,36 @@ class _CounsellorsPageState extends State<CounsellorsPage> {
             // const SizedBox(height: 35.0,),
 
             Expanded(
-              child: FirebaseAnimatedList(
-                query: DataFetch.dataFromRTDB('counsellors'),
-                itemBuilder: (context , snapshot , animation , index){
-                    return Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-                      child: DataShowingWidget(
-                        name: snapshot.child('name').value.toString(), 
-                        email: snapshot.child('email').value.toString(), 
-                        phone: snapshot.child('phone').value.toString(), 
-                        position: snapshot.child('position').value.toString(), 
-                        imageLink: snapshot.child('image').value.toString()),
-                    );
-                  }
-            ),
+            //   child: FirebaseAnimatedList(
+            //     query: DataFetch.dataFromRTDB('counsellors'),
+            //     itemBuilder: (context , snapshot , animation , index){
+            //         return Padding(
+            //           padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+            //           child: DataShowingWidget(
+            //             name: snapshot.child('name').value.toString(), 
+            //             email: snapshot.child('email').value.toString(), 
+            //             phone: snapshot.child('phone').value.toString(), 
+            //             position: snapshot.child('position').value.toString(), 
+            //             imageLink: snapshot.child('image').value.toString()),
+            //         );
+            //       }
+            // ),
+            child: ListView.builder(
+              itemCount: setData.length,
+              itemBuilder: (context,index){
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+                  child: DataShowingWidget(
+                    name:setData[index]['name'],
+                    email:setData[index]['email'],
+                    phone:setData[index]['phone'],
+                    position:setData[index]['position'],
+                    imageLink:setData[index]['image'],
+
+                  ),
+                  );
+              }
+            )
             ),
           ],
         ),

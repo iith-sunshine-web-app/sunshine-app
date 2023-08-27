@@ -3,9 +3,28 @@ import 'package:flutter/services.dart';
 import 'package:sunshine_iith/pages/studentheads/mgmt_team.dart';
 import 'package:sunshine_iith/pages/studentheads/pg_heads.dart';
 import 'package:sunshine_iith/pages/studentheads/ug_heads.dart';
+import 'package:sunshine_iith/services/data_model.dart';
 
+// ignore: must_be_immutable
 class StudentTeam extends StatelessWidget {
-  const StudentTeam({super.key});
+  
+  //ug
+  List<DataModel> ugMgmtData =[];
+  List<DataModel> ugMentorData =[];
+  List<DataModel> ugBuddyData =[];
+  List<DataModel> welfareSec =[];
+
+  //pg
+  List<DataModel> pgMgmtData =[];
+  List<DataModel> pgMentorData =[];
+  List<DataModel> pgBuddyData =[];
+
+  //management team data
+  Map<String,List<DataModel>> managementTeamData;
+
+  StudentTeam({super.key,required this.ugBuddyData,required this.ugMentorData,required this.ugMgmtData,required this.welfareSec,
+            required this.pgBuddyData,required this.pgMentorData,required this.pgMgmtData,required this.managementTeamData,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +32,7 @@ class StudentTeam extends StatelessWidget {
       statusBarColor: Color(0xfff2b545),
       statusBarBrightness: Brightness.dark,
     ));
-    return const MaterialApp(
+    return MaterialApp(
       home: DefaultTabController(
         length: 3,
         child: SafeArea(
@@ -32,11 +51,14 @@ class StudentTeam extends StatelessWidget {
             //   ),
             //   backgroundColor: const Color(0xfff2b545),
             // ),
-            body:const TabBarView(
+            body:TabBarView(
               children: [
-                UgHeads(),
-                PgHeads(),
-                MGMTTeam(),
+                // UgHeads(),
+                UgHeads(ugBuddyData: ugBuddyData,ugMentorData: ugMentorData,
+                        ugMgmtData: ugMgmtData,welfareSec: welfareSec,),
+                PgHeads(pgBuddyData: pgBuddyData,pgMentorData: pgMentorData,
+                        pgMgmtData: pgMgmtData),
+                MGMTTeam(data: managementTeamData,),
               ],
             ),
             // bottomNavigationBar: Container(
@@ -51,7 +73,7 @@ class StudentTeam extends StatelessWidget {
             //     ],
             //   ),
             // ),
-            bottomNavigationBar: TabBar(
+            bottomNavigationBar: const TabBar(
                 indicatorColor: Colors.purple,
                 labelColor: Colors.purple,
                 unselectedLabelColor:  Color.fromARGB(255, 44, 37, 10),

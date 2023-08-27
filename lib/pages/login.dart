@@ -118,8 +118,10 @@ class _LoginScreenState extends State<LoginScreen> {
               // Add your Google login logic here
               await signInWithGoogle();
 
+              bool isLoggedIn = await checkLoggedIn();
+              if(isLoggedIn){
               var email = FirebaseAuth.instance.currentUser!.email.toString();
-
+              
               if(email.isEmpty){
                 await logout();
                 _showSnackBar('Erorr!');
@@ -130,6 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
               }else{
                 await logout();
                 _showSnackBar( 'Please Login with IITH email-Id');
+              }
               }
               // if (!mounted) return; 
             },

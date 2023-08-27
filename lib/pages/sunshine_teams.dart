@@ -1,26 +1,81 @@
 import 'package:flutter/material.dart';
+import 'package:sunshine_iith/pages/counsellors_page.dart';
 import 'package:sunshine_iith/pages/fic_page.dart';
 import 'package:sunshine_iith/pages/studentheads/student_team.dart';
-import 'package:sunshine_iith/widgets/dataShowingPage.dart';
+import 'package:sunshine_iith/services/data_fetch.dart';
+import 'package:sunshine_iith/services/data_model.dart';
+import 'package:sunshine_iith/services/firestore_data.dart';
 
 import '../widgets/expansion_panel_faculty_rep.dart';
 
 // ignore: must_be_immutable
-class TeamPage extends StatelessWidget {
-  TeamPage({super.key});
+class TeamPage extends StatefulWidget {
+  const TeamPage({super.key});
+
+  @override
+  State<TeamPage> createState() => _TeamPageState();
+}
+
+class _TeamPageState extends State<TeamPage> {
+
+  List counsellorsData=[];
+  List ficData=[];
+
+  //UG heads data
+  List<DataModel> ugMgmtData =[];
+  List<DataModel> ugMentorData =[];
+  List<DataModel> ugBuddyData =[];
+  List<DataModel> welfareSec =[];
+
+  //PG heads data
+  List<DataModel> pgMgmtData =[];
+  List<DataModel> pgMentorData =[];
+  List<DataModel> pgBuddyData =[];
+
+  Map<String, List<DataModel>> managementTeamData = {};
+  List<String> posArr = ['web-app-team' , 'finance-team', 'publicity-team' , 'content-team', 'photo-team', 'des-team', 'newsletter-team', 'logistics-team', 'video-team'];
+
+  @override
+  void initState() {
+    FirestoreData.getData('counsellors').then((List list){
+      setState(() {
+        counsellorsData = list;
+      });
+    });
+    FirestoreData.getData('fic').then((List list){
+      setState(() {
+        ficData = list;
+      });
+    });
+
+
+    ugMgmtData = DataFetch.fetchWholeData('ug-management-heads');
+    ugMentorData = DataFetch.fetchWholeData('ug-mentor-heads');
+    ugBuddyData = DataFetch.fetchWholeData('ug-buddy-heads');
+    welfareSec = DataFetch.fetchWholeData('welfare-sec');
+
+    pgMgmtData = DataFetch.fetchWholeData('pg-management-heads');
+    pgMentorData = DataFetch.fetchWholeData('pg-mentor-heads');
+    pgBuddyData = DataFetch.fetchWholeData('pg-buddy-heads');
+
+    managementTeamData[posArr[0]] = DataFetch.fetchWholeData('management-team/${posArr[0]}');
+    managementTeamData[posArr[1]] = DataFetch.fetchWholeData('management-team/${posArr[1]}');
+    managementTeamData[posArr[2]] = DataFetch.fetchWholeData('management-team/${posArr[2]}');
+    managementTeamData[posArr[3]] = DataFetch.fetchWholeData('management-team/${posArr[3]}');
+    managementTeamData[posArr[4]] = DataFetch.fetchWholeData('management-team/${posArr[4]}');
+    managementTeamData[posArr[5]] = DataFetch.fetchWholeData('management-team/${posArr[5]}');
+    managementTeamData[posArr[6]] = DataFetch.fetchWholeData('management-team/${posArr[6]}');
+    managementTeamData[posArr[7]] = DataFetch.fetchWholeData('management-team/${posArr[7]}');
+    managementTeamData[posArr[8]] = DataFetch.fetchWholeData('management-team/${posArr[8]}');
+    
+
+    super.initState();
+  }
+
 
   var arrListItem = ['FACULTY IN-CHARGE' , 'COUNSELLORS' , 'FACULTY REPRESENTATIVES' , 'STUDENT HEADS'];
 
   // var arrName = ['Bhaskar Mandal', 'Test Person 1' , 'Test Person 2', 'Test Person 3'];
-  // var arrEmail = ['ms22btech11010@iith.ac.in','testemail1@iith.ac.in','testemail2@iith.ac.in','testemail3@iith.ac.in'];
-  // var arrPhone = ['9647598624','121','16212','45655'];
-  // var arrPosition = ['App-Web Dev Team', 'UG Management Head', 'UG Buddy Head','App-Web Dev Team'];
-  // var arrImage = ['https://media.licdn.com/dms/image/D4D03AQH5hluDGyJmRg/profile-displayphoto-shrink_800_800/0/1689757969646?e=2147483647&v=beta&t=fRwpAbHJ-7meh6Fmi1UzaT-sbnJMxyhOZxdnLV4LyzY' ,
-  //                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIwRBD9gNuA2GjcOf6mpL-WuBhJADTWC3QVQ&usqp=CAU',
-  //                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIwRBD9gNuA2GjcOf6mpL-WuBhJADTWC3QVQ&usqp=CAU',
-  //                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIwRBD9gNuA2GjcOf6mpL-WuBhJADTWC3QVQ&usqp=CAU',
-  //                 ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +101,7 @@ class TeamPage extends StatelessWidget {
           //first item
           InkWell(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>const FICDataShow() ));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> FICDataShow(data: ficData,) ));
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -74,9 +129,7 @@ class TeamPage extends StatelessWidget {
           //second item
           InkWell(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> const DataShowingPage(
-                pos: 'counsellors', type: 'COUNSELLORS',
-              ) ));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> CounsellorsPage(data: counsellorsData) ),);
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -133,8 +186,11 @@ class TeamPage extends StatelessWidget {
           //fourth item
           InkWell(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> const StudentTeam() ));
-
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> StudentTeam(ugBuddyData: ugBuddyData,
+                ugMentorData: ugMentorData, ugMgmtData: ugMgmtData,welfareSec: welfareSec,
+                pgMentorData: pgMentorData, pgMgmtData: pgMgmtData,pgBuddyData: pgBuddyData,
+                managementTeamData: managementTeamData,
+              )));
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,

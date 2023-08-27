@@ -50,6 +50,18 @@ dependencies:
   easy_splash_screen: ^1.0.4
   flutter_spinkit: ^5.2.0
   cloud_firestore: ^4.9.0
+  flutter_launcher_icons: ^0.13.1
+  launcher_name: ^1.0.1
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/images/sunshine_icon.jpg"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+
+launcher_name:
+  default: "Sunshine IITH"
 
 dev_dependencies:
   flutter_test:

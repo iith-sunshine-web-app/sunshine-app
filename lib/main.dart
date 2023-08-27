@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sunshine_iith/firebase_options.dart';
 import 'package:sunshine_iith/pages/splash.dart';
-import 'package:sunshine_iith/widgets/loading_data.dart';
 
 void main() async  {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +27,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 244, 197, 54) , primary: const Color(0xfff2b545)),
         useMaterial3: true,
       ),
-      home: const LoadingData(),
+      home: const SplashScreen(),
       // home: DataShowingWidget(name: 'Bhaskar Mandal', phone: '9647598624', position: 'App-Web Dev Team',email: 'ms22btech11010@iith.ac.in',imageLink: 'https://media.licdn.com/dms/image/D4D03AQH5hluDGyJmRg/profile-displayphoto-shrink_800_800/0/1689757969646?e=2147483647&v=beta&t=fRwpAbHJ-7meh6Fmi1UzaT-sbnJMxyhOZxdnLV4LyzY' ,),
       // routes: {
       //   '/login' : (context) => LoginPage(),

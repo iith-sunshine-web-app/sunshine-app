@@ -1,18 +1,62 @@
-import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
+import 'package:sunshine_iith/services/data_fetch.dart';
+import 'package:sunshine_iith/services/data_model.dart';
 import 'package:sunshine_iith/widgets/team_data_widget.dart';
 
-import '../../services/data_fetch.dart';
 
+// ignore: must_be_immutable
 class UgHeads extends StatefulWidget {
-  const UgHeads({super.key});
+  List<DataModel> ugMgmtData ;
+  List<DataModel> ugMentorData ;
+  List<DataModel> ugBuddyData;
+  List<DataModel> welfareSec;
+  UgHeads({super.key,required this.ugBuddyData,required this.ugMentorData,required this.ugMgmtData,required this.welfareSec,});
 
   @override
   State<UgHeads> createState() => _UgHeadsState();
 }
 
 class _UgHeadsState extends State<UgHeads> {
+
+  List setDataMgmt=[];
+  List setDataMntr=[];
+  List setDataBudd=[];
+  List setDataWelf=[];
+
+  @override
+  void initState() {
+
+    setDataMgmt = widget.ugMgmtData;
+    setDataBudd = widget.ugBuddyData;
+    setDataMntr = widget.ugMentorData;
+    setDataWelf = widget.welfareSec;
+
+
+    if(widget.ugBuddyData.isEmpty){
+      setState(() {
+        setDataBudd = DataFetch.fetchWholeData('ug-management-heads'); 
+      });
+    }
+    if(widget.ugMentorData.isEmpty){
+      setState(() {
+        setDataMntr = DataFetch.fetchWholeData('ug-management-heads'); 
+      });
+    }
+    if(widget.ugMgmtData.isEmpty){
+      setState(() {
+        setDataMgmt = DataFetch.fetchWholeData('ug-management-heads'); 
+      });
+    }
+    if(widget.welfareSec.isEmpty){
+      setState(() {
+        setDataWelf = DataFetch.fetchWholeData('ug-management-heads'); 
+      });
+    }
+    super.initState();
+  }
+
   var posArr = {'ug-management-heads' , 'ug-mentor-heads' , 'ug-buddy-heads','welfare-sec' };
+
   var typeArr = {'Management Heads' , 'Mentorship Heads' , 'Buddy Heads' , 'Welfare Secretary'};
 
   @override
@@ -36,20 +80,21 @@ class _UgHeadsState extends State<UgHeads> {
                   ),
                 ),
             ),
-            FirebaseAnimatedList(
+            ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-            query: DataFetch.dataFromRTDB(posArr.elementAt(0)), 
-            itemBuilder: (context , snapshot , animation , index){
+              itemCount: setDataMgmt.length,
+            // query: DataFetch.dataFromRTDB(posArr.elementAt(0)), 
+            itemBuilder: (context , index){
               return Padding(
                 padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
                 child: DataShowingWidget(
-                  name: snapshot.child('name').value.toString(), 
-                  email: snapshot.child('email').value.toString(), 
-                  phone: snapshot.child('phone').value.toString(), 
-                  position: snapshot.child('position').value.toString(), 
-                  imageLink: snapshot.child('image').value.toString()
-                          ),
+                  name: setDataMgmt[index].name, 
+                  email: setDataMgmt[index].email, 
+                  phone: setDataMgmt[index].phone, 
+                  position: setDataMgmt[index].position, 
+                  imageLink: setDataMgmt[index].image
+                  ),
               );
             }
             ),
@@ -68,19 +113,20 @@ class _UgHeadsState extends State<UgHeads> {
                   ),
                 ),
             ),
-            FirebaseAnimatedList(
+            ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-            query: DataFetch.dataFromRTDB(posArr.elementAt(1)), 
-            itemBuilder: (context , snapshot , animation , index){
+              itemCount: setDataMntr.length,
+            // query: DataFetch.dataFromRTDB(posArr.elementAt(0)), 
+            itemBuilder: (context , index){
               return Padding(
                 padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
                 child: DataShowingWidget(
-                  name: snapshot.child('name').value.toString(), 
-                  email: snapshot.child('email').value.toString(), 
-                  phone: snapshot.child('phone').value.toString(), 
-                  position: snapshot.child('position').value.toString(), 
-                  imageLink: snapshot.child('image').value.toString()
+                  name: setDataMntr[index].name, 
+                  email: setDataMntr[index].email, 
+                  phone: setDataMntr[index].phone, 
+                  position: setDataMntr[index].position, 
+                  imageLink: setDataMntr[index].image
                           ),
               );
             }
@@ -101,19 +147,20 @@ class _UgHeadsState extends State<UgHeads> {
                   ),
                 ),
             ),
-            FirebaseAnimatedList(
+            ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-            query: DataFetch.dataFromRTDB(posArr.elementAt(2)), 
-            itemBuilder: (context , snapshot , animation , index){
+              itemCount: setDataBudd.length,
+            // query: DataFetch.dataFromRTDB(posArr.elementAt(0)), 
+            itemBuilder: (context , index){
               return Padding(
                 padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
                 child: DataShowingWidget(
-                  name: snapshot.child('name').value.toString(), 
-                  email: snapshot.child('email').value.toString(), 
-                  phone: snapshot.child('phone').value.toString(), 
-                  position: snapshot.child('position').value.toString(), 
-                  imageLink: snapshot.child('image').value.toString()
+                  name: setDataBudd[index].name, 
+                  email: setDataBudd[index].email, 
+                  phone: setDataBudd[index].phone, 
+                  position: setDataBudd[index].position, 
+                  imageLink: setDataBudd[index].image
                           ),
               );
             }
@@ -133,19 +180,20 @@ class _UgHeadsState extends State<UgHeads> {
                   ),
                 ),
             ),
-            FirebaseAnimatedList(
+            ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-            query: DataFetch.dataFromRTDB(posArr.elementAt(3)), 
-            itemBuilder: (context , snapshot , animation , index){
+              itemCount: setDataWelf.length,
+            // query: DataFetch.dataFromRTDB(posArr.elementAt(0)), 
+            itemBuilder: (context , index){
               return Padding(
                 padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
                 child: DataShowingWidget(
-                  name: snapshot.child('name').value.toString(), 
-                  email: snapshot.child('email').value.toString(), 
-                  phone: snapshot.child('phone').value.toString(), 
-                  position: snapshot.child('position').value.toString(), 
-                  imageLink: snapshot.child('image').value.toString()
+                  name: setDataWelf[index].name, 
+                  email: setDataWelf[index].email, 
+                  phone: setDataWelf[index].phone, 
+                  position: setDataWelf[index].position, 
+                  imageLink: setDataWelf[index].image
                           ),
               );
             }
