@@ -42,7 +42,7 @@ Widget showWidget = SpinKitWave(
   void loggedIn() async{
      bool login = await checkLoggedIn();
      if(login){
-      Future.delayed(const Duration(milliseconds: 800),(){
+      Future.delayed(const Duration(milliseconds: 900),(){
         setState(() {
           showWidget = helloText();
         });
@@ -55,7 +55,7 @@ Widget showWidget = SpinKitWave(
   }
 
 openHomePage(){
-    Future.delayed(const Duration(milliseconds: 800),(){
+    Future.delayed(const Duration(milliseconds: 900),(){
       Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (_)=>const HomePage() ));
     });
