@@ -78,7 +78,7 @@ class DataShowingWidget extends StatelessWidget {
                               const SizedBox(height: 30.0,),
             
                               Padding(
-                                padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+                                padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
                                 child: 
                                 
                                 facRep ? 

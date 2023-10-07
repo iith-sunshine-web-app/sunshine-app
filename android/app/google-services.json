@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "104215692812",
+    "firebase_url": "https://sunshine-iith-newapp-default-rtdb.firebaseio.com",
     "project_id": "sunshine-iith-newapp",
     "storage_bucket": "sunshine-iith-newapp.appspot.com"
   },
@@ -14,7 +15,23 @@
       },
       "oauth_client": [
         {
-          "client_id": "104215692812-m7l4jh1bbhbkpb6dcuunjl1dmnpsj9rn.apps.googleusercontent.com",
+          "client_id": "104215692812-3mlkg4lkh1hgqvii3d6r8751re0lcnc8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.iith.sunshine_iith",
+            "certificate_hash": "88c6e4e5b2bc7ee958ff7972d8854a7ddb31d044"
+          }
+        },
+        {
+          "client_id": "104215692812-tv45ru1biajtmhm64tifvlk191e53vqq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.iith.sunshine_iith",
+            "certificate_hash": "74c2a200cf90b0018f5eed3dbbe2e026c65c8e75"
+          }
+        },
+        {
+          "client_id": "104215692812-fakd23or4uum94gjuk0qb9m0f35mpkdp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,8 +44,15 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "104215692812-m7l4jh1bbhbkpb6dcuunjl1dmnpsj9rn.apps.googleusercontent.com",
+              "client_id": "104215692812-fakd23or4uum94gjuk0qb9m0f35mpkdp.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "104215692812-uqqfaokqk5cqdppac2ngt9vhm8hp404l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.iith.sunshineIith"
+              }
             }
           ]
         }

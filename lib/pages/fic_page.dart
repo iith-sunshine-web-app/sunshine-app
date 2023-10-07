@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:sunshine_iith/services/firestore_data.dart';
+import 'package:sunshine_iith/widgets/shimmer/team_card_shimmer.dart';
 import 'package:sunshine_iith/widgets/team_data_widget.dart';
 
 // ignore: must_be_immutable
 class FICDataShow extends StatefulWidget {
-  List data;
-  FICDataShow({super.key,required this.data});
+  // List data;
+  FICDataShow({super.key});
 
   @override
   State<FICDataShow> createState() => _FICDataShowState();
@@ -15,18 +17,20 @@ class FICDataShow extends StatefulWidget {
 class _FICDataShowState extends State<FICDataShow> {
 
   List setData = [];
+  bool isLoading = true;
 
     @override
   void initState() {
-    setData = widget.data;
-    if(widget.data.isEmpty){
-      FirestoreData.getData('fic').then((List list){
-      setState(() {
-        setData = list;
-      });
-    });
-    }
+    getFicData();
     super.initState();
+  }
+
+  getFicData() async{
+    List data = await FirestoreData.getData('fic');
+    setState(() {
+      setData = data;
+      isLoading = false;
+    });
   }
 
   @override
@@ -34,7 +38,7 @@ class _FICDataShowState extends State<FICDataShow> {
     return SafeArea(
       child: Scaffold(
         body: Column(
-          // crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
@@ -51,22 +55,19 @@ class _FICDataShowState extends State<FICDataShow> {
           ),
 
             const SizedBox(height: 75.0,),
-
-
+                
+            isLoading?
+            Expanded(
+              child: ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: 1,
+                itemBuilder: (ctx,index){
+                return TeamCardShimmer();
+              }),
+            )
+            :
             Expanded(
               child: Center(
-                // child: FirebaseAnimatedList(
-                //   query: DataFetch.dataFromRTDB('fic'), 
-                //   itemBuilder: (context , snapshot , animation , index){
-                //     return DataShowingWidget(
-                //       name: snapshot.child('name').value.toString(), 
-                //       email: snapshot.child('email').value.toString(), 
-                //       phone: snapshot.child('phone').value.toString(), 
-                //       position: snapshot.child('position').value.toString(), 
-                //       imageLink: snapshot.child('image').value.toString()
-                //     );
-                //   }
-                //   ),
                 child: ListView.builder(
               itemCount: setData.length,
               itemBuilder: (context,index){

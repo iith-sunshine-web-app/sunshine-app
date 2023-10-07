@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sunshine_iith/services/data_model.dart';
 
 class FirestoreData{
   static Future<List> getData(String pos) async{
@@ -21,6 +22,37 @@ class FirestoreData{
 
   //   return dataList;
   // }
+
+
+static Future<void> addData(String pos, List<DataModel> data) async {
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  try {
+    // Get a reference to the 'data' collection and the document 'team-data'
+    CollectionReference dataCollection = firestore.collection('data');
+    DocumentReference documentRef = dataCollection.doc('phd-mentor');
+
+    // Get the current data in the document
+    DocumentSnapshot documentSnapshot = await documentRef.get();
+    Map<String, dynamic>? currentData = documentSnapshot.data() as Map<String, dynamic>?;
+
+    if (currentData == null) {
+      currentData = {};
+    }
+
+    // Update the data for the given position
+    currentData[pos] = data.map((dataModel) => dataModel.toMap()).toList();
+
+    // Set the updated data back to the document
+    await documentRef.set(currentData);
+
+    print('Data for position $pos added successfully');
+  } catch (e) {
+    print('Error adding data: $e');
+  }
+}
+
+
 
 
 }
