@@ -14,6 +14,17 @@ class FirestoreData{
     return dataList;
   } 
 
+static Future<List> getUgMentorsData(String pos) async{
+    List dataList=[];
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    var documentSnapshot =
+      await firestore.collection('data').doc('ug-mentor').get();
+      if(documentSnapshot.data()!.containsKey(pos)){
+        dataList = documentSnapshot.data()![pos];
+        
+      }
+    return dataList;
+  } 
   // static Future<Map<String, List<dynamic>>> managementTeamData() async{
   //   Map<String, List<dynamic>> dataList;
   //   FirebaseFirestore firestore = FirebaseFirestore.instance;

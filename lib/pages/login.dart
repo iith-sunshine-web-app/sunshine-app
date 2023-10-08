@@ -42,8 +42,13 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> signInWithGoogle() async{
     FirebaseAuth auth = FirebaseAuth.instance;
     final GoogleSignIn googleSignIn = GoogleSignIn(); 
+    print('escdvfghbnjmkesrdftygu');
     try {
+    print('12345679123456789');
+      
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+
+      print('GOOGLE USER : $googleUser');
 
       if (googleUser != null) {
         final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
@@ -56,7 +61,8 @@ class _LoginScreenState extends State<LoginScreen> {
         await auth.signInWithCredential(credential);
       }
     } catch (error) {
-      _showSnackBar('Failed to sign in with Google.');
+      print(error);
+      _showSnackBar('Failed to sign in with Google. $error');
     }
   }
 

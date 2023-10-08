@@ -1,49 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:sunshine_iith/providers/team_data_provider.dart';
 import 'package:sunshine_iith/services/firestore_data.dart';
 import 'package:sunshine_iith/widgets/shimmer/team_card_shimmer.dart';
 import 'package:sunshine_iith/widgets/team_data_widget.dart';
 
 
 // ignore: must_be_immutable
-class CounsellorsPage extends StatefulWidget {
-  CounsellorsPage({super.key});
+class CounsellorsPage extends ConsumerStatefulWidget {
+  const CounsellorsPage({super.key});
 
   @override
-  State<CounsellorsPage> createState() => _CounsellorsPageState();
+  ConsumerState<CounsellorsPage> createState() => _CounsellorsPageState();
 }
 
-class _CounsellorsPageState extends State<CounsellorsPage> {
+class _CounsellorsPageState extends ConsumerState<CounsellorsPage> {
 
   List setData = [];
   bool isLoading = true;
 
   @override
   void initState() {
-    // setData = widget.data;
-    //  if(widget.data.isEmpty){
-    //   FirestoreData.getData('counsellors').then((List list){
-    //   setState(() {
-    //     setData = list;
-    //   });
-    // });
-    // }
-    // print('hhh');<
-    getCounsellorsData();
     super.initState();
+    isFirstOpen();
   }
   getCounsellorsData() async{
     List data = await FirestoreData.getData('counsellors');
+    return data;
+  }
+  addDataToProvider(List data){
+    ref.read(dataProvider.notifier).addAllData('counsellors', data);
+  }
+
+  isFirstOpen()async{
+    if(ref.read(dataProvider)['counsellors']==null){
+      List list = await getCounsellorsData();
+      addDataToProvider(list);
+    }
     setState(() {
-      setData = data;
-      isLoading = false;
-    });
+        isLoading= false;
+      }); 
   }
 
   @override
   Widget build(BuildContext context) {
-    
+    final dataMap = ref.watch(dataProvider);
+    List setData = dataMap['counsellors'] ?? [] ;
     return SafeArea(
       child: Scaffold(
         body: Column(

@@ -1,40 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:sunshine_iith/providers/team_data_provider.dart';
+import 'package:sunshine_iith/services/data_model.dart';
 import 'package:sunshine_iith/services/firestore_data.dart';
 import 'package:sunshine_iith/widgets/shimmer/team_card_shimmer.dart';
 import 'package:sunshine_iith/widgets/team_data_widget.dart';
 
 // ignore: must_be_immutable
-class FICDataShow extends StatefulWidget {
+class FICDataShow extends ConsumerStatefulWidget {
   // List data;
   FICDataShow({super.key});
 
   @override
-  State<FICDataShow> createState() => _FICDataShowState();
+  ConsumerState<FICDataShow> createState() => _FICDataShowState();
 }
 
-class _FICDataShowState extends State<FICDataShow> {
+class _FICDataShowState extends ConsumerState<FICDataShow> {
 
-  List setData = [];
+  // List<DataModel> setData = [];
   bool isLoading = true;
 
     @override
   void initState() {
-    getFicData();
+    // getFicData();
+    isFirstOpen();
     super.initState();
   }
 
   getFicData() async{
     List data = await FirestoreData.getData('fic');
+    return data;
+  }
+
+  addDataToProvider(List data){
+    ref.read(dataProvider.notifier).addAllData('fic', data);
+  }
+
+  isFirstOpen()async{
+    if(ref.read(dataProvider)['fic']==null){
+      List list = await getFicData();
+      addDataToProvider(list);
+    }
     setState(() {
-      setData = data;
-      isLoading = false;
-    });
+        isLoading= false;
+      }); 
   }
 
   @override
   Widget build(BuildContext context) {
+    final dataMap = ref.watch(dataProvider);
+    List setData = dataMap['fic'] ?? [] ;
     return SafeArea(
       child: Scaffold(
         body: Column(
