@@ -28,13 +28,16 @@ class _UgMentorsState extends ConsumerState<UgMentors> {
     isFirstOpen();
   }
 
+  Map<String, List> dataMap = {};
   getData() async {
     print(DateTime.now());
-    Map<String, List> dataMap = {};
+    List<Future<List>> futures = [];
     for (var posItem in pos) {
-      dataMap[posItem] = await FirestoreData.getUgMentorsData(posItem);
-    print(DateTime.now());
-
+      futures.add(FirestoreData.getUgMentorsData(posItem));
+    }
+    List results = await Future.wait(futures);
+    for (int i = 0; i < results.length; i++) {
+      dataMap[pos[i]] = results[i];
     }
     print(DateTime.now());
 
@@ -51,34 +54,34 @@ class _UgMentorsState extends ConsumerState<UgMentors> {
     }
   }
 
-  isFirstOpen()async{
-    if(ref.read(dataProvider)[pos[0]]==null){
+  isFirstOpen() async {
+    if (ref.read(dataProvider)[pos[0]] == null) {
       // List list = await ;
       addDataToProvider();
     }
     setState(() {
-        isLoading= false;
-    }); 
+      isLoading = false;
+    });
   }
 
-  getAllData(){
+  getAllData() {
     List list = [];
     final dataMap = ref.watch(dataProvider);
     for (var posItem in pos) {
-      if(dataMap[posItem]!=null && dataMap[posItem]!.isNotEmpty){
-      list.addAll(dataMap[posItem]!);
-      // print(dataMap[posItem]!);
+      if (dataMap[posItem] != null && dataMap[posItem]!.isNotEmpty) {
+        list.addAll(dataMap[posItem]!);
+        // print(dataMap[posItem]!);
       }
     }
     // print(list.length);
-    
+
     return list;
   }
 
   @override
   Widget build(BuildContext context) {
     final dataMap = ref.watch(dataProvider);
-    List setData = getAllData() ?? [] ;
+    List setData = getAllData() ?? [];
     print(setData.length);
     return Scaffold(
       body: Column(
@@ -88,15 +91,19 @@ class _UgMentorsState extends ConsumerState<UgMentors> {
             height: 25.0,
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: pos.length,
-              itemBuilder: ((context, index) {
-              if(dataMap[pos[index]]!=null && dataMap[pos[index]]!.isNotEmpty){
-                return ExpansionTileWidget(branchCode: pos[index].toString().toUpperCase(), branchName: branchName[index], data: dataMap[pos[index]]!);
-              }else{
-                return Container();
-              }
-            })))
+              child: ListView.builder(
+                  itemCount: pos.length,
+                  itemBuilder: ((context, index) {
+                    if (dataMap[pos[index]] != null &&
+                        dataMap[pos[index]]!.isNotEmpty) {
+                      return ExpansionTileWidget(
+                          branchCode: pos[index].toString().toUpperCase(),
+                          branchName: branchName[index],
+                          data: dataMap[pos[index]]!);
+                    } else {
+                      return Container();
+                    }
+                  })))
         ],
       ),
     );
