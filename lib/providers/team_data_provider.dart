@@ -11,6 +11,9 @@ final pgBuddyDataProvider = StateNotifierProvider<DataNotifier, Map<String, List
 final phdBuddyDataProvider = StateNotifierProvider<DataNotifier, Map<String, List>>((ref) => DataNotifier());
 //for fic and counsellors
 final teamDataProvider = StateNotifierProvider<DataNotifier, Map<String, List>>((ref) => DataNotifier());
+//faculty rep
+final facultyRepDataProvider = StateNotifierProvider<DataNotifier, Map<String, List>>((ref) => DataNotifier());
+
 
 class DataNotifier extends StateNotifier<Map<String, List>> {
   DataNotifier() : super({});

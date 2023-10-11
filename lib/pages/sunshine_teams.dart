@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sunshine_iith/pages/buddies/buddies.dart';
 import 'package:sunshine_iith/pages/counsellors_page.dart';
+import 'package:sunshine_iith/pages/faculty_rep.dart';
 import 'package:sunshine_iith/pages/fic_page.dart';
 import 'package:sunshine_iith/pages/mentors/mentors.dart';
 
@@ -172,7 +173,7 @@ class _TeamPageState extends State<TeamPage> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            const ExpansionPanelFacultyRep()));
+                            const FacultyRep()));
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,

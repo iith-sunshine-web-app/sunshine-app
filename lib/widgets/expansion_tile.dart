@@ -5,8 +5,10 @@ class ExpansionTileWidget extends StatelessWidget {
   final String branchCode;
   final String branchName;
   final List data;
+  final bool facRep;
   const ExpansionTileWidget(
       {Key? key,
+      this.facRep = false,
       required this.branchCode,
       required this.branchName,
       required this.data})
@@ -43,6 +45,7 @@ class ExpansionTileWidget extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (ctx, index) {
           return DataShowingWidget(
+            facRep: facRep,
             name: data[index]['name'],
             email: data[index]['email'],
             phone: data[index]['phone'],

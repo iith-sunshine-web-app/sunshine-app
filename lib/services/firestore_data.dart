@@ -41,7 +41,7 @@ static Future<void> addData(String pos, List<DataModel> data) async {
   try {
     // Get a reference to the 'data' collection and the document 'team-data'
     CollectionReference dataCollection = firestore.collection('data');
-    DocumentReference documentRef = dataCollection.doc('ug-mentor');
+    DocumentReference documentRef = dataCollection.doc('faculty-rep');
 
     // Get the current data in the document
     DocumentSnapshot documentSnapshot = await documentRef.get();
