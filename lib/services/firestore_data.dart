@@ -2,11 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sunshine_iith/services/data_model.dart';
 
 class FirestoreData{
-  static Future<List> getData(String pos) async{
+  static Future<List> getData(String pos,String type) async{
     List dataList=[];
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     var documentSnapshot =
-      await firestore.collection('data').doc('team-data').get();
+      await firestore.collection('data').doc(type).get();
       if(documentSnapshot.data()!.containsKey(pos)){
         dataList = documentSnapshot.data()![pos];
         

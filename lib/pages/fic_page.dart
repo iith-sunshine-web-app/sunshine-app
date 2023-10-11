@@ -27,7 +27,7 @@ class _FICDataShowState extends ConsumerState<FICDataShow> {
   }
 
   getFicData() async{
-    List data = await FirestoreData.getData('fic');
+    List data = await FirestoreData.getData('fic','team-data');
     return data;
   }
 

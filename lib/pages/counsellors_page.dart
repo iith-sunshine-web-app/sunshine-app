@@ -26,7 +26,7 @@ class _CounsellorsPageState extends ConsumerState<CounsellorsPage> {
     isFirstOpen();
   }
   getCounsellorsData() async{
-    List data = await FirestoreData.getData('counsellors');
+    List data = await FirestoreData.getData('counsellors','team-data');
     return data;
   }
   addDataToProvider(List data){

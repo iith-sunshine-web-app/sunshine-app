@@ -38,22 +38,22 @@ class _UgHeadsState extends ConsumerState<UgHeads> {
   }
 
   Future<List> getMgmtData() async {
-    List data = await FirestoreData.getData(posArr.elementAt(0));
+    List data = await FirestoreData.getData(posArr.elementAt(0),'team-data');
     return data;
   }
 
   Future<List> getMentorData() async {
-    List data = await FirestoreData.getData(posArr.elementAt(1));
+    List data = await FirestoreData.getData(posArr.elementAt(1),'team-data');
     return data;
   }
 
   Future<List> getBuddyData() async {
-    List data = await FirestoreData.getData(posArr.elementAt(2));
+    List data = await FirestoreData.getData(posArr.elementAt(2),'team-data');
     return data;
   }
 
   Future<List> getWelfData() async {
-    List data = await FirestoreData.getData(posArr.elementAt(3));
+    List data = await FirestoreData.getData(posArr.elementAt(3),'team-data');
     return data;
   }
 
