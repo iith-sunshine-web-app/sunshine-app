@@ -139,7 +139,7 @@ class _MGMTTeamState extends ConsumerState<MGMTTeam> {
     ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount:  1,
+            itemCount:  list.length,
             // query: DataFetch.dataFromRTDB('management-team').child(pos), 
             itemBuilder: (context  , index){
               return Padding(
