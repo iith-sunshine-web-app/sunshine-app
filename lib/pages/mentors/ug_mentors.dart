@@ -64,15 +64,15 @@ class _UgMentorsState extends ConsumerState<UgMentors> {
   @override
   Widget build(BuildContext context) {
     final dataMap = ref.watch(ugMentorDataProvider);
-    List setData =[];
+    // List setData =[];
 
-    for (var posItem in pos) {
-      if (dataMap[posItem] != null && dataMap[posItem]!.isNotEmpty) {
-        setData.addAll(dataMap[posItem]!);
-      }
-    }
+    // for (var posItem in pos) {
+    //   if (dataMap[posItem] != null && dataMap[posItem]!.isNotEmpty) {
+    //     setData.addAll(dataMap[posItem]!);
+    //   }
+    // }
 
-    print(setData.length);
+    // print(setData.length);
     return Scaffold(
       body: Column(
         children: [

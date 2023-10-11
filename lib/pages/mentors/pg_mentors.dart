@@ -64,14 +64,14 @@ class _PgMentorsState extends ConsumerState<PgMentors> {
   @override
   Widget build(BuildContext context) {
     final dataMap = ref.watch(pgMentorDataProvider);
-    List setData = [];
+    // List setData = [];
 
-    for (var posItem in pos) {
-      if (dataMap[posItem] != null && dataMap[posItem]!.isNotEmpty) {
-        setData.addAll(dataMap[posItem]!);
-      }
-    }
-    print(setData.length);
+    // for (var posItem in pos) {
+    //   if (dataMap[posItem] != null && dataMap[posItem]!.isNotEmpty) {
+    //     setData.addAll(dataMap[posItem]!);
+    //   }
+    // }
+    // print(setData.length);
     return Scaffold(
       body: Column(
         children: [
