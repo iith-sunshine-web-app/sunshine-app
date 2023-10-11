@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:sunshine_iith/providers/team_data_provider.dart';
-import 'package:sunshine_iith/services/data_model.dart';
 import 'package:sunshine_iith/services/firestore_data.dart';
 import 'package:sunshine_iith/widgets/shimmer/team_card_shimmer.dart';
 import 'package:sunshine_iith/widgets/team_data_widget.dart';
 
-// ignore: must_be_immutable
 class FICDataShow extends ConsumerStatefulWidget {
   // List data;
-  FICDataShow({super.key});
+  const FICDataShow({super.key});
 
   @override
   ConsumerState<FICDataShow> createState() => _FICDataShowState();
@@ -79,7 +76,7 @@ class _FICDataShowState extends ConsumerState<FICDataShow> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: 1,
                 itemBuilder: (ctx,index){
-                return TeamCardShimmer();
+                return const TeamCardShimmer();
               }),
             )
             :

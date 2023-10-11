@@ -13,7 +13,6 @@
 
 //   @override
 //   void initState() {
-//     // TODO: implement initState
 //     super.initState();
 //     List<String> branchCode = [
 //       'ai','bm','bt','ch','cc','cy','ce','cs','d','ee','es','em','la','ms','ma','me','ph'
@@ -28,7 +27,7 @@
 
     
 //     for(int i=0;i<times;i++){
-//       model.add(DataModel(name: 'a', email: 'a', phone: 'a', image: 'a', position: 'a'));
+//       model.add(DataModel(name: '', email: '', phone: '', image: '', position: ''));
       
 //     }
 
@@ -48,7 +47,7 @@
 //         mainAxisAlignment: MainAxisAlignment.center,
 //         children: [
 //           TextField(
-//             decoration: InputDecoration(
+//             decoration: const InputDecoration(
 //               hintText: 'times'
 //             ),
             
@@ -56,7 +55,7 @@
             
 //           ),
 //           TextField(
-//             decoration: InputDecoration(
+//             decoration: const InputDecoration(
 //               hintText: 'pos'
 //             ),
             
@@ -65,7 +64,7 @@
 //           ),
 //           ElevatedButton(onPressed: (){
             
-//             // addData(textEditingController2.text.toString(), int.parse(textEditingController.text.toString()));
+//             addData(textEditingController2.text.toString(), int.parse(textEditingController.text.toString()));
 //           }, child: Text('ADD'))
 //         ],
 //       ),

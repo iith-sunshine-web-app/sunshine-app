@@ -3,10 +3,6 @@ import 'package:sunshine_iith/pages/buddies/buddies.dart';
 import 'package:sunshine_iith/pages/counsellors_page.dart';
 import 'package:sunshine_iith/pages/fic_page.dart';
 import 'package:sunshine_iith/pages/mentors/mentors.dart';
-import 'package:sunshine_iith/pages/studentheads/student_team.dart';
-import 'package:sunshine_iith/services/data_fetch.dart';
-import 'package:sunshine_iith/services/data_model.dart';
-import 'package:sunshine_iith/services/firestore_data.dart';
 
 import '../widgets/expansion_panel_faculty_rep.dart';
 
@@ -105,7 +101,7 @@ class _TeamPageState extends State<TeamPage> {
             InkWell(
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => FICDataShow()));
+                    MaterialPageRoute(builder: (context) => const FICDataShow()));
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -139,7 +135,7 @@ class _TeamPageState extends State<TeamPage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CounsellorsPage()),
+                  MaterialPageRoute(builder: (context) => const CounsellorsPage()),
                 );
               },
               child: Column(
@@ -244,7 +240,7 @@ class _TeamPageState extends State<TeamPage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (ctx) => MentorsScreen(),
+                      builder: (ctx) => const MentorsScreen(),
                     ));
               },
               child: Column(
@@ -280,7 +276,7 @@ class _TeamPageState extends State<TeamPage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (ctx) => BuddiesScreen(),
+                      builder: (ctx) => const BuddiesScreen(),
                     ));
               },
               child: Column(

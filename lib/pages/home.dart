@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sunshine_iith/pages/chat_bot.dart';
 import 'package:sunshine_iith/pages/session_book.dart/session_book_intro.dart';
 import 'package:sunshine_iith/pages/sunshine_teams.dart';
-import 'package:sunshine_iith/test.dart';
 
 import '../widgets/drawer_nav_bar.dart';
 

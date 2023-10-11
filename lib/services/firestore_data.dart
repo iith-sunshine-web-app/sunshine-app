@@ -47,9 +47,7 @@ static Future<void> addData(String pos, List<DataModel> data) async {
     DocumentSnapshot documentSnapshot = await documentRef.get();
     Map<String, dynamic>? currentData = documentSnapshot.data() as Map<String, dynamic>?;
 
-    if (currentData == null) {
-      currentData = {};
-    }
+    currentData ??= {};
 
     // Update the data for the given position
     currentData[pos] = data.map((dataModel) => dataModel.toMap()).toList();

@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:sunshine_iith/pages/buddies/pg_buddies.dart';
 import 'package:sunshine_iith/pages/buddies/phd_buddies.dart';
 import 'package:sunshine_iith/pages/buddies/ug_buddies.dart';
-import 'package:sunshine_iith/widgets/headers.dart';
 
 class BuddiesScreen extends StatelessWidget {
   const BuddiesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
+    return const DefaultTabController(
         length: 3,
         child: SafeArea(
           child: Scaffold(
@@ -20,7 +19,7 @@ class BuddiesScreen extends StatelessWidget {
                 PhDBuddies()
               ],
             ),
-            bottomNavigationBar: const TabBar(
+            bottomNavigationBar:  TabBar(
                 indicatorColor: Colors.purple,
                 labelColor: Colors.purple,
                 unselectedLabelColor:  Color.fromARGB(255, 44, 37, 10),
@@ -30,7 +29,7 @@ class BuddiesScreen extends StatelessWidget {
                   Tab(text: 'PhD BUDDIES',),
                 ],
               ),
-              backgroundColor: const Color(0xfff2b545),
+              backgroundColor:  Color(0xfff2b545),
           ),
         ),
       );
