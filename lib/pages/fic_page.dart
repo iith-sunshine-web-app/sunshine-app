@@ -35,11 +35,11 @@ class _FICDataShowState extends ConsumerState<FICDataShow> {
   }
 
   addDataToProvider(List data){
-    ref.read(dataProvider.notifier).addAllData('fic', data);
+    ref.read(teamDataProvider.notifier).addAllData('fic', data);
   }
 
   isFirstOpen()async{
-    if(ref.read(dataProvider)['fic']==null){
+    if(ref.read(teamDataProvider)['fic']==null){
       List list = await getFicData();
       addDataToProvider(list);
     }
@@ -50,7 +50,7 @@ class _FICDataShowState extends ConsumerState<FICDataShow> {
 
   @override
   Widget build(BuildContext context) {
-    final dataMap = ref.watch(dataProvider);
+    final dataMap = ref.watch(teamDataProvider);
     List setData = dataMap['fic'] ?? [] ;
     return SafeArea(
       child: Scaffold(

@@ -31,11 +31,11 @@ class _CounsellorsPageState extends ConsumerState<CounsellorsPage> {
     return data;
   }
   addDataToProvider(List data){
-    ref.read(dataProvider.notifier).addAllData('counsellors', data);
+    ref.read(teamDataProvider.notifier).addAllData('counsellors', data);
   }
 
   isFirstOpen()async{
-    if(ref.read(dataProvider)['counsellors']==null){
+    if(ref.read(teamDataProvider)['counsellors']==null){
       List list = await getCounsellorsData();
       addDataToProvider(list);
     }
@@ -46,7 +46,7 @@ class _CounsellorsPageState extends ConsumerState<CounsellorsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final dataMap = ref.watch(dataProvider);
+    final dataMap = ref.watch(teamDataProvider);
     List setData = dataMap['counsellors'] ?? [] ;
     return SafeArea(
       child: Scaffold(

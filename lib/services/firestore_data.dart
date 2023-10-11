@@ -14,11 +14,11 @@ class FirestoreData{
     return dataList;
   } 
 
-static Future<List> getUgMentorsData(String pos) async{
+static Future<List> getSpecificData(String dataType,String pos) async{
     List dataList=[];
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     var documentSnapshot =
-      await firestore.collection('data').doc('ug-mentor').get();
+      await firestore.collection('data').doc(dataType).get();
       if(documentSnapshot.data()!.containsKey(pos)){
         dataList = documentSnapshot.data()![pos];
         
@@ -41,7 +41,7 @@ static Future<void> addData(String pos, List<DataModel> data) async {
   try {
     // Get a reference to the 'data' collection and the document 'team-data'
     CollectionReference dataCollection = firestore.collection('data');
-    DocumentReference documentRef = dataCollection.doc('phd-mentor');
+    DocumentReference documentRef = dataCollection.doc('ug-mentor');
 
     // Get the current data in the document
     DocumentSnapshot documentSnapshot = await documentRef.get();

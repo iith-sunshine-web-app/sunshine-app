@@ -6,6 +6,7 @@ import 'package:sunshine_iith/providers/team_data_provider.dart';
 import 'package:sunshine_iith/services/firestore_data.dart';
 import 'package:sunshine_iith/widgets/expansion_tile.dart';
 import 'package:sunshine_iith/widgets/headers.dart';
+import 'package:sunshine_iith/widgets/shimmer/expansion_tile_shimmer.dart';
 import 'package:sunshine_iith/widgets/team_data_widget.dart';
 
 class UgMentors extends ConsumerStatefulWidget {
@@ -28,12 +29,12 @@ class _UgMentorsState extends ConsumerState<UgMentors> {
     isFirstOpen();
   }
 
-  Map<String, List> dataMap = {};
   getData() async {
+  Map<String, List> dataMap = {};
     print(DateTime.now());
     List<Future<List>> futures = [];
     for (var posItem in pos) {
-      futures.add(FirestoreData.getUgMentorsData(posItem));
+      futures.add(FirestoreData.getSpecificData('ug-mentor',posItem));
     }
     List results = await Future.wait(futures);
     for (int i = 0; i < results.length; i++) {
@@ -50,38 +51,30 @@ class _UgMentorsState extends ConsumerState<UgMentors> {
     for (int i = 0; i < dataMap.length; i++) {
       List data = dataMap[pos[i]] ?? [];
       print(data);
-      ref.read(dataProvider.notifier).addAllData(pos[i], data);
+      ref.read(ugMentorDataProvider.notifier).addAllData(pos[i], data);
     }
   }
 
   isFirstOpen() async {
-    if (ref.read(dataProvider)[pos[0]] == null) {
-      // List list = await ;
-      addDataToProvider();
+    if (ref.read(ugMentorDataProvider)[pos[0]] == null) {
+      await addDataToProvider();
     }
     setState(() {
       isLoading = false;
     });
   }
-
-  getAllData() {
-    List list = [];
-    final dataMap = ref.watch(dataProvider);
-    for (var posItem in pos) {
-      if (dataMap[posItem] != null && dataMap[posItem]!.isNotEmpty) {
-        list.addAll(dataMap[posItem]!);
-        // print(dataMap[posItem]!);
-      }
-    }
-    // print(list.length);
-
-    return list;
-  }
-
+  
   @override
   Widget build(BuildContext context) {
-    final dataMap = ref.watch(dataProvider);
-    List setData = getAllData() ?? [];
+    final dataMap = ref.watch(ugMentorDataProvider);
+    List setData =[];
+
+    for (var posItem in pos) {
+      if (dataMap[posItem] != null && dataMap[posItem]!.isNotEmpty) {
+        setData.addAll(dataMap[posItem]!);
+      }
+    }
+
     print(setData.length);
     return Scaffold(
       body: Column(
@@ -90,6 +83,14 @@ class _UgMentorsState extends ConsumerState<UgMentors> {
           const SizedBox(
             height: 25.0,
           ),
+
+          isLoading? 
+          Expanded(child: ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: 50,
+            itemBuilder: (ctx,index){
+              return const ExpansionTileShimmer();
+          })) :
           Expanded(
               child: ListView.builder(
                   itemCount: pos.length,
@@ -103,7 +104,8 @@ class _UgMentorsState extends ConsumerState<UgMentors> {
                     } else {
                       return Container();
                     }
-                  })))
+                  }))),
+          
         ],
       ),
     );
