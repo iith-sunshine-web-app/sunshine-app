@@ -1,152 +1,191 @@
 import 'package:flutter/material.dart';
-import 'package:sunshine_iith/services/data_model.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sunshine_iith/providers/team_data_provider.dart';
+import 'package:sunshine_iith/services/firestore_data.dart';
+import 'package:sunshine_iith/widgets/shimmer/heads_shimmer.dart';
 import 'package:sunshine_iith/widgets/team_data_widget.dart';
 
-import '../../services/data_fetch.dart';
-
-// ignore: must_be_immutable
-class PgHeads extends StatefulWidget {
-  List<DataModel> pgMgmtData =[];
-  List<DataModel> pgMentorData =[];
-  List<DataModel> pgBuddyData =[];
-
-  PgHeads({super.key,required this.pgBuddyData,required this.pgMentorData,required this.pgMgmtData,});
+class PgHeads extends ConsumerStatefulWidget {
+  const PgHeads({super.key});
 
   @override
-  State<PgHeads> createState() => _PgHeadsState();
+  ConsumerState<PgHeads> createState() => _PgHeadsState();
 }
 
-class _PgHeadsState extends State<PgHeads> {
+class _PgHeadsState extends ConsumerState<PgHeads> {
+  bool isLoading = true;
 
-    @override
+  var posArr = {
+    'pg-management-heads',
+    'pg-mentor-heads',
+    'pg-buddy-heads',
+  };
+  var typeArr = {
+    'Management Heads',
+    'Mentorship Heads',
+    'Buddy Heads',
+  };
+
+  @override
   void initState() {
-    if(widget.pgBuddyData.isEmpty){
-      widget.pgBuddyData = DataFetch.fetchWholeData('pg-management-heads');
-    }
-    if(widget.pgMentorData.isEmpty){
-      widget.pgMentorData = DataFetch.fetchWholeData('pg-mentor-heads');
-    }
-    if(widget.pgMgmtData.isEmpty){
-      widget.pgMgmtData = DataFetch.fetchWholeData('pg-mentor-heads');
-    }
-    
     super.initState();
+    isFirstOpen();
   }
 
+  Future<List> getMgmtData() async {
+    List data = await FirestoreData.getData(posArr.elementAt(0));
+    return data;
+  }
 
-  var posArr = {'pg-management-heads' , 'pg-mentor-heads' , 'pg-buddy-heads' };
+  Future<List> getMentorData() async {
+    List data = await FirestoreData.getData(posArr.elementAt(1));
+    return data;
+  }
 
-  var typeArr = {'Management Heads' , 'Mentorship Heads' , 'Buddy Heads' };
+  Future<List> getBuddyData() async {
+    List data = await FirestoreData.getData(posArr.elementAt(2));
+    return data;
+  }
+
+  void addMgmtDataToProvider(List data) {
+    ref.read(teamDataProvider.notifier).addAllData(posArr.elementAt(0), data);
+  }
+
+  void addMentorDataToProvider(List data) {
+    ref.read(teamDataProvider.notifier).addAllData(posArr.elementAt(1), data);
+  }
+
+  void addBuddyDataToProvider(List data) {
+    ref.read(teamDataProvider.notifier).addAllData(posArr.elementAt(2), data);
+  }
+
+  Future<void> isFirstOpen() async {
+    print(DateTime.now());
+
+    if (ref.read(teamDataProvider)[posArr.elementAt(0)] == null ||
+        ref.read(teamDataProvider)[posArr.elementAt(1)] == null ||
+        ref.read(teamDataProvider)[posArr.elementAt(2)] == null) {
+      var futures = [
+        getMgmtData(),
+        getMentorData(),
+        getBuddyData(),
+      ];
+      var results = await Future.wait(futures);
+      addMgmtDataToProvider(results[0]);
+      addMentorDataToProvider(results[1]);
+      addBuddyDataToProvider(results[2]);
+    }
+
+    setState(() {
+      isLoading = false;
+    });
+    print(DateTime.now());
+  }
 
   @override
   Widget build(BuildContext context) {
+    final dataMap = ref.watch(teamDataProvider);
+    List pgMgmtData = dataMap[posArr.elementAt(0)] ?? [];
+    List pgMentorData = dataMap[posArr.elementAt(1)] ?? [];
+    List pgBuddyData = dataMap[posArr.elementAt(2)] ?? [];
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            
-            //management haeds
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20 , 0, 20),
-              child: Text(
-                  typeArr.elementAt(0),
-                  textAlign: TextAlign.center,
-                  style:const TextStyle(
-                    fontSize: 28,
-                    wordSpacing: 1.5,
-                    fontWeight: FontWeight.w500,
+        child: isLoading
+            ? const HeadsShimmerEffect()
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  //management haeds
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                    child: Text(
+                      typeArr.elementAt(0),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 28,
+                        wordSpacing: 1.5,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   ),
-                ),
-            ),
-            ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: widget.pgMgmtData.length,
-            // query: DataFetch.dataFromRTDB(posArr.elementAt(0)), 
-            itemBuilder: (context , index){
-              return Padding(
-                padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-                child: DataShowingWidget(
-                  name: widget.pgMgmtData[index].name, 
-                  email: widget.pgMgmtData[index].email, 
-                  phone: widget.pgMgmtData[index].phone, 
-                  position: widget.pgMgmtData[index].position, 
-                  imageLink: widget.pgMgmtData[index].image
-                          ),
-              );
-            }
-            ),
-      
-      
-            //mentor heads
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20 , 0, 20),
-              child: Text(
-                  typeArr.elementAt(1),
-                  textAlign: TextAlign.center,
-                  style:const TextStyle(
-                    fontSize: 28,
-                    wordSpacing: 1.5,
-                    fontWeight: FontWeight.w500,
+                  ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: pgMgmtData.length,
+                      // query: DataFetch.dataFromRTDB(posArr.elementAt(0)),
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+                          child: DataShowingWidget(
+                              name: pgMgmtData[index]['name'],
+                              email: pgMgmtData[index]['email'],
+                              phone: pgMgmtData[index]['phone'],
+                              position: pgMgmtData[index]['position'],
+                              imageLink: pgMgmtData[index]['image']),
+                        );
+                      }),
+
+                  //mentor heads
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                    child: Text(
+                      typeArr.elementAt(1),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 28,
+                        wordSpacing: 1.5,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   ),
-                ),
-            ),
-            ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: widget.pgMentorData.length,
-            // query: DataFetch.dataFromRTDB(posArr.elementAt(0)), 
-            itemBuilder: (context , index){
-              return Padding(
-                padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-                child: DataShowingWidget(
-                  name: widget.pgMentorData[index].name, 
-                  email: widget.pgMentorData[index].email, 
-                  phone: widget.pgMentorData[index].phone, 
-                  position: widget.pgMentorData[index].position, 
-                  imageLink: widget.pgMentorData[index].image
-                          ),
-              );
-            }
-            ),
+                  ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: pgMentorData.length,
+                      // query: DataFetch.dataFromRTDB(posArr.elementAt(0)),
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+                          child: DataShowingWidget(
+                              name: pgMentorData[index]['name'],
+                              email: pgMentorData[index]['email'],
+                              phone: pgMentorData[index]['phone'],
+                              position: pgMentorData[index]['position'],
+                              imageLink: pgMentorData[index]['image']),
+                        );
+                      }),
 
-
-
-             //Buddy heads
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20 , 0, 20),
-              child: Text(
-                  typeArr.elementAt(2),
-                  textAlign: TextAlign.center,
-                  style:const TextStyle(
-                    fontSize: 28,
-                    wordSpacing: 1.5,
-                    fontWeight: FontWeight.w500,
+                  //Buddy heads
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                    child: Text(
+                      typeArr.elementAt(2),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 28,
+                        wordSpacing: 1.5,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   ),
-                ),
-            ),
-            ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: widget.pgBuddyData.length,
-            // query: DataFetch.dataFromRTDB(posArr.elementAt(0)), 
-            itemBuilder: (context , index){
-              return Padding(
-                padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-                child: DataShowingWidget(
-                  name: widget.pgBuddyData[index].name, 
-                  email: widget.pgBuddyData[index].email, 
-                  phone: widget.pgBuddyData[index].phone, 
-                  position: widget.pgBuddyData[index].position, 
-                  imageLink: widget.pgBuddyData[index].image
-                          ),
-              );
-            }
-            ),
-  
-          ],
-        ),
+                  ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: pgBuddyData.length,
+                      // query: DataFetch.dataFromRTDB(posArr.elementAt(0)),
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+                          child: DataShowingWidget(
+                              name: pgBuddyData[index]['name'],
+                              email: pgBuddyData[index]['email'],
+                              phone: pgBuddyData[index]['phone'],
+                              position: pgBuddyData[index]['position'],
+                              imageLink: pgBuddyData[index]['image']),
+                        );
+                      }),
+                ],
+              ),
       ),
     );
   }

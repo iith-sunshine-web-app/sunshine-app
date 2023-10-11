@@ -2,73 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:sunshine_iith/services/data_model.dart';
 import 'package:sunshine_iith/widgets/team_data_widget.dart';
 
-import '../../services/data_fetch.dart';
 
 // ignore: must_be_immutable
-class MGMTTeam extends StatefulWidget {
-  Map<String,List<DataModel>> data;
-   MGMTTeam({super.key,required this.data});
+class MGMTTeam extends StatelessWidget {
+   MGMTTeam({super.key});
 
-  @override
-  State<MGMTTeam> createState() => _MGMTTeamState();
-}
-
-class _MGMTTeamState extends State<MGMTTeam> {
   List<String> posArr = ['web-app-team' , 'finance-team', 'publicity-team' , 'content-team', 'photo-team', 'des-team', 'newsletter-team', 'logistics-team', 'video-team'];
+
   List<String> typeArr = ['Web & App Dev Team' , 'Finance Managers' , 'Publicity Team', 'Content Team' , 'Photography Team',
    'Design Team' ,'Newsletter Team', 'Logistics Team','Video Editorial Team'];
-Map<String,List<DataModel>> setData={};
-  @override
-  void initState() {
-    setData = widget.data;
 
-    if(setData[posArr[0]]!.isEmpty){
-      setState(() {
-        setData.update(posArr[0], (value) =>DataFetch.fetchWholeData(posArr[0]) );
-      });
-    }
-    if(setData[posArr[1]]!.isEmpty){
-      setState(() {
-        setData[posArr[1]]=DataFetch.fetchWholeData('management-team${posArr[1]}');
-      });
-    }
-    if(setData[posArr[0]]!.isEmpty){
-      setState(() {
-        setData[posArr[2]]=DataFetch.fetchWholeData('management-team${posArr[2]}');
-      });
-    }
-    if(setData[posArr[3]]!.isEmpty){
-      setState(() {
-        setData[posArr[3]]=DataFetch.fetchWholeData('management-team${posArr[3]}');
-      });
-    }
-    if(setData[posArr[4]]!.isEmpty){
-      setState(() {
-        setData[posArr[4]]=DataFetch.fetchWholeData('management-team${posArr[4]}');
-      });
-    }
-    if(setData[posArr[5]]!.isEmpty){
-      setState(() {
-        setData[posArr[5]]=DataFetch.fetchWholeData('management-team${posArr[5]}');
-      });
-    }
-    if(setData[posArr[6]]!.isEmpty){
-      setState(() {
-        setData[posArr[6]]=DataFetch.fetchWholeData('management-team${posArr[6]}');
-      });
-    }
-    if(setData[posArr[7]]!.isEmpty){
-      setState(() {
-        setData[posArr[7]]=DataFetch.fetchWholeData('management-team${posArr[7]}');
-      });
-    }
-    if(setData[posArr[8]]!.isEmpty){
-      setState(() {
-        setData[posArr[8]]=DataFetch.fetchWholeData('management-team${posArr[8]}');
-      });
-    }
-    super.initState();
-  }
+Map<String,List<DataModel>> setData={};
+
+  @override
 
 
   @override
@@ -152,5 +98,4 @@ Map<String,List<DataModel>> setData={};
             }
       );
   }
-
 }

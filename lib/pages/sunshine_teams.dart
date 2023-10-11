@@ -4,6 +4,7 @@ import 'package:sunshine_iith/pages/counsellors_page.dart';
 import 'package:sunshine_iith/pages/faculty_rep.dart';
 import 'package:sunshine_iith/pages/fic_page.dart';
 import 'package:sunshine_iith/pages/mentors/mentors.dart';
+import 'package:sunshine_iith/pages/studentheads/student_team.dart';
 
 import '../widgets/expansion_panel_faculty_rep.dart';
 
@@ -204,10 +205,10 @@ class _TeamPageState extends State<TeamPage> {
 
             //fourth item
             InkWell(
-              // onTap: () {
-              //   Navigator.push(context,
-              //       MaterialPageRoute(builder: (context) => StudentTeam()));
-              // },
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => StudentTeam()));
+              },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [

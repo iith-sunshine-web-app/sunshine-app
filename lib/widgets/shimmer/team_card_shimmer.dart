@@ -38,7 +38,7 @@ class TeamCardShimmer extends StatelessWidget {
                         child: Container(
                           margin: const EdgeInsets.all(20),
                           child: CircleAvatar(
-                            backgroundColor: Colors.black.withOpacity(0.1),
+                            backgroundColor: Colors.black.withOpacity(0.2),
                             radius: 120,
                           ),
                         ),
@@ -74,19 +74,19 @@ class TeamCardShimmer extends StatelessWidget {
                                 highlightColor: Colors.orange,
                                 child: Icon(CupertinoIcons.mail,
                                     size: 45,
-                                    color: Colors.black.withOpacity(0.1))),
+                                    color: Colors.black.withOpacity(0.2))),
                             Shimmer.fromColors(
                                 baseColor: Colors.black,
                                 highlightColor: Colors.orange,
                                 child: Icon(CupertinoIcons.phone,
                                     size: 45,
-                                    color: Colors.black.withOpacity(0.1))),
+                                    color: Colors.black.withOpacity(0.2))),
                             Shimmer.fromColors(
                                 baseColor: Colors.black,
                                 highlightColor: Colors.orange,
                                 child: Icon(FontAwesomeIcons.whatsapp,
                                     size: 45,
-                                    color: Colors.black.withOpacity(0.1))),
+                                    color: Colors.black.withOpacity(0.2))),
                           ],
                         ),
                       ),
