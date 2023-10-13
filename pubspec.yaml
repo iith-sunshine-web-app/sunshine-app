@@ -57,6 +57,8 @@ dependencies:
   riverpod: ^2.4.3
   flutter_riverpod: ^2.4.3
   rounded_expansion_tile: ^0.0.13
+  booking_calendar: ^1.1.10
+  intl: ^0.18.1
 
 flutter_launcher_icons:
   android: "launcher_icon"

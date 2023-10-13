@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     } catch (error) {
       print(error);
-      _showSnackBar('Failed to sign in with Google. $error');
+      _showSnackBar('Failed to sign in with Google.');
     }
   }
 
@@ -76,6 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void _showSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
+        backgroundColor: Colors.orange,
         content: Text(
           message,
           textAlign: TextAlign.center,

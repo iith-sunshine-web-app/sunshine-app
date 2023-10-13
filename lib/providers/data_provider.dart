@@ -16,6 +16,10 @@ final facultyRepDataProvider = StateNotifierProvider<DataNotifier, Map<String, L
 //management 
 final managementDataDataProvider = StateNotifierProvider<DataNotifier, Map<String, List>>((ref) => DataNotifier());
 
+//slot timing
+final selectedTimeProvider = StateProvider<String?>((ref) => null);
+final selectedDateProvider = StateProvider<String?>((ref) => null);
+
 
 class DataNotifier extends StateNotifier<Map<String, List>> {
   DataNotifier() : super({});

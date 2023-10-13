@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sunshine_iith/const/branch_data.dart';
-import 'package:sunshine_iith/providers/team_data_provider.dart';
-import 'package:sunshine_iith/services/firestore_data.dart';
+import 'package:sunshine_iith/providers/data_provider.dart';
+import 'package:sunshine_iith/services/firestore_database.dart';
 import 'package:sunshine_iith/widgets/expansion_tile.dart';
 import 'package:sunshine_iith/widgets/headers.dart';
 import 'package:sunshine_iith/widgets/shimmer/expansion_tile_shimmer.dart';

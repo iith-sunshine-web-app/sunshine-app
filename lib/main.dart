@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sunshine_iith/firebase_options.dart';
 import 'package:sunshine_iith/pages/loading_splash.dart';
+import 'package:sunshine_iith/test.dart';
 
 void main() async  {
   WidgetsFlutterBinding.ensureInitialized();

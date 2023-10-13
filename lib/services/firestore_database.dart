@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sunshine_iith/services/data_model.dart';
+import 'package:sunshine_iith/services/session_data.dart';
 
 class FirestoreData{
   static Future<List> getData(String pos,String type) async{
@@ -35,27 +36,28 @@ static Future<List> getSpecificData(String dataType,String pos) async{
   // }
 
 
-static Future<void> addData(String pos, List<DataModel> data) async {
+static Future<void> addData(SessionData data, String counsellor, String date) async {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   try {
     // Get a reference to the 'data' collection and the document 'team-data'
-    CollectionReference dataCollection = firestore.collection('data');
-    DocumentReference documentRef = dataCollection.doc('faculty-rep');
+    CollectionReference dataCollection = firestore.collection('$counsellor-sessions');
+    DocumentReference documentRef = dataCollection.doc(date);
 
     // Get the current data in the document
     DocumentSnapshot documentSnapshot = await documentRef.get();
-    Map<String, dynamic>? currentData = documentSnapshot.data() as Map<String, dynamic>?;
+    Map<String, dynamic> currentData = documentSnapshot.data() as Map<String, dynamic>? ?? {};
 
-    currentData ??= {};
+    // Determine the next index based on the current data's length
+    int nextIndex = currentData.length;
 
-    // Update the data for the given position
-    currentData[pos] = data.map((dataModel) => dataModel.toMap()).toList();
+    // Update the data for the given index
+    currentData[nextIndex.toString()] = data.toMap();
 
     // Set the updated data back to the document
     await documentRef.set(currentData);
 
-    print('Data for position $pos added successfully');
+    print('$data added successfully at $nextIndex');
   } catch (e) {
     print('Error adding data: $e');
   }

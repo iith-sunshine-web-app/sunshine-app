@@ -1,6 +1,6 @@
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
-import 'package:sunshine_iith/services/data_fetch.dart';
+import 'package:sunshine_iith/services/rtdb_database.dart';
 import 'package:sunshine_iith/widgets/team_data_widget.dart';
 
 class ExpansionPanelFacultyRep extends StatefulWidget {

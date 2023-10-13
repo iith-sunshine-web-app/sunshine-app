@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:sunshine_iith/pages/studentheads/mgmt_team.dart';
 import 'package:sunshine_iith/pages/studentheads/pg_heads.dart';
 import 'package:sunshine_iith/pages/studentheads/ug_heads.dart';
-import 'package:sunshine_iith/services/data_model.dart';
 
 // ignore: must_be_immutable
 class StudentTeam extends StatelessWidget {
@@ -22,7 +21,7 @@ class StudentTeam extends StatelessWidget {
   // //management team data
   // Map<String,List<DataModel>> managementTeamData;
 
-  StudentTeam({super.key
+  const StudentTeam({super.key
   });
 
   @override
@@ -31,7 +30,7 @@ class StudentTeam extends StatelessWidget {
       statusBarColor: Color(0xfff2b545),
       statusBarBrightness: Brightness.dark,
     ));
-    return MaterialApp(
+    return const MaterialApp(
       home: DefaultTabController(
         length: 3,
         child: SafeArea(
@@ -44,7 +43,7 @@ class StudentTeam extends StatelessWidget {
                 MGMTTeam(),
               ],
             ),
-            bottomNavigationBar: const TabBar(
+            bottomNavigationBar:  TabBar(
                 indicatorColor: Colors.purple,
                 labelColor: Colors.purple,
                 unselectedLabelColor:  Color.fromARGB(255, 44, 37, 10),
@@ -54,7 +53,7 @@ class StudentTeam extends StatelessWidget {
                   Tab(text: 'MGMT TEAM',),
                 ],
               ),
-              backgroundColor: const Color(0xfff2b545),
+              backgroundColor:  Color(0xfff2b545),
           ),
         ),
       )

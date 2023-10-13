@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:sunshine_iith/providers/team_data_provider.dart';
-import 'package:sunshine_iith/services/firestore_data.dart';
+import 'package:sunshine_iith/providers/data_provider.dart';
+import 'package:sunshine_iith/services/firestore_database.dart';
 import 'package:sunshine_iith/widgets/shimmer/heads_shimmer.dart';
 import 'package:sunshine_iith/widgets/shimmer/skeleton.dart';
 import 'package:sunshine_iith/widgets/shimmer/team_card_shimmer.dart';
