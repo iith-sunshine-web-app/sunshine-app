@@ -22,6 +22,8 @@ enum Communication { whatsapp, mail }
 
 class _ProcessTimelineState extends ConsumerState<ProcessTimeline> {
   int currStep = 0;
+  String selectedTime = 'Choose a slot';
+
 
   var sirOrMadam = ['sir', 'madam'];
 
@@ -58,7 +60,7 @@ class _ProcessTimelineState extends ConsumerState<ProcessTimeline> {
 
   @override
   void initState() {
-    date = currDate(DateTime.now());
+    // date = currDate(DateTime.now());
     super.initState();
   }
 
@@ -91,7 +93,7 @@ class _ProcessTimelineState extends ConsumerState<ProcessTimeline> {
 
       showModalBottomSheet(
         
-        shape: const RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
               top: Radius.circular(36.0),
             ),
@@ -118,7 +120,6 @@ class _ProcessTimelineState extends ConsumerState<ProcessTimeline> {
     }
   }
 
-  String selectedTime = 'Choose a slot';
 
   @override
   Widget build(BuildContext context) {
@@ -127,9 +128,9 @@ class _ProcessTimelineState extends ConsumerState<ProcessTimeline> {
       selectedTime =
           'Date: ${ref.watch(selectedDateProvider)!}\nTime: ${ref.watch(selectedTimeProvider)!}';
     }
-    if (!timeFunctionCall) {
-      time = currTime(TimeOfDay.now());
-    }
+    // if (!timeFunctionCall) {
+    //   time = currTime(TimeOfDay.now());
+    // }
 
     return Theme(
       data: ThemeData(
@@ -296,8 +297,22 @@ class _ProcessTimelineState extends ConsumerState<ProcessTimeline> {
                                 splashColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () {
+                                  int index = 0;
+
+                                  if (_valueCounsellors ==
+                                      Counsellors.counsellor2) {
+                                    index = 1;
+                                  } else if (_valueCounsellors ==
+                                      Counsellors.counsellor3) {
+                                    // s = sirOrMadam.elementAt(0);
+                                    index = 2;
+                                  }
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (ctx) => SelectSlot()));
+                                      builder: (ctx) => SelectSlot(
+                                            counsellorsName: counsellorsData
+                                                .elementAt(index)
+                                                .name,
+                                          )));
                                 },
                                 child: Padding(
                                   padding:
@@ -414,7 +429,8 @@ class _ProcessTimelineState extends ConsumerState<ProcessTimeline> {
             backgroundColor: const Color.fromARGB(255, 21, 101, 192),
             elevation: 2,
           ),
-          onPressed: details.onStepContinue,
+          onPressed: (selectedTime=='Choose a slot' &&currStep==2) ? null:
+          details.onStepContinue,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
             child: Text(
@@ -438,87 +454,87 @@ class _ProcessTimelineState extends ConsumerState<ProcessTimeline> {
     );
   }
 
-  void datePicker() async {
-    DateTime selectDate = _date;
-    if (selectDate.hour > 21) {
-      selectDate = selectDate.add(const Duration(hours: 3));
-    }
-    DateTime currDateTime = DateTime.now();
-    await showDatePicker(
-      builder: (context, child) => Theme(
-        data: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color.fromARGB(255, 244, 197, 54),
-              primary: const Color.fromARGB(255, 244, 197, 54)),
-          useMaterial3: true,
-        ),
-        child: child!,
-      ),
-      context: context,
-      initialDate: selectDate,
-      firstDate: currDateTime,
-      lastDate: currDateTime.add(const Duration(days: 7)),
-      initialEntryMode: DatePickerEntryMode.calendarOnly,
-    ).then((value) {
-      setState(() {
-        _date = value!;
-        date = currDate(value);
-      });
-    });
-  }
+  // void datePicker() async {
+  //   DateTime selectDate = _date;
+  //   if (selectDate.hour > 21) {
+  //     selectDate = selectDate.add(const Duration(hours: 3));
+  //   }
+  //   DateTime currDateTime = DateTime.now();
+  //   await showDatePicker(
+  //     builder: (context, child) => Theme(
+  //       data: ThemeData(
+  //         colorScheme: ColorScheme.fromSeed(
+  //             seedColor: const Color.fromARGB(255, 244, 197, 54),
+  //             primary: const Color.fromARGB(255, 244, 197, 54)),
+  //         useMaterial3: true,
+  //       ),
+  //       child: child!,
+  //     ),
+  //     context: context,
+  //     initialDate: selectDate,
+  //     firstDate: currDateTime,
+  //     lastDate: currDateTime.add(const Duration(days: 7)),
+  //     initialEntryMode: DatePickerEntryMode.calendarOnly,
+  //   ).then((value) {
+  //     setState(() {
+  //       _date = value!;
+  //       date = currDate(value);
+  //     });
+  //   });
+  // }
 
-  String currDate(DateTime currDateTime) {
-    int hour = currDateTime.hour;
-    if (hour > 21) {
-      currDateTime = currDateTime.add(const Duration(hours: 3));
-    }
-    return (currDateTime.day.toString() +
-        '/' +
-        currDateTime.month.toString() +
-        '/' +
-        currDateTime.year.toString());
-  }
+  // String currDate(DateTime currDateTime) {
+  //   int hour = currDateTime.hour;
+  //   if (hour > 21) {
+  //     currDateTime = currDateTime.add(const Duration(hours: 3));
+  //   }
+  //   return (currDateTime.day.toString() +
+  //       '/' +
+  //       currDateTime.month.toString() +
+  //       '/' +
+  //       currDateTime.year.toString());
+  // }
 
-  void timePicker() async {
-    timeFunctionCall = true;
+  // void timePicker() async {
+  //   timeFunctionCall = true;
 
-    TimeOfDay selectedTime = _time;
-    if (selectedTime.hour > 21) {
-      selectedTime = const TimeOfDay(hour: 9, minute: 00);
-    }
+  //   TimeOfDay selectedTime = _time;
+  //   if (selectedTime.hour > 21) {
+  //     selectedTime = const TimeOfDay(hour: 9, minute: 00);
+  //   }
 
-    final TimeOfDay? pickedTime = await showTimePicker(
-      builder: (context, child) => Theme(
-        data: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color.fromARGB(255, 244, 197, 54),
-              primary: const Color.fromARGB(255, 244, 197, 54)),
-          useMaterial3: true,
-        ),
-        child: child!,
-      ),
-      context: context,
-      initialTime: selectedTime,
-      initialEntryMode: TimePickerEntryMode.dialOnly,
-    );
+  //   final TimeOfDay? pickedTime = await showTimePicker(
+  //     builder: (context, child) => Theme(
+  //       data: ThemeData(
+  //         colorScheme: ColorScheme.fromSeed(
+  //             seedColor: const Color.fromARGB(255, 244, 197, 54),
+  //             primary: const Color.fromARGB(255, 244, 197, 54)),
+  //         useMaterial3: true,
+  //       ),
+  //       child: child!,
+  //     ),
+  //     context: context,
+  //     initialTime: selectedTime,
+  //     initialEntryMode: TimePickerEntryMode.dialOnly,
+  //   );
 
-    setState(() {
-      _time = pickedTime!;
-      time = _time.format(context);
-    });
-  }
+  //   setState(() {
+  //     _time = pickedTime!;
+  //     time = _time.format(context);
+  //   });
+  // }
 
-  String currTime(TimeOfDay time) {
-    int hour = time.hour;
-    if (hour > 21) {
-      time = const TimeOfDay(hour: 9, minute: 00);
-    } else {
-      time = TimeOfDay(hour: hour + 1, minute: 00);
-    }
-    _time = time;
+  // String currTime(TimeOfDay time) {
+  //   int hour = time.hour;
+  //   if (hour > 21) {
+  //     time = const TimeOfDay(hour: 9, minute: 00);
+  //   } else {
+  //     time = TimeOfDay(hour: hour + 1, minute: 00);
+  //   }
+  //   _time = time;
 
-    return time.format(context);
-  }
+  //   return time.format(context);
+  // }
 
   void requestSlot(bool isWhatsapp) {
     int ke = 0;

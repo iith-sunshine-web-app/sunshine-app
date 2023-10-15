@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:sunshine_iith/providers/data_provider.dart';
+import 'package:sunshine_iith/services/rtdb_database.dart';
+import 'package:sunshine_iith/services/session_data.dart';
 
 class SelectSlot extends ConsumerStatefulWidget {
-  const SelectSlot({super.key});
+  final String counsellorsName;
+  const SelectSlot({super.key,required this.counsellorsName});
 
   @override
   ConsumerState<SelectSlot> createState() => _SelectSlotState();
@@ -19,12 +22,13 @@ class _SelectSlotState extends ConsumerState<SelectSlot> {
 
   List<DateTimeRange> converted = [];
 
- String formatTime(DateTime dateTime) {
-  return DateFormat('hh:mm a').format(dateTime);
-}
-String formatDate(DateTime dateTime) {
-  return DateFormat('dd/MM/yyyy').format(dateTime);
-}
+  String formatTime(DateTime dateTime) {
+    return DateFormat('hh:mm a').format(dateTime);
+  }
+
+  String formatDate(DateTime dateTime) {
+    return DateFormat('dd/MM/yyyy').format(dateTime);
+  }
 
   Future<dynamic> uploadBooking({required BookingService newBooking}) async {
     // await Future.delayed(const Duration(seconds: 1));
@@ -32,7 +36,6 @@ String formatDate(DateTime dateTime) {
         formatTime(newBooking.bookingStart);
     ref.read(selectedDateProvider.notifier).state =
         formatDate(newBooking.bookingStart);
-
 
     converted.add(DateTimeRange(
         start: newBooking.bookingStart, end: newBooking.bookingEnd));
@@ -80,41 +83,107 @@ String formatDate(DateTime dateTime) {
             DateTime.now().day + 6, 13, 0, 0),
         end: DateTime(DateTime.now().year, DateTime.now().month,
             DateTime.now().day + 6, 14, 30, 0)),
-            DateTimeRange(
+    DateTimeRange(
         start: DateTime(DateTime.now().year, DateTime.now().month,
             DateTime.now().day + 7, 13, 0, 0),
         end: DateTime(DateTime.now().year, DateTime.now().month,
             DateTime.now().day + 7, 14, 30, 0)),
-            DateTimeRange(
+    DateTimeRange(
         start: DateTime(DateTime.now().year, DateTime.now().month,
             DateTime.now().day + 8, 13, 0, 0),
         end: DateTime(DateTime.now().year, DateTime.now().month,
             DateTime.now().day + 8, 14, 30, 0)),
   ];
-//   void generatePauseSlots() {
-//     setState(() {
-//       pauseSlots = List.generate(8, (i) {
-//     DateTime startDateTime = DateTime(
-//       DateTime.now().year,
-//       DateTime.now().month,
-//       DateTime.now().day + i,
-//       13, 0, 0
-//     );
-//     DateTime endDateTime = DateTime(
-//       DateTime.now().year,
-//       DateTime.now().month,
-//       DateTime.now().day + i,
-//       3, 0, 0
-//     );
 
-//     return DateTimeRange(start: startDateTime, end: endDateTime);
-//   });
-//     });
+  DateTime parseDateAndTime(String dateStr, String timeStr) {
+  try {
+    final date = DateFormat("dd/MM/yyyy").parse(dateStr);
+    final time = DateFormat("hh:mm a").parse(timeStr);
+    
+    final combinedDateTime = DateTime(date.year, date.month, date.day, time.hour, time.minute);
+    
+    return combinedDateTime;
+  } catch (e) {
+    print("Error parsing date and time: $e");
+    return DateTime(2000); // Or return a default date/time or throw an exception, depending on your use case
+  }
+}
+Future<void>  getBookedSlots(String date) async {
+    Map<String, dynamic> result = await RealTimeDB()
+        .getCounsellorsSessionsData(widget.counsellorsName, date);
+    List<SessionData> data = [];
+    if (result.isNotEmpty) {
+      result.forEach((key, value) {
+        SessionData sessionData = SessionData(
+            date: value['date'],
+            email: value['email'],
+            name: value['name'],
+            time: value['time'],
+            counsellorsName: value['counsellor'],
+            mode: value['mode'],
+            phone: value['phone']);
+        data.add(sessionData);
+      });
+    }
+    
+    List<DateTimeRange> dateTimeRangeList = [];
 
-// }
+    for (SessionData sessions in data) {
+      DateTime start = parseDateAndTime(sessions.date, sessions.time);
+      dateTimeRangeList.add(DateTimeRange(start: start, end: start.add(const Duration(hours: 1))));
+    }
+
+    setState(() {
+      converted.addAll(dateTimeRangeList);
+    });
+  }
+
+  // getAllBookedSlots()async{
+  //   print(DateTime.now());
+  //   for (var i = 0; i < 8; i++) {
+  //     String date = formatDate(DateTime.now().add(Duration(days: i)));
+  //     await getBookedSlots(date); 
+  //     print(date);
+  //   }
+  //   setState(() {
+  //     isLoading = false;
+  //   });
+  //   print(DateTime.now());
+
+  // }
+  Future<void> getAllBookedSlots() async {
+
+  final List<String> datesToFetch = [];
+
+  for (var i = 0; i < 8; i++) {
+    String date = formatDate(DateTime.now().add(Duration(days: i)));
+    datesToFetch.add(date);
+  }
+
+  try {
+    await Future.wait(datesToFetch.map((date) => getBookedSlots(date)));
+  } catch (error) {
+    print('Error fetching booked slots in parallel: $error');
+  }
+
+  setState(() {
+    isLoading = false;
+  });
+
+}
 
   DateTime now = DateTime.now();
   final lastDay = DateTime.now().add(Duration(days: 7));
+
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    // getBookedSlots('16/10/2023');
+    getAllBookedSlots();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -150,6 +219,8 @@ String formatDate(DateTime dateTime) {
                 ),
               ),
             ),
+
+           isLoading? CircularProgressIndicator(color: Colors.orange,) :
             Expanded(
               child: BookingCalendar(
                 bookingService: BookingService(

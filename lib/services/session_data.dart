@@ -4,6 +4,8 @@ class SessionData {
   String? phone;
   String date;
   String time;
+  String counsellorsName;
+  String mode;
 
   SessionData({
     required this.date,
@@ -11,6 +13,8 @@ class SessionData {
     required this.name,
     required this.time,
     this.phone,
+    required this.counsellorsName,
+    required this.mode
   });
 
   Map<String, dynamic> toMap() {
@@ -20,6 +24,8 @@ class SessionData {
       'phone': phone,
       'date': date,
       'time': time,
+      'mode': mode,
+      'counsellor': counsellorsName,
     };
   }
 }
