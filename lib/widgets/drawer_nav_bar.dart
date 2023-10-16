@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:open_share_plus/open.dart';
 import 'package:sunshine_iith/admin/send_notification_bottomsheet.dart';
+import 'package:sunshine_iith/pages/appointments.dart';
 import 'package:sunshine_iith/pages/login.dart';
 import 'package:sunshine_iith/providers/data_provider.dart';
 
@@ -36,9 +37,6 @@ class _NavBarState extends ConsumerState<NavBar> {
 
   @override
   Widget build(BuildContext context) {
-    bool isAdmin = ref.watch(isAdminProvider);
-    bool isUserView = ref.watch(adminAsUserProvider);
-
     return Drawer(
       child: SingleChildScrollView(
         child: Column(
@@ -68,6 +66,18 @@ class _NavBarState extends ConsumerState<NavBar> {
               decoration: const BoxDecoration(
                 color: Color(0xfff2b545),
               ),
+            ),
+            ListTile(
+              leading: const FaIcon(FontAwesomeIcons.calendarCheck),
+              title: const Text(
+                'Your Appointments',
+                textAlign: TextAlign.start,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: ((context) => AppointmentsScreen())));
+              },
             ),
             ListTile(
               leading: const FaIcon(FontAwesomeIcons.earthAmericas),
@@ -171,7 +181,7 @@ class _NavBarState extends ConsumerState<NavBar> {
                       context: context,
                       isScrollControlled: true,
                       builder: (ctx) {
-                        return SendNotificationBottomsheet();
+                        return const SendNotificationBottomsheet();
                       });
                 },
               ),

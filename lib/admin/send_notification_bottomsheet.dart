@@ -87,7 +87,7 @@ class _SendNotificationBottomsheetState extends State<SendNotificationBottomshee
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.done,
                     decoration: InputDecoration(
-                      labelText: 'Enter Body',
+                      labelText: 'Enter Description',
                       prefixIcon: const Icon(
                         Icons.description_outlined,
                         color: Colors.orange,
