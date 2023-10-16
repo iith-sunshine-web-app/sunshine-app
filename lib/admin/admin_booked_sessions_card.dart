@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:sunshine_iith/admin/bottomsheet_booked_sessions.dart';
+import 'package:sunshine_iith/services/session_data.dart';
 
 class AdminBookSessionCard extends StatelessWidget {
   final String time;
   final String mode;
+  final SessionData sessionData;
 
-  const AdminBookSessionCard({super.key,required this.time,required this.mode});
+  const AdminBookSessionCard({super.key,required this.time,required this.mode,required this.sessionData});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,13 @@ class AdminBookSessionCard extends StatelessWidget {
           isScrollControlled: true,
           context: context, 
           builder: (ctx){
-          return const  BookedSessionBottomsheet();
+          return   BookedSessionBottomsheet(
+            name: sessionData.name,
+            email: sessionData.email,
+            date: sessionData.date,
+            time: sessionData.time,
+            contact: sessionData.phone!.trim(),
+          );
         });
       },
       child: Container(

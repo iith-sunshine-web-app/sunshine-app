@@ -1,7 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:open_share_plus/open.dart';
 
 class BookedSessionBottomsheet extends StatelessWidget {
-  const BookedSessionBottomsheet({super.key});
+  final String name;
+  final String email;
+  final String? contact;
+  final String date;
+  final String time;
+  const BookedSessionBottomsheet(
+      {super.key,
+      required this.contact,
+      required this.date,
+      required this.email,
+      required this.name,
+      required this.time});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +57,7 @@ class BookedSessionBottomsheet extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 24),
                 child: Row(
                   children: [
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.only(left: 40),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,7 +114,7 @@ class BookedSessionBottomsheet extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(8.5),
                             child: Text(
-                              'Bhaskar Mandal',
+                              '$name',
                               // widget.counsellor.name,
                               style: const TextStyle(
                                   fontSize: 19,
@@ -124,7 +136,7 @@ class BookedSessionBottomsheet extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(8.5),
                             child: Text(
-                              '9647598624',
+                              '$contact',
                               // selectedDate ?? '',
                               style: const TextStyle(
                                   fontSize: 19,
@@ -135,7 +147,7 @@ class BookedSessionBottomsheet extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(8.5),
                             child: Text(
-                              '15/10/2023',
+                              '$date',
                               // selectedTime ?? '' ,
                               style: const TextStyle(
                                   fontSize: 19,
@@ -146,7 +158,7 @@ class BookedSessionBottomsheet extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(8.5),
                             child: Text(
-                              '03:00 AM',
+                              '$time',
                               // selectedTime ?? '' ,
                               style: const TextStyle(
                                   fontSize: 19,
@@ -177,7 +189,7 @@ class BookedSessionBottomsheet extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 8.5, 8.5, 8.5),
                     child: Text(
-                      'ms22btech11010@iith.ac.in',
+                      '$email',
                       // selectedTime ?? '' ,
                       style: const TextStyle(
                           fontSize: 16,
@@ -187,14 +199,20 @@ class BookedSessionBottomsheet extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 30,),
+              const SizedBox(
+                height: 30,
+              ),
               button(MediaQuery.of(context).size.width * 0.8, 'Send Email', () {
-                print('Send email clicked');
-              }),
-              const SizedBox(height: 10,),
-              button(MediaQuery.of(context).size.width * 0.8, 'Message on WhatsApp', () {
-                print('Message on WhatsApp clicked');
-              }),
+                Open.mail(toAddress: email,body: 'Hello $name,');
+              }, false),
+              const SizedBox(
+                height: 10,
+              ),
+              button(MediaQuery.of(context).size.width * 0.8,
+                  'Message on WhatsApp', () {
+                Open.whatsApp(
+                    whatsAppNumber: "91$contact", text: "Hello $name, ");
+              }, (contact == null || contact!.isEmpty)),
               const SizedBox(
                 height: 40,
               ),
@@ -205,7 +223,7 @@ class BookedSessionBottomsheet extends StatelessWidget {
     );
   }
 
-  Widget button(double width, String text, func) {
+  Widget button(double width, String text, func, bool isNull) {
     return SizedBox(
       width: width,
       height: 50,
@@ -214,9 +232,11 @@ class BookedSessionBottomsheet extends StatelessWidget {
           backgroundColor: const Color.fromARGB(255, 21, 101, 192),
           elevation: 2,
         ),
-        onPressed: () async {
-          func();
-        },
+        onPressed: isNull
+            ? null
+            : () async {
+                func();
+              },
         child: Padding(
           padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
           child: Text(

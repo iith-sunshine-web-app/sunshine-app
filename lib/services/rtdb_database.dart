@@ -8,7 +8,7 @@ class RealTimeDB {
     final DatabaseReference databaseReference = FirebaseDatabase.instance.ref();
     try {
       DatabaseEvent event =
-          await databaseReference.child('sessions').child(uid).once();
+          await databaseReference.child('sessions').child(uid).orderByChild('time').once();
 
       DataSnapshot dataSnapshot = event.snapshot;
 

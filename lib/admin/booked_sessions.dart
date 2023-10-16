@@ -161,6 +161,7 @@ class _BookedSessionsScreenState extends State<BookedSessionsScreen> {
                 return Padding(
                   padding: const EdgeInsets.fromLTRB(12, 5, 12, 5),
                   child: AdminBookSessionCard(
+                    sessionData: bookedSessionData[whichDate]![index] ,
                       time: bookedSessionData[whichDate]![index].time, mode: bookedSessionData[whichDate]![index].mode ),
                 );
               },

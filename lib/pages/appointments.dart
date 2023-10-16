@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:sunshine_iith/services/rtdb_database.dart';
 import 'package:sunshine_iith/services/session_data.dart';
 import 'package:sunshine_iith/widgets/appointments_card.dart';
@@ -18,10 +19,24 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
     super.initState();
     getAllAppointementData();
   }
+  List<SessionData> currentData = [];
+  List<SessionData> upcomingData = [];
+  List<SessionData> olderData = [];
   List<SessionData> sessionData = [];
   bool isLoading = true;
 
+DateTime convertToDateTime(String dateStr) {
+  try {
+    final date = DateFormat("dd/MM/yyyy").parse(dateStr);
+    return date;
+  } catch (e) {
+    print("Error parsing date: $e");
+    return DateTime(2000);
+  }
+}
+
   Future<void>  getAllAppointementData() async {
+    DateTime today = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,);
     String uid = FirebaseAuth.instance.currentUser!.uid;
     Map<String, dynamic> result = await RealTimeDB()
         .getAppointmentList(uid);
@@ -37,6 +52,19 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
             mode: value['mode'],
             phone: value['phone']);
         data.add(sessionData);
+        if(convertToDateTime(sessionData.date).isBefore(today)){
+          olderData.add(sessionData);
+        }else if(convertToDateTime(sessionData.date).isAfter(today)){
+          upcomingData.add(sessionData);
+        }else{
+          currentData.add(sessionData);
+        }
+        print('Current : $currentData\n');
+        print('older : $olderData\n');
+        print('upcoming : $upcomingData\n');
+        setState(() {
+          
+        });
       });
     }
     setState(() {
@@ -74,19 +102,82 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
             ),
           ),
         ):
-        Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                itemCount: sessionData.length,
+        SingleChildScrollView(
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              
+              if(currentData.isNotEmpty)
+              const Padding(
+                padding: EdgeInsets.only(left: 12,top: 12),
+                child: Text(
+                  'Today',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w300
+                  ),
+                ),
+              ),
+
+              if(currentData.isNotEmpty)
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: currentData.length,
                 itemBuilder: (ctx,index){
                 return Padding(
                   padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
-                  child: AppointmentCard(counsellorsName: sessionData.elementAt(index).counsellorsName,time: sessionData.elementAt(index).time,date: sessionData.elementAt(index).date,mode: sessionData.elementAt(index).mode,),
+                  child: AppointmentCard(counsellorsName: currentData.elementAt(index).counsellorsName,time: currentData.elementAt(index).time,date: currentData.elementAt(index).date,mode: currentData.elementAt(index).mode,),
                 );
-              })
-            )
-          ],
+              }),
+
+              if(upcomingData.isNotEmpty)
+              const Padding(
+                padding: EdgeInsets.only(left: 12,top: 12),
+                child: Text(
+                  'Upcoming',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w300
+                  ),
+                ),
+              ),
+              if(upcomingData.isNotEmpty)
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: upcomingData.length,
+                itemBuilder: (ctx,index){
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                  child: AppointmentCard(counsellorsName: upcomingData.elementAt(index).counsellorsName,time: upcomingData.elementAt(index).time,date: upcomingData.elementAt(index).date,mode: upcomingData.elementAt(index).mode,),
+                );
+              }),
+              if(olderData.isNotEmpty)
+              const Padding(
+                padding: EdgeInsets.only(left: 12,top: 12),
+                child: Text(
+                  'Older',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w300
+                  ),
+                ),
+              ),
+              if(olderData.isNotEmpty)
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: olderData.length,
+                itemBuilder: (ctx,index){
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                  child: AppointmentCard(counsellorsName: olderData.elementAt(index).counsellorsName,time: olderData.elementAt(index).time,date: olderData.elementAt(index).date,mode: olderData.elementAt(index).mode,),
+                );
+              }),
+            ],
+          ),
         ),
       ),
     );
