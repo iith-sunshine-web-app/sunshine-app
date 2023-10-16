@@ -46,7 +46,7 @@ class AdminHomePage extends StatelessWidget {
           backgroundColor: const Color(0xfff2b545),
         ),
         body:const Center(
-          child: HomeScreen(),
+          child: SingleChildScrollView(child: HomeScreen()),
         ),
       ),
     );

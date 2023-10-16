@@ -14,7 +14,6 @@ class HomePage extends StatelessWidget {
       home: Scaffold(
         drawer: const NavBar(),
         appBar: AppBar(
-
           leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
@@ -45,7 +44,7 @@ class HomePage extends StatelessWidget {
           backgroundColor: const Color(0xfff2b545),
         ),
         body:const Center(
-          child: HomeScreen(),
+          child: SingleChildScrollView(child: HomeScreen()),
         ),
       ),
     );
