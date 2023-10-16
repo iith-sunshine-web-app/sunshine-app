@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sunshine_iith/pages/home.dart';
+import 'package:sunshine_iith/providers/null_provider_logout.dart';
 
 
 class LoginPage extends StatelessWidget {
@@ -23,14 +25,14 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   Future<bool> checkLoggedIn(){
   final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -69,6 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> logout() async{
     final GoogleSignIn googleSignIn = GoogleSignIn();
+    NullProviderAfterLogout().nullAfterLogout(ref);
     await googleSignIn.signOut();
   }
 

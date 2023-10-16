@@ -7,19 +7,6 @@ import 'package:sunshine_iith/pages/studentheads/ug_heads.dart';
 // ignore: must_be_immutable
 class StudentTeam extends StatelessWidget {
   
-  // //ug
-  // List<DataModel> ugMgmtData =[];
-  // List<DataModel> ugMentorData =[];
-  // List<DataModel> ugBuddyData =[];
-  // List<DataModel> welfareSec =[];
-
-  // //pg
-  // List<DataModel> pgMgmtData =[];
-  // List<DataModel> pgMentorData =[];
-  // List<DataModel> pgBuddyData =[];
-
-  // //management team data
-  // Map<String,List<DataModel>> managementTeamData;
 
   const StudentTeam({super.key
   });
