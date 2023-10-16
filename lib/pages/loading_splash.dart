@@ -1,78 +1,114 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sunshine_iith/admin/home_page_admin.dart';
 import 'package:sunshine_iith/pages/home.dart';
 import 'package:sunshine_iith/pages/login.dart';
+import 'package:sunshine_iith/providers/data_provider.dart';
 
-class LoadingSplash extends StatefulWidget {
+class LoadingSplash extends ConsumerStatefulWidget {
   const LoadingSplash({super.key});
 
   @override
-  State<LoadingSplash> createState() => _LoadingSplashState();
+  ConsumerState<LoadingSplash> createState() => _LoadingSplashState();
 }
 
-class _LoadingSplashState extends State<LoadingSplash> {
-Widget showWidget = SpinKitWave(
-      size: 40,
-      itemBuilder: (BuildContext context, int index) {
+class _LoadingSplashState extends ConsumerState<LoadingSplash> {
+  Widget showWidget = SpinKitWave(
+    size: 40,
+    itemBuilder: (BuildContext context, int index) {
       return const DecoratedBox(
-      decoration: BoxDecoration(
-        color:  Color.fromARGB(255, 244, 197, 54),
-      ),
-    );
-  },
-);
-
-
+        decoration: BoxDecoration(
+          color: Color.fromARGB(255, 244, 197, 54),
+        ),
+      );
+    },
+  );
 
   @override
   void initState() {
-
     super.initState();
     loggedIn();
   }
 
-    Future<bool> checkLoggedIn() async{
+  List<String> adminEmails = [
+    'maria.morris@admin.iith.ac.in',
+    'yukti.rastogi@admin.iith.ac.in',
+    'phani.bhushan@admin.iith.ac.in',
+    'ms22btech11010@iith.ac.in',
+
+  ];
+  List<String> controllerEmails = [
+    'ms22btech1101@iith.ac.in',
+    //add heads email
+  ];
+
+  void redirectUser() {
+    if (FirebaseAuth.instance.currentUser != null) {
+      String email = FirebaseAuth.instance.currentUser!.email!;
+      if(adminEmails.contains(email)){
+        //redirtect to admin page
+        ref.read(isAdminProvider.notifier).state = true;
+        openAdminPage();
+      }else if(controllerEmails.contains(email)){
+        //redirect to controller page
+        ref.read(isControllerProvider.notifier).state = true;
+        openHomePage();
+      }else{
+        //redirect to user page
+        openHomePage();
+      }
+    }
+  }
+
+  Future<bool> checkLoggedIn() async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
     return await googleSignIn.isSignedIn();
   }
 
-  void loggedIn() async{
-     bool login = await checkLoggedIn();
-     if(login){
-      Future.delayed(const Duration(milliseconds: 900),(){
+  void loggedIn() async {
+    bool login = await checkLoggedIn();
+    if (login) {
+      Future.delayed(const Duration(milliseconds: 900), () {
         setState(() {
           showWidget = helloText();
         });
-        openHomePage();
-    });
-      
-     }else{
+        // openHomePage();
+        redirectUser();
+      });
+    } else {
       openLoginPage();
-     }
+    }
   }
 
-openHomePage(){
-    Future.delayed(const Duration(milliseconds: 900),(){
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (_)=>const HomePage() ));
+  openHomePage() {
+    Future.delayed(const Duration(milliseconds: 900), () {
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (_) => const HomePage()));
     });
-  }  
-openLoginPage(){
-    Future.delayed(const Duration(milliseconds: 500),(){
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (_)=>const LoginPage() ));
+  }
+  openAdminPage() {
+    Future.delayed(const Duration(milliseconds: 900), () {
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (_) => const AdminHomePage()));
     });
-  }  
+  }
 
-  String usersDisplayName(){
+  openLoginPage() {
+    Future.delayed(const Duration(milliseconds: 500), () {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const LoginPage()));
+    });
+  }
+
+  String usersDisplayName() {
     return FirebaseAuth.instance.currentUser!.displayName!.toString();
   }
 
-
-  Widget helloText(){
+  Widget helloText() {
     return Text(
       'Hello! ${usersDisplayName()}',
       style: GoogleFonts.openSans(
@@ -81,18 +117,17 @@ openLoginPage(){
     );
   }
 
-  Widget loading(){
+  Widget loading() {
     return SpinKitWave(
       size: 40,
       itemBuilder: (BuildContext context, int index) {
-      return const DecoratedBox(
-      decoration: BoxDecoration(
-        color:  Color.fromARGB(255, 244, 197, 54),
-      
-      ),
+        return const DecoratedBox(
+          decoration: BoxDecoration(
+            color: Color.fromARGB(255, 244, 197, 54),
+          ),
+        );
+      },
     );
-  },
-);
   }
 
   @override
@@ -124,10 +159,7 @@ openLoginPage(){
                 style: TextStyle(fontSize: 20.0),
               ),
               const SizedBox(height: 100.0),
-    
               showWidget,
-    
-              
             ],
           ),
         ),
