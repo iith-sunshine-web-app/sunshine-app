@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:sunshine_iith/services/data_model.dart';
 import 'package:sunshine_iith/services/session_data.dart';
 
 class FirestoreData{

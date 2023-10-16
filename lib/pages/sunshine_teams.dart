@@ -6,7 +6,6 @@ import 'package:sunshine_iith/pages/fic_page.dart';
 import 'package:sunshine_iith/pages/mentors/mentors.dart';
 import 'package:sunshine_iith/pages/studentheads/student_team.dart';
 
-import '../widgets/expansion_panel_faculty_rep.dart';
 
 // ignore: must_be_immutable
 class TeamPage extends StatefulWidget {

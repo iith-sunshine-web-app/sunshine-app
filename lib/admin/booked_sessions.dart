@@ -6,6 +6,8 @@ import 'package:sunshine_iith/services/rtdb_database.dart';
 import 'package:sunshine_iith/services/session_data.dart';
 
 class BookedSessionsScreen extends StatefulWidget {
+  const BookedSessionsScreen({super.key});
+
   @override
   State<BookedSessionsScreen> createState() => _BookedSessionsScreenState();
 }

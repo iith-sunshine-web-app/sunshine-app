@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:open_share_plus/open.dart';
 import 'package:sunshine_iith/pages/session_book.dart/confirm_slot.dart';
 import 'package:sunshine_iith/pages/session_book.dart/select_slot.dart';
 import 'package:sunshine_iith/providers/data_provider.dart';
@@ -28,9 +26,9 @@ class _ProcessTimelineState extends ConsumerState<ProcessTimeline> {
   var sirOrMadam = ['sir', 'madam'];
 
   String date = '';
-  DateTime _date = DateTime.now();
+  // DateTime _date = DateTime.now();
   String time = '';
-  TimeOfDay _time = TimeOfDay.now();
+  // TimeOfDay _time = TimeOfDay.now();
   bool timeFunctionCall = false;
 
   List<DataModel> counsellorsData = [
@@ -56,7 +54,7 @@ class _ProcessTimelineState extends ConsumerState<ProcessTimeline> {
 
   Counsellors? _valueCounsellors = Counsellors.counsellor1;
   Mode? _valueMode = Mode.offline;
-  Communication? _valueCommunication = Communication.whatsapp;
+  // Communication? _valueCommunication = Communication.whatsapp;
 
   @override
   void initState() {
@@ -536,56 +534,56 @@ class _ProcessTimelineState extends ConsumerState<ProcessTimeline> {
   //   return time.format(context);
   // }
 
-  void requestSlot(bool isWhatsapp) {
-    int ke = 0;
-    String s = sirOrMadam.elementAt(1);
+//   void requestSlot(bool isWhatsapp) {
+//     int ke = 0;
+//     String s = sirOrMadam.elementAt(1);
 
-    if (_valueCounsellors == Counsellors.counsellor2) {
-      ke = 1;
-    } else if (_valueCounsellors == Counsellors.counsellor3) {
-      s = sirOrMadam.elementAt(0);
-      ke = 2;
-    }
+//     if (_valueCounsellors == Counsellors.counsellor2) {
+//       ke = 1;
+//     } else if (_valueCounsellors == Counsellors.counsellor3) {
+//       s = sirOrMadam.elementAt(0);
+//       ke = 2;
+//     }
 
-    String name = FirebaseAuth.instance.currentUser!.displayName!;
-    String mode = 'Online';
+//     String name = FirebaseAuth.instance.currentUser!.displayName!;
+//     String mode = 'Online';
 
-    if (_valueMode == Mode.offline) {
-      mode = 'Offline';
-    }
+//     if (_valueMode == Mode.offline) {
+//       mode = 'Offline';
+//     }
 
-    String day = "";
-    int index = _date.weekday;
+//     String day = "";
+//     int index = _date.weekday;
 
-    if (index == 1) {
-      day = 'Monday';
-    } else if (index == 2) {
-      day = 'Tuesday';
-    } else if (index == 3) {
-      day = 'Wednesday';
-    } else if (index == 4) {
-      day = 'Thursday';
-    } else if (index == 5) {
-      day = 'Friday';
-    } else if (index == 6) {
-      day = 'Saturday';
-    } else if (index == 7) {
-      day = 'Sunday';
-    }
+//     if (index == 1) {
+//       day = 'Monday';
+//     } else if (index == 2) {
+//       day = 'Tuesday';
+//     } else if (index == 3) {
+//       day = 'Wednesday';
+//     } else if (index == 4) {
+//       day = 'Thursday';
+//     } else if (index == 5) {
+//       day = 'Friday';
+//     } else if (index == 6) {
+//       day = 'Saturday';
+//     } else if (index == 7) {
+//       day = 'Sunday';
+//     }
 
-    String massage =
-        'Hi $s, I am $name. I was wondering if I could meet you for an $mode session on $day ${ref.watch(selectedDateProvider)} at ${ref.watch(selectedTimeProvider)}. ';
+//     String massage =
+//         'Hi $s, I am $name. I was wondering if I could meet you for an $mode session on $day ${ref.watch(selectedDateProvider)} at ${ref.watch(selectedTimeProvider)}. ';
 
-    if (isWhatsapp) {
-      Open.whatsApp(
-          whatsAppNumber: '91${counsellorsData.elementAt(ke).phone}',
-          text: massage);
-    } else {
-      Open.mail(
-        toAddress: counsellorsData.elementAt(ke).email,
-        subject: 'Regarding Slot for a Session',
-        body: massage,
-      );
-    }
-  }
+//     if (isWhatsapp) {
+//       Open.whatsApp(
+//           whatsAppNumber: '91${counsellorsData.elementAt(ke).phone}',
+//           text: massage);
+//     } else {
+//       Open.mail(
+//         toAddress: counsellorsData.elementAt(ke).email,
+//         subject: 'Regarding Slot for a Session',
+//         body: massage,
+//       );
+//     }
+//   }
 }

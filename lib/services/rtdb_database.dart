@@ -1,7 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:sunshine_iith/services/session_data.dart';
 
-import 'data_model.dart';
 
 class RealTimeDB {
   Future<Map<String, dynamic>> getAppointmentList(String uid) async {

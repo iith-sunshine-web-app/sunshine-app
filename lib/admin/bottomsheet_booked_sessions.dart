@@ -30,7 +30,6 @@ class BookedSessionBottomsheet extends StatelessWidget {
             useMaterial3: true,
           ),
           child: Column(
-            // mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(
                 height: 10,
@@ -57,7 +56,7 @@ class BookedSessionBottomsheet extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 24),
                 child: Row(
                   children: [
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(left: 40),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,14 +69,6 @@ class BookedSessionBottomsheet extends StatelessWidget {
                                   fontSize: 15, fontWeight: FontWeight.w500),
                             ),
                           ),
-                          // Padding(
-                          //   padding: EdgeInsets.all(11.0),
-                          //   child: Text(
-                          //     'Email:',
-                          //     style: TextStyle(
-                          //         fontSize: 15, fontWeight: FontWeight.w500),
-                          //   ),
-                          // ),
                           Padding(
                             padding: EdgeInsets.all(11.0),
                             child: Text(
@@ -114,30 +105,17 @@ class BookedSessionBottomsheet extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(8.5),
                             child: Text(
-                              '$name',
-                              // widget.counsellor.name,
+                              name,
                               style: const TextStyle(
                                   fontSize: 19,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.orange),
                             ),
                           ),
-                          // Padding(
-                          //   padding: const EdgeInsets.all(8.5),
-                          //   child: Text(
-                          //     'ms22btech11010@iith.ac.in',
-                          //     // widget.mode,
-                          //     style: const TextStyle(
-                          //         fontSize: 16,
-                          //         fontWeight: FontWeight.w500,
-                          //         color: Colors.orange),
-                          //   ),
-                          // ),
                           Padding(
                             padding: const EdgeInsets.all(8.5),
                             child: Text(
                               '$contact',
-                              // selectedDate ?? '',
                               style: const TextStyle(
                                   fontSize: 19,
                                   fontWeight: FontWeight.w500,
@@ -147,8 +125,7 @@ class BookedSessionBottomsheet extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(8.5),
                             child: Text(
-                              '$date',
-                              // selectedTime ?? '' ,
+                              date,
                               style: const TextStyle(
                                   fontSize: 19,
                                   fontWeight: FontWeight.w500,
@@ -158,8 +135,7 @@ class BookedSessionBottomsheet extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(8.5),
                             child: Text(
-                              '$time',
-                              // selectedTime ?? '' ,
+                              time,
                               style: const TextStyle(
                                   fontSize: 19,
                                   fontWeight: FontWeight.w500,
@@ -178,7 +154,7 @@ class BookedSessionBottomsheet extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.all(11.0),
                     child: Text(
                       'Email:',
@@ -189,8 +165,7 @@ class BookedSessionBottomsheet extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 8.5, 8.5, 8.5),
                     child: Text(
-                      '$email',
-                      // selectedTime ?? '' ,
+                      email,
                       style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
