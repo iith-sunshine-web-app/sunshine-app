@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sunshine_iith/admin/bottomsheet_booked_sessions.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sunshine_iith/providers/data_provider.dart';
 import 'package:sunshine_iith/services/rtdb_database.dart';
 import 'package:sunshine_iith/services/session_data.dart';
 
-class AdminBookSessionCard extends StatelessWidget {
+class AdminBookSessionCard extends ConsumerWidget {
   final String time;
   final String mode;
   final SessionData sessionData;
@@ -15,7 +16,7 @@ class AdminBookSessionCard extends StatelessWidget {
       required this.sessionData});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.8,
       decoration: BoxDecoration(
@@ -50,7 +51,7 @@ class AdminBookSessionCard extends StatelessWidget {
                 showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return showPopUp(context, sessionData);
+                      return showPopUp(context, sessionData,ref);
                     });
                 print('Delete button clicked');
               },
@@ -63,7 +64,7 @@ class AdminBookSessionCard extends StatelessWidget {
     );
   }
 
-  Widget showPopUp(BuildContext context, SessionData data) {
+  Widget showPopUp(BuildContext context, SessionData data,WidgetRef ref) {
     return AlertDialog(
       content: const Text('Are you sure you want to delete this session?'),
       actions: [
@@ -74,6 +75,7 @@ class AdminBookSessionCard extends StatelessWidget {
         TextButton(
           onPressed: ()  {
             RealTimeDB().deleteSessionData(data);
+            ref.read(bookedSessionProvider.notifier).deleteData(data.date, data);
             Navigator.pop(context,'Delete');
           },
           child: const Text('Delete'),

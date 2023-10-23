@@ -32,7 +32,7 @@ final bookedSessionProvider = StateNotifierProvider<DataNotifier, Map<String, Li
 class DataNotifier extends StateNotifier<Map<String, List>> {
   DataNotifier() : super({});
 
-void addData(String position, DataModel data) {
+void addData(String position, dynamic data) {
    if (!state.containsKey(position)) {
      state[position] = [];
    }
@@ -46,6 +46,19 @@ void addAllData(String position, List dataList) {
     }
     state[position]!.addAll(dataList);
     state = {...state};
+  }
+  void deleteData(String position, dynamic data) {
+    if (state.containsKey(position)) {
+      state[position]!.remove(data);
+      state = {...state};
+    }
+  }
+
+  void deleteAllData(String position) {
+    if (state.containsKey(position)) {
+      state[position] = [];
+      state = {...state};
+    }
   }
 
 }

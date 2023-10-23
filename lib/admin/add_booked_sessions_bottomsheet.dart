@@ -1,9 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sunshine_iith/pages/session_book.dart/select_slot.dart';
 import 'package:sunshine_iith/providers/data_provider.dart';
-import 'package:sunshine_iith/services/data_model.dart';
 import 'package:sunshine_iith/services/rtdb_database.dart';
 import 'package:sunshine_iith/services/session_data.dart';
 
@@ -68,17 +66,6 @@ class _AddBookedSessionState extends ConsumerState<AddBookedSession> {
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () {
-                      int index = 0;
-
-                      // if (_valueCounsellors ==
-                      //     Counsellors.counsellor2) {
-                      //   index = 1;
-                      // } else if (_valueCounsellors ==
-                      //     Counsellors.counsellor3) {
-                      //   // s = sirOrMadam.elementAt(0);
-                      //   index = 2;
-                      // }
-
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (ctx) => SelectSlot(
                                 counsellorsName: widget.counsellorsName,
@@ -166,11 +153,6 @@ class _AddBookedSessionState extends ConsumerState<AddBookedSession> {
                       : () async {
                           FocusScope.of(context).unfocus();
 
-                          // String userName =
-                          //     FirebaseAuth.instance.currentUser!.displayName!;
-                          // String email =
-                          //     FirebaseAuth.instance.currentUser!.email!;
-
                           SessionData data = SessionData(
                               // isSir: widget.counsellor.position == 'sir',
                               counsellorsEmail: '',
@@ -185,15 +167,13 @@ class _AddBookedSessionState extends ConsumerState<AddBookedSession> {
                                   textEditingController.text.toString().trim());
 
                           RealTimeDB().addSessionData(data);
-
-                          await Future.delayed(
-                              const Duration(milliseconds: 100));
-
                           Navigator.pop(context);
-                          
+
+                          ref.read(bookedSessionProvider.notifier).addData(data.date, data);
 
                           ref.read(selectedTimeProvider.notifier).state = null;
                           ref.read(selectedDateProvider.notifier).state = null;
+
                         },
                   child: const Padding(
                     padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
