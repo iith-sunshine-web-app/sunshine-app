@@ -16,7 +16,7 @@ enum Counsellors { counsellor1, counsellor2, counsellor3 }
 
 enum Mode { online, offline }
 
-enum Communication { whatsapp, mail }
+// enum Communication { whatsapp, mail }
 
 class _ProcessTimelineState extends ConsumerState<ProcessTimeline> {
   int currStep = 0;
@@ -48,7 +48,7 @@ class _ProcessTimelineState extends ConsumerState<ProcessTimeline> {
         name: 'D. Phani Bhushan',
         email: 'phani.bhushan@admin.iith.ac.in',
         phone: '8331036082',
-        position: 'no need',
+        position: 'sir',
         image: 'no need'),
   ];
 

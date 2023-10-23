@@ -38,9 +38,11 @@ class _LoadingSplashState extends ConsumerState<LoadingSplash> {
     'maria.morris@admin.iith.ac.in',
     'yukti.rastogi@admin.iith.ac.in',
     'phani.bhushan@admin.iith.ac.in',
-    'ms22btech11010@iith.ac.in',
-
+    // 'ms22btech11010@iith.ac.in',
+    'ug.sunshine@campus.iith.ac.in' 
   ];
+
+  
   List<String> controllerEmails = [
     'ms22btech1101@iith.ac.in',
     //add heads email
@@ -53,10 +55,6 @@ class _LoadingSplashState extends ConsumerState<LoadingSplash> {
         //redirtect to admin page
         ref.read(isAdminProvider.notifier).state = true;
         openAdminPage();
-      }else if(controllerEmails.contains(email)){
-        //redirect to controller page
-        ref.read(isControllerProvider.notifier).state = true;
-        openHomePage();
       }else{
         //redirect to user page
         openHomePage();

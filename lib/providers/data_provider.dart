@@ -21,8 +21,8 @@ final selectedTimeProvider = StateProvider<String?>((ref) => null);
 final selectedDateProvider = StateProvider<String?>((ref) => null);
 //isAdmin
 final isAdminProvider = StateProvider<bool>((ref) => false);
-final isControllerProvider = StateProvider<bool>((ref) => false);
-final adminAsUserProvider = StateProvider<bool>((ref) => false);
+// final isControllerProvider = StateProvider<bool>((ref) => false);
+// final adminAsUserProvider = StateProvider<bool>((ref) => false);
 
 
 class DataNotifier extends StateNotifier<Map<String, List>> {

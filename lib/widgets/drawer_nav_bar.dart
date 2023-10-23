@@ -38,9 +38,22 @@ class _NavBarState extends ConsumerState<NavBar> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: Colors.white,
+      // shape: CircleBorder(eccentricity: 3),
       child: SingleChildScrollView(
         child: Column(
-          children: [
+          children: [            // ListTile(
+            //   leading: const FaIcon(FontAwesomeIcons.calendarCheck),
+            //   title: const Text(
+            //     'Your Appointments',
+            //     textAlign: TextAlign.start,
+            //     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            //   ),
+            //   onTap: () {
+            //     Navigator.pop(context);
+            //     Navigator.push(context, MaterialPageRoute(builder: ((context) => AppointmentsScreen())));
+            //   },
+            // ),
             UserAccountsDrawerHeader(
               currentAccountPicture: CircleAvatar(
                 child: ClipOval(
@@ -67,18 +80,18 @@ class _NavBarState extends ConsumerState<NavBar> {
                 color: Color(0xfff2b545),
               ),
             ),
-            ListTile(
-              leading: const FaIcon(FontAwesomeIcons.calendarCheck),
-              title: const Text(
-                'Your Appointments',
-                textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(context, MaterialPageRoute(builder: ((context) => AppointmentsScreen())));
-              },
-            ),
+            // ListTile(
+            //   leading: const FaIcon(FontAwesomeIcons.calendarCheck),
+            //   title: const Text(
+            //     'Your Appointments',
+            //     textAlign: TextAlign.start,
+            //     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            //   ),
+            //   onTap: () {
+            //     Navigator.pop(context);
+            //     Navigator.push(context, MaterialPageRoute(builder: ((context) => AppointmentsScreen())));
+            //   },
+            // ),
             ListTile(
               leading: const FaIcon(FontAwesomeIcons.earthAmericas),
               title: const Text(
@@ -160,31 +173,7 @@ class _NavBarState extends ConsumerState<NavBar> {
                     );
                   }),
             ),
-            // isAdmin? Spacer() : SizedBox.shrink(),
-            if (ref.watch(isAdminProvider) || ref.watch(isControllerProvider))
-              ListTile(
-                leading: const FaIcon(Icons.notification_add_outlined),
-                title: const Text(
-                  'Send Event Notification',
-                  textAlign: TextAlign.start,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                  showModalBottomSheet(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(36.0),
-                        ),
-                      ),
-                      backgroundColor: Colors.white,
-                      context: context,
-                      isScrollControlled: true,
-                      builder: (ctx) {
-                        return const SendNotificationBottomsheet();
-                      });
-                },
-              ),
+
           ],
         ),
       ),

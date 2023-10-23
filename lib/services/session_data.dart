@@ -5,6 +5,9 @@ class SessionData {
   String date;
   String time;
   String counsellorsName;
+  String counsellorsEmail;
+  String counsellorsPhone;
+  bool isSir;
   String mode;
 
   SessionData({
@@ -14,7 +17,11 @@ class SessionData {
     required this.time,
     this.phone,
     required this.counsellorsName,
-    required this.mode
+    required this.mode,
+    this.isSir = false,
+    required this.counsellorsEmail,
+    required this.counsellorsPhone
+
   });
 
   Map<String, dynamic> toMap() {

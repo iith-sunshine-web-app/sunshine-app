@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
+import 'package:open_share_plus/open.dart';
 import 'package:sunshine_iith/providers/data_provider.dart';
 import 'package:sunshine_iith/services/data_model.dart';
-import 'package:sunshine_iith/services/rtdb_database.dart';
 import 'package:sunshine_iith/services/session_data.dart';
 
 class ConfirmSlot extends ConsumerStatefulWidget {
@@ -16,11 +16,14 @@ class ConfirmSlot extends ConsumerStatefulWidget {
   ConsumerState<ConfirmSlot> createState() => _ConfirmSlotState();
 }
 
+enum Communication { whatsapp, mail }
+
 class _ConfirmSlotState extends ConsumerState<ConfirmSlot> {
   TextEditingController textEditingController = TextEditingController();
 
   void slotBook(String? number) {}
   String uid = "";
+  Communication? _valueCommunication = Communication.whatsapp;
 
   @override
   void initState() {
@@ -116,7 +119,7 @@ class _ConfirmSlotState extends ConsumerState<ConfirmSlot> {
                     ),
                     const Spacer(),
                     Padding(
-                      padding: const EdgeInsets.only(right: 40),
+                      padding: const EdgeInsets.only(right: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -124,6 +127,8 @@ class _ConfirmSlotState extends ConsumerState<ConfirmSlot> {
                             padding: const EdgeInsets.all(8.5),
                             child: Text(
                               widget.counsellor.name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                   fontSize: 19,
                                   fontWeight: FontWeight.w500,
@@ -153,7 +158,7 @@ class _ConfirmSlotState extends ConsumerState<ConfirmSlot> {
                           Padding(
                             padding: const EdgeInsets.all(8.5),
                             child: Text(
-                              selectedTime ?? '' ,
+                              selectedTime ?? '',
                               style: const TextStyle(
                                   fontSize: 19,
                                   fontWeight: FontWeight.w500,
@@ -167,42 +172,62 @@ class _ConfirmSlotState extends ConsumerState<ConfirmSlot> {
                 ),
               ),
               const SizedBox(
-                height: 44,
+                height: 24,
               ),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 0),
-                child: TextField(
-                  controller: textEditingController,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  textInputAction: TextInputAction.done,
-                  decoration: InputDecoration(
-                    labelText: 'Enter Phone Number (Optional)',
-                    // labelText: 'Phone Number',
-                    prefixIcon: const Icon(
-                      Icons.phone,
-                      color: Colors.orange,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide:
-                          const BorderSide(color: Colors.orange, width: 1.5),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide:
-                          const BorderSide(color: Colors.orange, width: 1.5),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide:
-                          const BorderSide(color: Colors.orange, width: 1.5),
-                    ),
+              const Text('Select your prefered mode of communication',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: -0.2
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.fromLTRB(24, 0, 0, 0),
+                child: ListTile(
+                  title: const Text(
+                    'Whatsapp',
+                    style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: -0.2
+                ),
+                  ),
+                  leading: Radio(
+                    value: Communication.whatsapp,
+                    groupValue: _valueCommunication,
+                    onChanged: (value) => setState(() {
+                      _valueCommunication = value;
+                    }),
                   ),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(left: 24),
+                child: ListTile(
+                  title: const Text(
+                    'Mail',
+                    style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: -0.2
+                    )
+                  ),
+                  leading: Radio(
+                    value: Communication.mail,
+                    groupValue: _valueCommunication,
+                    onChanged: (value) => setState(() {
+                      _valueCommunication = value;
+                    }),
+                  ),
+                ),
+              ),
+
               const SizedBox(
-                height: 48,
+                height: 24,
               ),
               // Spacer(),
               SizedBox(
@@ -214,13 +239,16 @@ class _ConfirmSlotState extends ConsumerState<ConfirmSlot> {
                     elevation: 2,
                   ),
                   onPressed: () async {
-                    FocusScope.of(context).unfocus();
+                    // FocusScope.of(context).unfocus();
 
                     String userName =
                         FirebaseAuth.instance.currentUser!.displayName!;
                     String email = FirebaseAuth.instance.currentUser!.email!;
 
                     SessionData data = SessionData(
+                        isSir: widget.counsellor.position == 'sir',
+                        counsellorsEmail: widget.counsellor.email,
+                        counsellorsPhone: widget.counsellor.phone,
                         date: ref.read(selectedDateProvider)!,
                         email: email,
                         name: userName,
@@ -229,22 +257,14 @@ class _ConfirmSlotState extends ConsumerState<ConfirmSlot> {
                         mode: widget.mode,
                         phone: textEditingController.text.toString().trim());
 
-                    RealTimeDB().addSessionData(data, uid);
+                    bookSlot(data);
 
-                    await Future.delayed(const Duration(milliseconds: 500));
+                    await Future.delayed(const Duration(milliseconds: 100));
 
                     Navigator.pop(context);
                     Navigator.pop(context);
                     Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        backgroundColor: Colors.orange,
-                        content: Text(
-                          'Your session has been booked',
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    );
+
                     ref.read(selectedTimeProvider.notifier).state = null;
                     ref.read(selectedDateProvider.notifier).state = null;
                   },
@@ -269,4 +289,45 @@ class _ConfirmSlotState extends ConsumerState<ConfirmSlot> {
       ),
     );
   }
+
+  void bookSlot(SessionData data){
+    String what = 'madam';
+    if (data.isSir) {
+      what = 'sir';
+    } 
+
+    final weekday = getWeekdayName(data.date);
+
+    String massage =
+        'Hi $what, I am ${data.name}. I was wondering if I could meet you for an ${data.mode} session on $weekday, ${data.date} at ${data.time}. ';
+    
+    if(_valueCommunication == Communication.whatsapp){
+         Open.whatsApp(
+          whatsAppNumber: '91${data.counsellorsPhone}',
+          text: massage);
+    }else{
+      Open.mail(
+        toAddress: data.counsellorsEmail,
+        subject: 'Regarding Slot for a Session',
+        body: massage,
+      );
+    }
+  }
+
+  String getWeekdayName(String dateString) {
+  try {
+    final inputFormat = DateFormat('dd/MM/yyyy');
+
+    final date = inputFormat.parse(dateString);
+
+    final outputFormat = DateFormat('EEEE'); 
+
+    final weekdayName = outputFormat.format(date);
+
+    return weekdayName;
+  } catch (e) {
+    print("Error while converting date to weekdays : $e");
+    throw "Invalid Date";
+  }
+}
 }

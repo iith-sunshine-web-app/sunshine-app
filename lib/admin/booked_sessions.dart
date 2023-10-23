@@ -16,6 +16,7 @@ class _BookedSessionsScreenState extends State<BookedSessionsScreen> {
   Map<String, String> counsellorsName = {
     'maria.morris@admin.iith.ac.in': 'Maria Morris',
     'ms22btech11010@iith.ac.in': 'Maria Morris', //TODO: Delete this
+    'ug.sunshine@campus.iith.ac.in': 'Maria Morris',
     'yukti.rastogi@admin.iith.ac.in': 'Yukti Rastogi',
     'phani.bhushan@admin.iith.ac.in': 'Phani Bhushan',
   };
@@ -54,28 +55,28 @@ class _BookedSessionsScreenState extends State<BookedSessionsScreen> {
   Map<String, List<SessionData>> bookedSessionData = {};
 
   Future<void> getBookedSession(String date) async {
-    String? email = FirebaseAuth.instance.currentUser!.email;
-    List<SessionData> data = [];
-    if (email != null) {
-      Map<String, dynamic> result = await RealTimeDB()
-          .getCounsellorsSessionsData(counsellorsName[email]!, date);
-      if (result.isNotEmpty) {
-        result.forEach((key, value) {
-          SessionData sessionData = SessionData(
-              date: value['date'],
-              email: value['email'],
-              name: value['name'],
-              time: value['time'],
-              counsellorsName: value['counsellor'],
-              mode: value['mode'],
-              phone: value['phone']);
-          data.add(sessionData);
-        });
-      }
-    }
-    setState(() {
-      bookedSessionData[date] = data;
-    });
+    // String? email = FirebaseAuth.instance.currentUser!.email;
+    // List<SessionData> data = [];
+    // if (email != null) {
+    //   Map<String, dynamic> result = await RealTimeDB()
+    //       .getCounsellorsSessionsData(counsellorsName[email]!, date);
+    //   if (result.isNotEmpty) {
+    //     result.forEach((key, value) {
+    //       SessionData sessionData = SessionData(
+    //           date: value['date'],
+    //           email: value['email'],
+    //           name: value['name'],
+    //           time: value['time'],
+    //           counsellorsName: value['counsellor'],
+    //           mode: value['mode'],
+    //           phone: value['phone']);
+    //       data.add(sessionData);
+    //     });
+    //   }
+    // }
+    // setState(() {
+    //   bookedSessionData[date] = data;
+    // });
   }
 
   Future<void> getAllBookedSession() async {
@@ -101,6 +102,7 @@ class _BookedSessionsScreenState extends State<BookedSessionsScreen> {
   Widget build(BuildContext context) {
     print(bookedSessionData);
     return Scaffold(
+      // floatingActionButton:  floatingActionButton(),
       appBar: AppBar(
         backgroundColor: const Color(0xfff2b545),
         leading: const BackButton(color: Colors.black),
@@ -173,4 +175,17 @@ class _BookedSessionsScreenState extends State<BookedSessionsScreen> {
       ),
     );
   }
+  Widget floatingActionButton(){
+    return Container(
+      margin: const EdgeInsets.fromLTRB(0, 0, 12, 20),
+      child: FloatingActionButton(
+        backgroundColor: Colors.orange,
+        child: const Icon(Icons.add,),
+        onPressed: (){
+
+        }),
+    );
+  }
 }
+
+
