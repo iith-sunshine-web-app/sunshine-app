@@ -5,10 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:open_share_plus/open.dart';
-// import 'package:sunshine_iith/admin/send_notification_bottomsheet.dart';
-import 'package:sunshine_iith/pages/appointments.dart';
 import 'package:sunshine_iith/pages/login.dart';
-import 'package:sunshine_iith/providers/data_provider.dart';
 
 class NavBar extends ConsumerStatefulWidget {
   const NavBar({super.key});

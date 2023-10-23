@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sunshine_iith/services/data_model.dart';
 
 //mentors
 final ugMentorDataProvider = StateNotifierProvider<DataNotifier, Map<String, List>>((ref) => DataNotifier());

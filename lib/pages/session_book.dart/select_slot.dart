@@ -111,33 +111,35 @@ class _SelectSlotState extends ConsumerState<SelectSlot> {
 
 
 Future<void>  getBookedSlots(String date) async {
-    // Map<String, dynamic> result = await RealTimeDB()
-    //     .getCounsellorsSessionsData(widget.counsellorsName, date);
-    // List<SessionData> data = [];
-    // if (result.isNotEmpty) {
-    //   result.forEach((key, value) {
-    //     SessionData sessionData = SessionData(
-    //         date: value['date'],
-    //         email: value['email'],
-    //         name: value['name'],
-    //         time: value['time'],
-    //         counsellorsName: value['counsellor'],
-    //         mode: value['mode'],
-    //         phone: value['phone']);
-    //     data.add(sessionData);
-    //   });
-    // }
+    Map<String, dynamic> result = await RealTimeDB()
+        .getCounsellorsSessionsData(widget.counsellorsName, date);
+    List<SessionData> data = [];
+    if (result.isNotEmpty) {
+      result.forEach((key, value) {
+        SessionData sessionData = SessionData(
+            counsellorsEmail: '',
+            counsellorsPhone: '',
+            date: value['date'],
+            email: '',
+            name: '',
+            time: value['time'],
+            counsellorsName: value['counsellor'],
+            mode: '',
+            phone: value['phone']);
+        data.add(sessionData);
+      });
+    }
     
-    // List<DateTimeRange> dateTimeRangeList = [];
+    List<DateTimeRange> dateTimeRangeList = [];
 
-    // for (SessionData sessions in data) {
-    //   DateTime start = parseDateAndTime(sessions.date, sessions.time);
-    //   dateTimeRangeList.add(DateTimeRange(start: start, end: start.add(const Duration(hours: 1))));
-    // }
+    for (SessionData sessions in data) {
+      DateTime start = parseDateAndTime(sessions.date, sessions.time);
+      dateTimeRangeList.add(DateTimeRange(start: start, end: start.add(const Duration(hours: 1))));
+    }
 
-    // setState(() {
-    //   converted.addAll(dateTimeRangeList);
-    // });
+    setState(() {
+      converted.addAll(dateTimeRangeList);
+    });
   }
 
   // getAllBookedSlots()async{
