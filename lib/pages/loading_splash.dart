@@ -38,14 +38,10 @@ class _LoadingSplashState extends ConsumerState<LoadingSplash> {
     'maria.morris@admin.iith.ac.in',
     'yukti.rastogi@admin.iith.ac.in',
     'phani.bhushan@admin.iith.ac.in',
-    'ms22btech11010@iith.ac.in',
+    // 'ms22btech11010@iith.ac.in',
   ];
 
   
-  List<String> controllerEmails = [
-    'ms22btech1101@iith.ac.in',
-    //add heads email
-  ];
 
   void redirectUser() {
     if (FirebaseAuth.instance.currentUser != null) {

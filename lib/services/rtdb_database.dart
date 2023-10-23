@@ -34,6 +34,7 @@ class RealTimeDB {
       name = 'Phani Bhushan';
     }
     String convoDate = convertDateFormat(date);
+    print(name);
 
     try {
       DatabaseEvent event = await databaseReference
@@ -43,12 +44,15 @@ class RealTimeDB {
           .once();
 
       DataSnapshot dataSnapshot = event.snapshot;
+      // print();
 
       if (dataSnapshot.value != null) {
+        print(dataSnapshot.value);
         Map<String, dynamic> sessionsData =
             Map<String, dynamic>.from(dataSnapshot.value as Map);
         return sessionsData;
       } else {
+        // print('null');
         return {};
       }
     } catch (error) {

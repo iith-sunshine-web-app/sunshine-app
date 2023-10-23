@@ -259,7 +259,7 @@ class _ConfirmSlotState extends ConsumerState<ConfirmSlot> {
 
                     bookSlot(data);
 
-                    await Future.delayed(const Duration(milliseconds: 100));
+                    await Future.delayed(const Duration(milliseconds: 200));
 
                     Navigator.pop(context);
                     Navigator.pop(context);

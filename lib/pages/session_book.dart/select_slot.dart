@@ -129,6 +129,8 @@ Future<void>  getBookedSlots(String date) async {
         data.add(sessionData);
       });
     }
+
+    print(data);
     
     List<DateTimeRange> dateTimeRangeList = [];
 
@@ -190,6 +192,7 @@ Future<void>  getBookedSlots(String date) async {
 
   @override
   Widget build(BuildContext context) {
+    print('counsellors name ${widget.counsellorsName}');
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -224,7 +227,7 @@ Future<void>  getBookedSlots(String date) async {
               ),
             ),
 
-           isLoading? CircularProgressIndicator(color: Colors.orange,) :
+           isLoading? const CircularProgressIndicator(color: Colors.orange,) :
             Expanded(
               child: BookingCalendar(
                 bookingService: BookingService(

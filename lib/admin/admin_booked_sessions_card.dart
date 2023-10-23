@@ -55,10 +55,13 @@ class AdminBookSessionCard extends ConsumerWidget {
                     });
                 print('Delete button clicked');
               },
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              child: const Icon(Icons.delete_rounded,
-                  size: 24, color: Colors.orange)),
+              // splashColor: Colors.transparent,
+              // highlightColor: Colors.transparent,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: const Icon(Icons.delete_rounded,
+                    size: 24, color: Colors.orange),
+              )),
         ),
       ),
     );
