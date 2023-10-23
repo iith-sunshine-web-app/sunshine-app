@@ -55,11 +55,11 @@ class RealTimeDB {
     }
   }
 
-  void addSessionData(SessionData data, String uid) {
+  void addSessionData(SessionData data,) {
     final DatabaseReference databaseReference = FirebaseDatabase.instance.ref();
 
-    DatabaseReference sessionReference =
-        databaseReference.child('sessions').child(uid).push();
+    // DatabaseReference sessionReference =
+    //     databaseReference.child('sessions').child(uid).push();
 
     String date = convertDateFormat(data.date);
     String counsellor = data.counsellorsName;
@@ -74,11 +74,11 @@ class RealTimeDB {
 
     Map<String, dynamic> sessionDataMap = data.toMap();
 
-    sessionReference.set(sessionDataMap).then((_) {
-      print('Session data uploaded to sessions successfully');
-    }).catchError((error) {
-      print('Error uploading session data: $error');
-    });
+    // sessionReference.set(sessionDataMap).then((_) {
+    //   print('Session data uploaded to sessions successfully');
+    // }).catchError((error) {
+    //   print('Error uploading session data: $error');
+    // });
 
     counsellorReference.set(sessionDataMap).then((_) {
       print('Session data uploaded to counsellors reference successfully');

@@ -11,58 +11,42 @@ class AdminBookSessionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: (){
-        showModalBottomSheet(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(36.0),
+    return Container(
+      width: MediaQuery.of(context).size.width*0.8,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.orange,width: 1.8)
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(0.0),
+        child: ListTile(
+        title: Padding(
+          padding: const EdgeInsets.only(left: 10),
+          child: Text(
+            time,
+            style: const TextStyle(
+              color: Colors.orange,
+              fontSize: 20,
+              fontWeight: FontWeight.w400
             ),
           ),
-          backgroundColor: Colors.white,
-          isScrollControlled: true,
-          context: context, 
-          builder: (ctx){
-          return   BookedSessionBottomsheet(
-            name: sessionData.name,
-            email: sessionData.email,
-            date: sessionData.date,
-            time: sessionData.time,
-            contact: sessionData.phone!.trim(),
-          );
-        });
-      },
-      child: Container(
-        width: MediaQuery.of(context).size.width*0.8,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Colors.orange,width: 1.8)
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(0.0),
-          child: ListTile(
-          title: Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Text(
-              time,
-              style: const TextStyle(
-                color: Colors.orange,
-                fontSize: 20,
-                fontWeight: FontWeight.w400
-              ),
-            ),
-          ),
-          subtitle: Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Text('Mode: $mode',style: TextStyle(
-                color: Colors.orange.withOpacity(0.8),
-                fontSize: 16,
-                fontWeight: FontWeight.w300
-              ),),
-          ),
-          trailing: const Icon(Icons.chevron_right_rounded,size: 36, color: Colors.orange),
-            ),
+        subtitle: Padding(
+          padding: const EdgeInsets.only(left: 10),
+          child: Text('Message: $mode',style: TextStyle(
+              color: Colors.orange.withOpacity(0.8),
+              fontSize: 16,
+              fontWeight: FontWeight.w300
+            ),),
         ),
+        trailing: InkWell(
+          onTap:(){
+            //Show pop up and delete
+          },
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          child: const Icon(Icons.delete_rounded,size: 24, color: Colors.orange)),
+          ),
       ),
     );
   }

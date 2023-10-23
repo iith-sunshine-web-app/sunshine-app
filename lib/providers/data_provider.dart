@@ -24,6 +24,10 @@ final isAdminProvider = StateProvider<bool>((ref) => false);
 // final isControllerProvider = StateProvider<bool>((ref) => false);
 // final adminAsUserProvider = StateProvider<bool>((ref) => false);
 
+//booked sessions provider
+final bookedSessionProvider = StateNotifierProvider<DataNotifier, Map<String, List>>((ref) => DataNotifier());
+
+
 
 class DataNotifier extends StateNotifier<Map<String, List>> {
   DataNotifier() : super({});

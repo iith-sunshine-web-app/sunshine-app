@@ -239,7 +239,7 @@ class _ConfirmSlotState extends ConsumerState<ConfirmSlot> {
                     elevation: 2,
                   ),
                   onPressed: () async {
-                    // FocusScope.of(context).unfocus();
+                    FocusScope.of(context).unfocus();
 
                     String userName =
                         FirebaseAuth.instance.currentUser!.displayName!;

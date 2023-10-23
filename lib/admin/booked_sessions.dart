@@ -1,25 +1,67 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:sunshine_iith/admin/add_booked_sessions_bottomsheet.dart';
 import 'package:sunshine_iith/admin/admin_booked_sessions_card.dart';
+import 'package:sunshine_iith/providers/data_provider.dart';
+import 'package:sunshine_iith/services/data_model.dart';
 import 'package:sunshine_iith/services/rtdb_database.dart';
 import 'package:sunshine_iith/services/session_data.dart';
 
-class BookedSessionsScreen extends StatefulWidget {
+class BookedSessionsScreen extends ConsumerStatefulWidget {
   const BookedSessionsScreen({super.key});
 
   @override
-  State<BookedSessionsScreen> createState() => _BookedSessionsScreenState();
+  ConsumerState<BookedSessionsScreen> createState() =>
+      _BookedSessionsScreenState();
 }
 
-class _BookedSessionsScreenState extends State<BookedSessionsScreen> {
+class _BookedSessionsScreenState extends ConsumerState<BookedSessionsScreen> {
   Map<String, String> counsellorsName = {
     'maria.morris@admin.iith.ac.in': 'Maria Morris',
     'ms22btech11010@iith.ac.in': 'Maria Morris', //TODO: Delete this
-    'ug.sunshine@campus.iith.ac.in': 'Maria Morris',
     'yukti.rastogi@admin.iith.ac.in': 'Yukti Rastogi',
     'phani.bhushan@admin.iith.ac.in': 'Phani Bhushan',
   };
+
+  Map<String, DataModel> counsellorsData = {
+    'maria.morris@admin.iith.ac.in': DataModel(
+        name: 'Maria Morris',
+        email: 'maria.morris@admin.iith.ac.in',
+        phone: '8331036081',
+        position: 'no need',
+        image: 'no need'),
+    'yukti.rastogi@admin.iith.ac.in': DataModel(
+        name: 'Yukti Rastogi',
+        email: 'yukti.rastogi@admin.iith.ac.in',
+        phone: '8331036080',
+        position: 'no need',
+        image: 'no need'),
+    'phani.bhushan@admin.iith.ac.in': DataModel(
+        name: 'D. Phani Bhushan',
+        email: 'phani.bhushan@admin.iith.ac.in',
+        phone: '8331036082',
+        position: 'sir',
+        image: 'no need'),
+  };
+
+  late DataModel currentCounsellorsData;
+  String currentCounsellorName = ''; //for passing to bottom sheet
+
+  updateCurrentCounsellorsData() {
+    String? email = FirebaseAuth.instance.currentUser!.email;
+    DataModel data = counsellorsData[email] ??
+        DataModel(
+            name: 'null',
+            email: 'null',
+            phone: 'null',
+            position: 'no need',
+            image: 'no need');
+    setState(() {
+      currentCounsellorsData = data;
+    });
+  }
 
   // final sessions = List.generate(15, (index) => '09:00 AM');
   String whichDate = '';
@@ -47,33 +89,39 @@ class _BookedSessionsScreenState extends State<BookedSessionsScreen> {
     setState(() {
       listOfDates.addAll(dates());
     });
+    updateCurrentCounsellorsData();
     getAllBookedSession();
     super.initState();
   }
 
   bool isLoading = true;
-  Map<String, List<SessionData>> bookedSessionData = {};
 
   Future<void> getBookedSession(String date) async {
-    // String? email = FirebaseAuth.instance.currentUser!.email;
-    // List<SessionData> data = [];
-    // if (email != null) {
-    //   Map<String, dynamic> result = await RealTimeDB()
-    //       .getCounsellorsSessionsData(counsellorsName[email]!, date);
-    //   if (result.isNotEmpty) {
-    //     result.forEach((key, value) {
-    //       SessionData sessionData = SessionData(
-    //           date: value['date'],
-    //           email: value['email'],
-    //           name: value['name'],
-    //           time: value['time'],
-    //           counsellorsName: value['counsellor'],
-    //           mode: value['mode'],
-    //           phone: value['phone']);
-    //       data.add(sessionData);
-    //     });
-    //   }
-    // }
+    String? email = FirebaseAuth.instance.currentUser!.email;
+    List<SessionData> data = [];
+    if (ref.read(bookedSessionProvider)[date] == null && email != null) {
+      setState(() {
+        currentCounsellorName = counsellorsName[email]!;
+      });
+      Map<String, dynamic> result = await RealTimeDB()
+          .getCounsellorsSessionsData(currentCounsellorName, date);
+      if (result.isNotEmpty) {
+        result.forEach((key, value) {
+          SessionData sessionData = SessionData(
+              counsellorsEmail: '',
+              counsellorsPhone: '',
+              date: value['date'],
+              email: value['email'],
+              name: value['name'],
+              time: value['time'],
+              counsellorsName: value['counsellor'],
+              mode: value['mode'],
+              phone: value['phone']);
+          data.add(sessionData);
+        });
+      }
+      ref.read(bookedSessionProvider.notifier).addAllData(date, data);
+    }
     // setState(() {
     //   bookedSessionData[date] = data;
     // });
@@ -100,9 +148,12 @@ class _BookedSessionsScreenState extends State<BookedSessionsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Map<String, List> bookedSessionData = ref.watch(bookedSessionProvider);
+
     print(bookedSessionData);
     return Scaffold(
-      // floatingActionButton:  floatingActionButton(),
+      floatingActionButton:
+          isLoading ? const SizedBox.shrink() : floatingActionButton(),
       appBar: AppBar(
         backgroundColor: const Color(0xfff2b545),
         leading: const BackButton(color: Colors.black),
@@ -147,45 +198,66 @@ class _BookedSessionsScreenState extends State<BookedSessionsScreen> {
               focusColor: Colors.white,
             ),
           ),
-          isLoading? const Center(child: CircularProgressIndicator(color: Colors.orange,)):
-          bookedSessionData[whichDate]!=null && bookedSessionData[whichDate]!.isEmpty ? 
-            const Center(
-          child: Text(
-            'No sessions!',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w300
-            ),
-          ),
-        ):
-          Expanded(
-            child: ListView.builder(
-              itemCount:  bookedSessionData[whichDate]?.length ?? 0,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.fromLTRB(12, 5, 12, 5),
-                  child: AdminBookSessionCard(
-                    sessionData: bookedSessionData[whichDate]![index] ,
-                      time: bookedSessionData[whichDate]![index].time, mode: bookedSessionData[whichDate]![index].mode ),
-                );
-              },
-            ),
-          ),
+          isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(
+                  color: Colors.orange,
+                ))
+              : bookedSessionData[whichDate] != null &&
+                      bookedSessionData[whichDate]!.isEmpty
+                  ? const Center(
+                      child: Text(
+                        'No sessions Today!',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w300),
+                      ),
+                    )
+                  : Expanded(
+                      child: ListView.builder(
+                        itemCount: bookedSessionData[whichDate]?.length ?? 0,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.fromLTRB(12, 5, 12, 5),
+                            child: AdminBookSessionCard(
+                                sessionData:
+                                    bookedSessionData[whichDate]![index],
+                                time: bookedSessionData[whichDate]![index].time,
+                                mode:
+                                    bookedSessionData[whichDate]![index].phone),
+                          );
+                        },
+                      ),
+                    ),
         ],
       ),
     );
   }
-  Widget floatingActionButton(){
+
+  Widget floatingActionButton() {
     return Container(
       margin: const EdgeInsets.fromLTRB(0, 0, 12, 20),
       child: FloatingActionButton(
-        backgroundColor: Colors.orange,
-        child: const Icon(Icons.add,),
-        onPressed: (){
-
-        }),
+          backgroundColor: Colors.orange,
+          child: const Icon(
+            Icons.add,
+          ),
+          onPressed: () {
+            showModalBottomSheet(
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(36.0),
+                  ),
+                ),
+                backgroundColor: Colors.white,
+                isScrollControlled: true,
+                context: context,
+                builder: (ctx) {
+                  return AddBookedSession(
+                    counsellorsName: currentCounsellorName,
+                  );
+                });
+          }),
     );
   }
 }
-
-

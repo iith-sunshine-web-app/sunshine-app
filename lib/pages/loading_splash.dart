@@ -38,8 +38,7 @@ class _LoadingSplashState extends ConsumerState<LoadingSplash> {
     'maria.morris@admin.iith.ac.in',
     'yukti.rastogi@admin.iith.ac.in',
     'phani.bhushan@admin.iith.ac.in',
-    // 'ms22btech11010@iith.ac.in',
-    'ug.sunshine@campus.iith.ac.in' 
+    'ms22btech11010@iith.ac.in',
   ];
 
   
