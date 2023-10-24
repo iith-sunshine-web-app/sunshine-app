@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sunshine_iith/admin/booked_sessions.dart';
-import 'package:sunshine_iith/pages/chat_bot.dart';
+import 'package:sunshine_iith/chatbot/chatbot_intro.dart';
 import 'package:sunshine_iith/pages/sunshine_teams.dart';
 
 import '../widgets/drawer_nav_bar.dart';

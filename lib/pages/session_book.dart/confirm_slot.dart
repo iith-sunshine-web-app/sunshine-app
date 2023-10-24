@@ -254,7 +254,7 @@ class _ConfirmSlotState extends ConsumerState<ConfirmSlot> {
                         name: userName,
                         time: ref.read(selectedTimeProvider)!,
                         counsellorsName: widget.counsellor.name,
-                        mode: widget.mode,
+                        mode: widget.mode.toLowerCase(),
                         phone: textEditingController.text.toString().trim());
 
                     bookSlot(data);
@@ -271,7 +271,7 @@ class _ConfirmSlotState extends ConsumerState<ConfirmSlot> {
                   child: const Padding(
                     padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
                     child: Text(
-                      'Book',
+                      'BOOK',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 14.5,

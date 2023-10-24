@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sunshine_iith/pages/chat_bot.dart';
+import 'package:sunshine_iith/chatbot/chatbot.dart';
+import 'package:sunshine_iith/chatbot/chatbot_intro.dart';
 import 'package:sunshine_iith/pages/session_book.dart/session_book_intro.dart';
 import 'package:sunshine_iith/pages/sunshine_teams.dart';
 
@@ -62,7 +63,7 @@ class HomeScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
 
-          const SizedBox(height: 70.0),
+          const SizedBox(height: 00.0),
 
           Image.asset(
             'assets/images/sunshine_7.jpg',
@@ -70,7 +71,7 @@ class HomeScreen extends StatelessWidget {
           ),
           
 
-          const SizedBox(height: 35.0),
+          const SizedBox(height: 25.0),
 
           const Padding(
             padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
@@ -187,9 +188,9 @@ class HomeScreen extends StatelessWidget {
                 height: 159,
                 child: ElevatedButton(
                   onPressed:(){
+                    ChatBotService().chatbot("What is lambda?");
                     Navigator.push(context, MaterialPageRoute(builder: (context)=>const ChatBot()));
                     // Navigator.push(context, MaterialPageRoute(builder: (context)=>const AddData()));
-
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor:const Color.fromARGB(255, 255, 246, 236),
