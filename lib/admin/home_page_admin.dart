@@ -145,7 +145,7 @@ class HomeScreen extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed:(){
                     // Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SessionBookIntro()));
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  BookedSessionsScreen()));
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  const BookedSessionsScreen()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor:const Color.fromARGB(255, 229, 255, 228),

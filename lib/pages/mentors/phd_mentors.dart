@@ -64,14 +64,6 @@ class _PhDMentorsState extends ConsumerState<PhDMentors> {
   @override
   Widget build(BuildContext context) {
     final dataMap = ref.watch(phdMentorDataProvider);
-    // List setData = [];
-
-    // for (var posItem in pos) {
-    //   if (dataMap[posItem] != null && dataMap[posItem]!.isNotEmpty) {
-    //     setData.addAll(dataMap[posItem]!);
-    //   }
-    // }
-    // print(setData.length);
     return Scaffold(
       body: Column(
         children: [

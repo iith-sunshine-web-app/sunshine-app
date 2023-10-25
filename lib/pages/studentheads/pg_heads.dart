@@ -111,7 +111,13 @@ class _PgHeadsState extends ConsumerState<PgHeads> {
                   ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: pgMgmtData.length,
+            // List setData =[];
+
+    // for (var posItem in posArr) {
+    //   if (dataMap[posItem] != null && dataMap[posItem]!.isNotEmpty) {
+    //     setData.addAll(dataMap[posItem]!);
+    //   }
+    // }              itemCount: pgMgmtData.length,
                       // query: DataFetch.dataFromRTDB(posArr.elementAt(0)),
                       itemBuilder: (context, index) {
                         return Padding(

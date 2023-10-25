@@ -38,15 +38,6 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.white,
         
         ),
-      // home: AddData(),
-
-      // home: DataShowingWidget(name: 'Bhaskar Mandal', phone: '9647598624', position: 'App-Web Dev Team',email: 'ms22btech11010@iith.ac.in',imageLink: 'https://media.licdn.com/dms/image/D4D03AQH5hluDGyJmRg/profile-displayphoto-shrink_800_800/0/1689757969646?e=2147483647&v=beta&t=fRwpAbHJ-7meh6Fmi1UzaT-sbnJMxyhOZxdnLV4LyzY' ,),
-      // routes: {
-      //   '/login' : (context) => LoginPage(),
-      //   '/home' : (context) => const HomePage(),
-      //   '/' :(context) => TeamPage(),
-      // },
-      // initialRoute: '/',
     );
   }
 }

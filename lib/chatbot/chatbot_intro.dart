@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +12,6 @@ class ChatBot extends StatefulWidget {
 }
 
 class _ChatBotState extends State<ChatBot> {
-  // int _timerCount =5;
-  // Timer? timer;
 
   @override
   void initState() {
@@ -22,15 +19,9 @@ class _ChatBotState extends State<ChatBot> {
       photoURL = FirebaseAuth.instance.currentUser!.photoURL;
     });
 
-    // startTimer();
     super.initState();
   }
 
-  @override
-  void dispose() {
-    // timer?.cancel();
-    super.dispose();
-  }
 
   String? photoURL = '';
 

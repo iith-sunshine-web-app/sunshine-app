@@ -66,13 +66,6 @@ class _MGMTTeamState extends ConsumerState<MGMTTeam> {
   Widget build(BuildContext context) {
 
     final setData = ref.watch(managementDataDataProvider);
-    // List setData =[];
-
-    // for (var posItem in posArr) {
-    //   if (dataMap[posItem] != null && dataMap[posItem]!.isNotEmpty) {
-    //     setData.addAll(dataMap[posItem]!);
-    //   }
-    // }
 
     return Scaffold(
       body: SingleChildScrollView(

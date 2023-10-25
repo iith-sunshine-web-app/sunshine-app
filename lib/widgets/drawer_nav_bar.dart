@@ -40,21 +40,10 @@ class _NavBarState extends ConsumerState<NavBar> {
       child: SingleChildScrollView(
         child: Column(
           children: [            // ListTile(
-            //   leading: const FaIcon(FontAwesomeIcons.calendarCheck),
-            //   title: const Text(
-            //     'Your Appointments',
-            //     textAlign: TextAlign.start,
-            //     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-            //   ),
-            //   onTap: () {
-            //     Navigator.pop(context);
-            //     Navigator.push(context, MaterialPageRoute(builder: ((context) => AppointmentsScreen())));
-            //   },
-            // ),
+
             UserAccountsDrawerHeader(
               currentAccountPicture: CircleAvatar(
                 child: ClipOval(
-                  // child: Image.network('https://media.licdn.com/dms/image/D4D03AQH5hluDGyJmRg/profile-displayphoto-shrink_800_800/0/1689757969646?e=2147483647&v=beta&t=fRwpAbHJ-7meh6Fmi1UzaT-sbnJMxyhOZxdnLV4LyzY'),
                   child: Image.network(image),
                 ),
               ),
@@ -77,18 +66,6 @@ class _NavBarState extends ConsumerState<NavBar> {
                 color: Color(0xfff2b545),
               ),
             ),
-            // ListTile(
-            //   leading: const FaIcon(FontAwesomeIcons.calendarCheck),
-            //   title: const Text(
-            //     'Your Appointments',
-            //     textAlign: TextAlign.start,
-            //     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-            //   ),
-            //   onTap: () {
-            //     Navigator.pop(context);
-            //     Navigator.push(context, MaterialPageRoute(builder: ((context) => AppointmentsScreen())));
-            //   },
-            // ),
             ListTile(
               leading: const FaIcon(FontAwesomeIcons.earthAmericas),
               title: const Text(
@@ -162,7 +139,6 @@ class _NavBarState extends ConsumerState<NavBar> {
                                       builder: (_) => const LoginPage()));
                             });
 
-                            // Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> const LoginPage()));
                           },
                           child: const Text('Yes'),
                         ),

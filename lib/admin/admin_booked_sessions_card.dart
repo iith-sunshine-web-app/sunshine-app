@@ -16,7 +16,7 @@ class AdminBookSessionCard extends ConsumerWidget {
       required this.sessionData});
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.8,
       decoration: BoxDecoration(
@@ -51,23 +51,21 @@ class AdminBookSessionCard extends ConsumerWidget {
                 showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return showPopUp(context, sessionData,ref);
+                      return showPopUp(context, sessionData, ref);
                     });
                 print('Delete button clicked');
               },
-              // splashColor: Colors.transparent,
-              // highlightColor: Colors.transparent,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: const Icon(Icons.delete_rounded,
-                    size: 24, color: Colors.orange),
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child:
+                    Icon(Icons.delete_rounded, size: 24, color: Colors.orange),
               )),
         ),
       ),
     );
   }
 
-  Widget showPopUp(BuildContext context, SessionData data,WidgetRef ref) {
+  Widget showPopUp(BuildContext context, SessionData data, WidgetRef ref) {
     return AlertDialog(
       content: const Text('Are you sure you want to delete this session?'),
       actions: [
@@ -76,10 +74,12 @@ class AdminBookSessionCard extends ConsumerWidget {
           child: const Text('Cancle'),
         ),
         TextButton(
-          onPressed: ()  {
+          onPressed: () {
             RealTimeDB().deleteSessionData(data);
-            ref.read(bookedSessionProvider.notifier).deleteData(data.date, data);
-            Navigator.pop(context,'Delete');
+            ref
+                .read(bookedSessionProvider.notifier)
+                .deleteData(data.date, data);
+            Navigator.pop(context, 'Delete');
           },
           child: const Text('Delete'),
         ),

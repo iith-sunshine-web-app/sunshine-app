@@ -20,7 +20,7 @@ class BookedSessionsScreen extends ConsumerStatefulWidget {
 class _BookedSessionsScreenState extends ConsumerState<BookedSessionsScreen> {
   Map<String, String> counsellorsName = {
     'maria.morris@admin.iith.ac.in': 'Maria Morris',
-    'ms22btech11010@iith.ac.in': 'Maria Morris', //TODO: Delete this
+    // 'ms22btech11010@iith.ac.in': 'Maria Morris',
     'yukti.rastogi@admin.iith.ac.in': 'Yukti Rastogi',
     'phani.bhushan@admin.iith.ac.in': 'Phani Bhushan',
   };

@@ -20,7 +20,6 @@ class ExpansionTileWidget extends StatelessWidget {
       title: Padding(
         padding: const EdgeInsets.fromLTRB(10, 12, 10, 12),
         child: Row(
-          // crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             CircleAvatar(
@@ -53,13 +52,6 @@ class ExpansionTileWidget extends StatelessWidget {
             imageLink: data[index]['image'],
           );
         })
-        //  DataShowingWidget(
-        //     name: data[0]['name'],
-        //     email: data[0]['email'],
-        //     phone: data[0]['phone'],
-        //     position: data[0]['position'],
-        //     imageLink: data[0]['image'],
-        //   )
       ],
     );
   }

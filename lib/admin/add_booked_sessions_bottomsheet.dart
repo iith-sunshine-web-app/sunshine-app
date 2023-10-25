@@ -6,7 +6,6 @@ import 'package:sunshine_iith/services/rtdb_database.dart';
 import 'package:sunshine_iith/services/session_data.dart';
 
 class AddBookedSession extends ConsumerStatefulWidget {
-  // final DataModel currentCounsellorsData;
   final String counsellorsName;
   const AddBookedSession({super.key, required this.counsellorsName});
 
@@ -20,7 +19,6 @@ class _AddBookedSessionState extends ConsumerState<AddBookedSession> {
   @override
   Widget build(BuildContext context) {
     if (ref.watch(selectedTimeProvider) != null) {
-      // selectedTime = ref.watch(selectedTimeProvider)!;
       selectedTime =
           'Date: ${ref.watch(selectedDateProvider)!}\nTime: ${ref.watch(selectedTimeProvider)!}';
     }
@@ -154,7 +152,6 @@ class _AddBookedSessionState extends ConsumerState<AddBookedSession> {
                           FocusScope.of(context).unfocus();
 
                           SessionData data = SessionData(
-                              // isSir: widget.counsellor.position == 'sir',
                               counsellorsEmail: '',
                               counsellorsPhone: '',
                               date: ref.read(selectedDateProvider)!,
