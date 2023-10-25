@@ -103,34 +103,44 @@ class _ChatRoomState extends ConsumerState<ChatRoom> {
                   radius: 14,
                 )
               : Container(),
-          Container(
-            constraints: BoxConstraints(
-              maxWidth: width,
-            ),
-            child: Flexible(
-              child: Container(
-                  margin: const EdgeInsets.fromLTRB(10, 20, 10, 0),
-                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                  decoration: BoxDecoration(
-                      color: who == "1"
-                          ? const Color(0xff397c31).withOpacity(0.7)
-                          : const Color(0xff474d66).withOpacity(0.7),
-                      borderRadius: who == "0"
-                          ? const BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                              bottomRight: Radius.circular(20))
-                          : const BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                              bottomLeft: Radius.circular(20))),
-                  child: SelectableText(
-                    text,
-                    style: GoogleFonts.inter(
-                        color: Colors.white, fontSize: 16, letterSpacing: -0.2),
-                  )),
-            ),
+          Flex(
+  direction: Axis.horizontal, // or Axis.vertical, depending on your layout
+  children: [
+    Container(
+      constraints: BoxConstraints(
+        maxWidth: width,
+      ),
+      child: Container(
+        margin: const EdgeInsets.fromLTRB(10, 20, 10, 0),
+        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+        decoration: BoxDecoration(
+          color: who == "1"
+              ? const Color(0xff397c31).withOpacity(0.7)
+              : const Color(0xff474d66).withOpacity(0.7),
+          borderRadius: who == "0"
+              ? const BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                  bottomRight: Radius.circular(20))
+              : const BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                  bottomLeft: Radius.circular(20),
+                ),
+        ),
+        child: SelectableText(
+          text,
+          style: GoogleFonts.inter(
+            color: Colors.white,
+            fontSize: 16,
+            letterSpacing: -0.2,
           ),
+        ),
+      ),
+    ),
+    // Other widgets
+  ],
+),
           who == "1"
               ? CircleAvatar(
                   backgroundImage: NetworkImage(photoURL),
