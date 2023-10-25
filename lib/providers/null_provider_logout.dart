@@ -6,5 +6,6 @@ class NullProviderAfterLogout {
     ref.read(selectedTimeProvider.notifier).state = null;
     ref.read(selectedDateProvider.notifier).state = null;
     ref.read(isAdminProvider.notifier).state = false;
+    ref.read(sessionIdProvider.notifier).state = null;
   }
 }

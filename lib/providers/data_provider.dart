@@ -25,6 +25,8 @@ final isAdminProvider = StateProvider<bool>((ref) => false);
 
 //booked sessions provider
 final bookedSessionProvider = StateNotifierProvider<DataNotifier, Map<String, List>>((ref) => DataNotifier());
+//sessionId
+final sessionIdProvider = StateProvider<String?>((ref) => null);
 
 
 

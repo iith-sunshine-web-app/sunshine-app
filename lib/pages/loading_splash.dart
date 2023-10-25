@@ -8,6 +8,7 @@ import 'package:sunshine_iith/admin/home_page_admin.dart';
 import 'package:sunshine_iith/pages/home.dart';
 import 'package:sunshine_iith/pages/login.dart';
 import 'package:sunshine_iith/providers/data_provider.dart';
+import 'package:uuid/uuid.dart';
 
 class LoadingSplash extends ConsumerStatefulWidget {
   const LoadingSplash({super.key});
@@ -28,10 +29,20 @@ class _LoadingSplashState extends ConsumerState<LoadingSplash> {
     },
   );
 
+  void generateSessionId() {
+    final uuid = Uuid();
+    String id = uuid.v1();
+    print(id);
+    Future.delayed(Duration.zero, () {
+    ref.read(sessionIdProvider.notifier).state = id;
+  });
+  }
+
   @override
   void initState() {
     super.initState();
     loggedIn();
+    generateSessionId();
   }
 
   List<String> adminEmails = [
@@ -41,16 +52,14 @@ class _LoadingSplashState extends ConsumerState<LoadingSplash> {
     // 'ms22btech11010@iith.ac.in',
   ];
 
-  
-
   void redirectUser() {
     if (FirebaseAuth.instance.currentUser != null) {
       String email = FirebaseAuth.instance.currentUser!.email!;
-      if(adminEmails.contains(email)){
+      if (adminEmails.contains(email)) {
         //redirtect to admin page
         ref.read(isAdminProvider.notifier).state = true;
         openAdminPage();
-      }else{
+      } else {
         //redirect to user page
         openHomePage();
       }
@@ -83,10 +92,11 @@ class _LoadingSplashState extends ConsumerState<LoadingSplash> {
           .pushReplacement(MaterialPageRoute(builder: (_) => const HomePage()));
     });
   }
+
   openAdminPage() {
     Future.delayed(const Duration(milliseconds: 900), () {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (_) => const AdminHomePage()));
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const AdminHomePage()));
     });
   }
 

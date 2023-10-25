@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:sunshine_iith/chatbot/chatbot.dart';
 import 'package:sunshine_iith/chatbot/chatbot_intro.dart';
 import 'package:sunshine_iith/pages/session_book.dart/session_book_intro.dart';
@@ -6,9 +7,44 @@ import 'package:sunshine_iith/pages/sunshine_teams.dart';
 
 import '../widgets/drawer_nav_bar.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+  checkNewUpdates() async {
+    await Future.delayed(const Duration(seconds: 25));
+
+    try {
+      var updateInfo = await InAppUpdate.checkForUpdate();
+      if (updateInfo.updateAvailability == UpdateAvailability.updateAvailable) {
+        if (updateInfo.immediateUpdateAllowed) {
+          InAppUpdate.performImmediateUpdate().then((appUpdateResult) {
+            if (appUpdateResult == AppUpdateResult.success) {
+            }
+          });
+        } else if (updateInfo.flexibleUpdateAllowed) {
+          InAppUpdate.startFlexibleUpdate().then((appUpdateResult) {
+            if (appUpdateResult == AppUpdateResult.success) {
+              InAppUpdate.completeFlexibleUpdate();
+            }
+          });
+        }
+      }
+    } catch (e) {
+      print("Error in checking for update: $e");
+    }
+  }
+
+  @override
+  void initState() {
+    checkNewUpdates();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -188,7 +224,7 @@ class HomeScreen extends StatelessWidget {
                 height: 159,
                 child: ElevatedButton(
                   onPressed:(){
-                    ChatBotService().chatbot("What is lambda?");
+                    // ChatBotService().chatbot("What is lambda?");
                     Navigator.push(context, MaterialPageRoute(builder: (context)=>const ChatBot()));
                     // Navigator.push(context, MaterialPageRoute(builder: (context)=>const AddData()));
                   },
