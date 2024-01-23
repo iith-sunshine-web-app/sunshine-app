@@ -33,17 +33,17 @@ class _PgHeadsState extends ConsumerState<PgHeads> {
   }
 
   Future<List> getMgmtData() async {
-    List data = await FirestoreData.getData(posArr.elementAt(0),'team-data');
+    List data = await FirestoreData.getData(posArr.elementAt(0), 'team-data');
     return data;
   }
 
   Future<List> getMentorData() async {
-    List data = await FirestoreData.getData(posArr.elementAt(1),'team-data');
+    List data = await FirestoreData.getData(posArr.elementAt(1), 'team-data');
     return data;
   }
 
   Future<List> getBuddyData() async {
-    List data = await FirestoreData.getData(posArr.elementAt(2),'team-data');
+    List data = await FirestoreData.getData(posArr.elementAt(2), 'team-data');
     return data;
   }
 
@@ -111,14 +111,7 @@ class _PgHeadsState extends ConsumerState<PgHeads> {
                   ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-            // List setData =[];
-
-    // for (var posItem in posArr) {
-    //   if (dataMap[posItem] != null && dataMap[posItem]!.isNotEmpty) {
-    //     setData.addAll(dataMap[posItem]!);
-    //   }
-    // }              itemCount: pgMgmtData.length,
-                      // query: DataFetch.dataFromRTDB(posArr.elementAt(0)),
+                      itemCount: pgMgmtData.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),

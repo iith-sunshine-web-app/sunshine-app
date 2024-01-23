@@ -8,12 +8,80 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:104215692812:android:c58e84e19fb60d331b9029",
+        "android_client_info": {
+          "package_name": "app.iith.sunshine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "104215692812-0r6a5dl8reojl3gvm4mjg57oo7oklo9v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.iith.sunshine",
+            "certificate_hash": "2bf623b88679a46f59de4ed7af3714d700c9a4d7"
+          }
+        },
+        {
+          "client_id": "104215692812-b7bu1vmrlfgrb1trih8nft7ck4f9p3gp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.iith.sunshine",
+            "certificate_hash": "5eb20e5071a1cfe13e441511456b336dc0df23ce"
+          }
+        },
+        {
+          "client_id": "104215692812-lhqlghogir5p0emvmvcdbbsdsclrsjdm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.iith.sunshine",
+            "certificate_hash": "fb94e1c5da554311a4225ddf40031db57593fc04"
+          }
+        },
+        {
+          "client_id": "104215692812-fakd23or4uum94gjuk0qb9m0f35mpkdp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBOdTBbbdyg1y9kgYv7yZjmsa6tTF6wn0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "104215692812-fakd23or4uum94gjuk0qb9m0f35mpkdp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "104215692812-uqqfaokqk5cqdppac2ngt9vhm8hp404l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.iith.sunshineIith"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:104215692812:android:f01e38eba996ec891b9029",
         "android_client_info": {
           "package_name": "com.iith.sunshine_iith"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "104215692812-30jr07qg8u5utsftdtg04tud4a4psj1d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.iith.sunshine_iith",
+            "certificate_hash": "5eb20e5071a1cfe13e441511456b336dc0df23ce"
+          }
+        },
         {
           "client_id": "104215692812-3mlkg4lkh1hgqvii3d6r8751re0lcnc8.apps.googleusercontent.com",
           "client_type": 1,

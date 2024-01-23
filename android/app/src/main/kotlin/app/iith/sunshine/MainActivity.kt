@@ -1,4 +1,4 @@
-package com.iith.sunshine_iith
+package app.iith.sunshine
 
 import io.flutter.embedding.android.FlutterActivity
 
