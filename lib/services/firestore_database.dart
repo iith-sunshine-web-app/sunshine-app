@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:sunshine_iith/services/session_data.dart';
 
 class FirestoreData {
@@ -47,9 +48,8 @@ class FirestoreData {
       // Set the updated data back to the document
       await documentRef.set(currentData);
 
-      print('$data added successfully at $nextIndex');
     } catch (e) {
-      print('Error adding data: $e');
+      debugPrint('Error adding data: $e');
     }
   }
 }

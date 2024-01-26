@@ -53,7 +53,6 @@ class AdminBookSessionCard extends ConsumerWidget {
                     builder: (BuildContext context) {
                       return showPopUp(context, sessionData, ref);
                     });
-                print('Delete button clicked');
               },
               child: const Padding(
                 padding: EdgeInsets.all(8.0),

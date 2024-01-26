@@ -29,7 +29,6 @@ class _MGMTTeamState extends ConsumerState<MGMTTeam> {
 
   getData() async {
   Map<String, List> dataMap = {};
-    print(DateTime.now());
     List<Future<List>> futures = [];
     for (var posItem in posArr) {
       futures.add(FirestoreData.getSpecificData('management-team',posItem));
@@ -37,9 +36,7 @@ class _MGMTTeamState extends ConsumerState<MGMTTeam> {
     List results = await Future.wait(futures);
     for (int i = 0; i < results.length; i++) {
       dataMap[posArr[i]] = results[i];
-      print(results[i]);
     }
-    print(DateTime.now());
 
     return dataMap;
   }
@@ -53,7 +50,6 @@ class _MGMTTeamState extends ConsumerState<MGMTTeam> {
   }
 
   isFirstOpen() async {
-    print('first open');
     if (ref.read(managementDataDataProvider)[posArr[0]] == null) {
       await addDataToProvider();
     }

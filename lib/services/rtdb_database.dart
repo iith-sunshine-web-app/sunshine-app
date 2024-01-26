@@ -1,4 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/foundation.dart';
 import 'package:sunshine_iith/services/session_data.dart';
 
 class RealTimeDB {
@@ -21,7 +22,7 @@ class RealTimeDB {
         return {};
       }
     } catch (error) {
-      print('Error fetching appointment list data: $error');
+      debugPrint('Error fetching appointment list data: $error');
       return {};
     }
   }
@@ -34,7 +35,6 @@ class RealTimeDB {
       name = 'Phani Bhushan';
     }
     String convoDate = convertDateFormat(date);
-    print(name);
 
     try {
       DatabaseEvent event = await databaseReference
@@ -47,7 +47,6 @@ class RealTimeDB {
       // print();
 
       if (dataSnapshot.value != null) {
-        print(dataSnapshot.value);
         Map<String, dynamic> sessionsData =
             Map<String, dynamic>.from(dataSnapshot.value as Map);
         return sessionsData;
@@ -56,7 +55,7 @@ class RealTimeDB {
         return {};
       }
     } catch (error) {
-      print('Error fetching counsellor sessions data: $error');
+      debugPrint('Error fetching counsellor sessions data: $error');
       return {};
     }
   }
@@ -89,9 +88,9 @@ class RealTimeDB {
     // });
 
     counsellorReference.set(sessionDataMap).then((_) {
-      print('Session data uploaded to counsellors reference successfully');
+      debugPrint('Session data uploaded to counsellors reference successfully');
     }).catchError((error) {
-      print('Error uploading session data: $error');
+      debugPrint('Error uploading session data: $error');
     });
   }
 
@@ -113,9 +112,9 @@ class RealTimeDB {
 
     // Remove the session data at the specified reference
     counsellorReference.remove().then((_) {
-      print('Session data deleted successfully');
+      debugPrint('Session data deleted successfully');
     }).catchError((error) {
-      print('Error deleting session data: $error');
+      debugPrint('Error deleting session data: $error');
     });
   }
 

@@ -28,7 +28,6 @@ class _FacultyRepState extends ConsumerState<FacultyRep> {
 
   getData() async {
     Map<String, List> dataMap = {};
-    print(DateTime.now());
     List<Future<List>> futures = [];
     for (var posItem in pos) {
        futures.add(FirestoreData.getSpecificData('faculty-rep',posItem));
@@ -37,7 +36,6 @@ class _FacultyRepState extends ConsumerState<FacultyRep> {
     for (int i = 0; i < results.length; i++) {
       dataMap[pos[i]] = results[i];
     }
-    print(DateTime.now());
 
     return dataMap;
   }
@@ -46,7 +44,6 @@ class _FacultyRepState extends ConsumerState<FacultyRep> {
     Map<String, List> dataMap = await getData();
     for (int i = 0; i < dataMap.length; i++) {
       List data = dataMap[pos[i]] ?? [];
-      print(data);
       ref.read(facultyRepDataProvider.notifier).addAllData(pos[i], data);
     }
   }
@@ -71,7 +68,6 @@ class _FacultyRepState extends ConsumerState<FacultyRep> {
         setData.addAll(dataMap[posItem]!);
       }
     }
-    print(setData.length);
     return Scaffold(
       body: SafeArea(
         child: Column(

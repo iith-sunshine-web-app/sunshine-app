@@ -60,8 +60,6 @@ class _PgHeadsState extends ConsumerState<PgHeads> {
   }
 
   Future<void> isFirstOpen() async {
-    print(DateTime.now());
-
     if (ref.read(teamDataProvider)[posArr.elementAt(0)] == null ||
         ref.read(teamDataProvider)[posArr.elementAt(1)] == null ||
         ref.read(teamDataProvider)[posArr.elementAt(2)] == null) {
@@ -79,7 +77,6 @@ class _PgHeadsState extends ConsumerState<PgHeads> {
     setState(() {
       isLoading = false;
     });
-    print(DateTime.now());
   }
 
   @override

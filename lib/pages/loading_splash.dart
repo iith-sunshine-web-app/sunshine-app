@@ -30,9 +30,8 @@ class _LoadingSplashState extends ConsumerState<LoadingSplash> {
   );
 
   void generateSessionId() {
-    final uuid = Uuid();
+    const uuid = Uuid();
     String id = uuid.v1();
-    print(id);
     Future.delayed(Duration.zero, () {
     ref.read(sessionIdProvider.notifier).state = id;
   });

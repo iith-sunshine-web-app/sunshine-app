@@ -18,7 +18,6 @@ class ChatBotService {
     DetectIntentResponse response = await dialogFlowtter.detectIntent(
       queryInput: queryInput,
     );
-    print(response.text);
     return response.text;
   }
 }

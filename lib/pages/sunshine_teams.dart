@@ -159,7 +159,7 @@ class _TeamPageState extends State<TeamPage> {
             InkWell(
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => StudentTeam()));
+                    MaterialPageRoute(builder: (context) => const StudentTeam()));
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,

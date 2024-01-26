@@ -28,7 +28,6 @@ class _PgMentorsState extends ConsumerState<PgMentors> {
 
   getData() async {
     Map<String, List> dataMap = {};
-    print(DateTime.now());
     List<Future<List>> futures = [];
     for (var posItem in pos) {
        futures.add(FirestoreData.getSpecificData('pg-mentor',posItem));
@@ -37,7 +36,6 @@ class _PgMentorsState extends ConsumerState<PgMentors> {
     for (int i = 0; i < results.length; i++) {
       dataMap[pos[i]] = results[i];
     }
-    print(DateTime.now());
 
     return dataMap;
   }
@@ -46,7 +44,6 @@ class _PgMentorsState extends ConsumerState<PgMentors> {
     Map<String, List> dataMap = await getData();
     for (int i = 0; i < dataMap.length; i++) {
       List data = dataMap[pos[i]] ?? [];
-      print(data);
       ref.read(pgMentorDataProvider.notifier).addAllData(pos[i], data);
     }
   }

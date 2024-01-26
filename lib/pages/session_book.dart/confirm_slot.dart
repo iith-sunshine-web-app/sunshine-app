@@ -174,13 +174,13 @@ class _ConfirmSlotState extends ConsumerState<ConfirmSlot> {
               const SizedBox(
                 height: 24,
               ),
-              const Text('Select your prefered mode of communication',
+              const Text(
+                'Select your prefered mode of communication',
                 style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: -0.2
-                ),
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: -0.2),
               ),
 
               Padding(
@@ -189,11 +189,10 @@ class _ConfirmSlotState extends ConsumerState<ConfirmSlot> {
                   title: const Text(
                     'Whatsapp',
                     style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: -0.2
-                ),
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: -0.2),
                   ),
                   leading: Radio(
                     value: Communication.whatsapp,
@@ -207,15 +206,12 @@ class _ConfirmSlotState extends ConsumerState<ConfirmSlot> {
               Padding(
                 padding: const EdgeInsets.only(left: 24),
                 child: ListTile(
-                  title: const Text(
-                    'Mail',
-                    style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: -0.2
-                    )
-                  ),
+                  title: const Text('Mail',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: -0.2)),
                   leading: Radio(
                     value: Communication.mail,
                     groupValue: _valueCommunication,
@@ -261,9 +257,11 @@ class _ConfirmSlotState extends ConsumerState<ConfirmSlot> {
 
                     await Future.delayed(const Duration(milliseconds: 200));
 
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.pop(context);
+                    if (mounted) {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    }
 
                     ref.read(selectedTimeProvider.notifier).state = null;
                     ref.read(selectedDateProvider.notifier).state = null;
@@ -290,22 +288,21 @@ class _ConfirmSlotState extends ConsumerState<ConfirmSlot> {
     );
   }
 
-  void bookSlot(SessionData data){
+  void bookSlot(SessionData data) {
     String what = 'madam';
     if (data.isSir) {
       what = 'sir';
-    } 
+    }
 
     final weekday = getWeekdayName(data.date);
 
     String massage =
         'Hi $what, I am ${data.name}. I was wondering if I could meet you for an ${data.mode} session on $weekday, ${data.date} at ${data.time}. ';
-    
-    if(_valueCommunication == Communication.whatsapp){
-         Open.whatsApp(
-          whatsAppNumber: '91${data.counsellorsPhone}',
-          text: massage);
-    }else{
+
+    if (_valueCommunication == Communication.whatsapp) {
+      Open.whatsApp(
+          whatsAppNumber: '91${data.counsellorsPhone}', text: massage);
+    } else {
       Open.mail(
         toAddress: data.counsellorsEmail,
         subject: 'Regarding Slot for a Session',
@@ -315,19 +312,19 @@ class _ConfirmSlotState extends ConsumerState<ConfirmSlot> {
   }
 
   String getWeekdayName(String dateString) {
-  try {
-    final inputFormat = DateFormat('dd/MM/yyyy');
+    try {
+      final inputFormat = DateFormat('dd/MM/yyyy');
 
-    final date = inputFormat.parse(dateString);
+      final date = inputFormat.parse(dateString);
 
-    final outputFormat = DateFormat('EEEE'); 
+      final outputFormat = DateFormat('EEEE');
 
-    final weekdayName = outputFormat.format(date);
+      final weekdayName = outputFormat.format(date);
 
-    return weekdayName;
-  } catch (e) {
-    print("Error while converting date to weekdays : $e");
-    throw "Invalid Date";
+      return weekdayName;
+    } catch (e) {
+      debugPrint("Error while converting date to weekdays : $e");
+      throw "Invalid Date";
+    }
   }
-}
 }

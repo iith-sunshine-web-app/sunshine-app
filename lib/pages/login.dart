@@ -7,12 +7,11 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sunshine_iith/pages/home.dart';
 import 'package:sunshine_iith/providers/null_provider_logout.dart';
 
-
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           toolbarHeight: 0.0,
@@ -33,27 +32,21 @@ class LoginScreen extends ConsumerStatefulWidget {
 }
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
-
-  Future<bool> checkLoggedIn(){
-  final GoogleSignIn googleSignIn = GoogleSignIn();
+  Future<bool> checkLoggedIn() {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
 
     return googleSignIn.isSignedIn();
-    
   }
 
-  Future<void> signInWithGoogle() async{
+  Future<void> signInWithGoogle() async {
     FirebaseAuth auth = FirebaseAuth.instance;
-    final GoogleSignIn googleSignIn = GoogleSignIn(); 
-    print('escdvfghbnjmkesrdftygu');
+    final GoogleSignIn googleSignIn = GoogleSignIn();
     try {
-    print('12345679123456789');
-      
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
-      print('GOOGLE USER : $googleUser');
-
       if (googleUser != null) {
-        final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+        final GoogleSignInAuthentication googleAuth =
+            await googleUser.authentication;
 
         final AuthCredential credential = GoogleAuthProvider.credential(
           accessToken: googleAuth.accessToken,
@@ -63,18 +56,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         await auth.signInWithCredential(credential);
       }
     } catch (error) {
-      print(error);
       _showSnackBar('Failed to sign in with Google.');
     }
   }
 
-
-  Future<void> logout() async{
+  Future<void> logout() async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
     NullProviderAfterLogout().nullAfterLogout(ref);
     await googleSignIn.signOut();
   }
-
 
   void _showSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -88,13 +78,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     );
   }
 
-  void isLoggedIn() async{
-     bool isLoggedIn = await checkLoggedIn();
-     if(isLoggedIn){
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const HomePage()));
-     }
+  void isLoggedIn() async {
+    bool isLoggedIn = await checkLoggedIn();
+    if (isLoggedIn) {
+      if (mounted) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => const HomePage()));
+      }
+    }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -129,22 +121,26 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               await signInWithGoogle();
 
               bool isLoggedIn = await checkLoggedIn();
-              if(isLoggedIn){
-              var email = FirebaseAuth.instance.currentUser!.email.toString();
-              
-              if(email.isEmpty){
-                await logout();
-                _showSnackBar('Erorr!');
+              if (isLoggedIn) {
+                var email = FirebaseAuth.instance.currentUser!.email.toString();
+
+                if (email.isEmpty) {
+                  await logout();
+                  _showSnackBar('Erorr!');
+                } else if (email.contains('iith.ac.in')) {
+                  email = "";
+                  if (mounted) {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomePage()));
+                  }
+                } else {
+                  await logout();
+                  _showSnackBar('Please Login with IITH email-Id');
+                }
               }
-              else if(email.contains('iith.ac.in')){
-                email="";
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const HomePage()));
-              }else{
-                await logout();
-                _showSnackBar( 'Please Login with IITH email-Id');
-              }
-              }
-              // if (!mounted) return; 
+              // if (!mounted) return;
             },
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.all(16.0),
@@ -154,7 +150,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(15,00,15,0),
+              padding: const EdgeInsets.fromLTRB(15, 00, 15, 0),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -165,8 +161,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   const SizedBox(width: 10.0),
                   const Text(
                     'Continue with Google',
-                    style: TextStyle(fontSize: 17.0,
-                    color: Colors.black87),
+                    style: TextStyle(fontSize: 17.0, color: Colors.black87),
                   ),
                 ],
               ),

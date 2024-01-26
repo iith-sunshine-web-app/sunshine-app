@@ -8,7 +8,7 @@ import 'package:sunshine_iith/services/session_data.dart';
 
 class SelectSlot extends ConsumerStatefulWidget {
   final String counsellorsName;
-  const SelectSlot({super.key,required this.counsellorsName});
+  const SelectSlot({super.key, required this.counsellorsName});
 
   @override
   ConsumerState<SelectSlot> createState() => _SelectSlotState();
@@ -96,21 +96,22 @@ class _SelectSlotState extends ConsumerState<SelectSlot> {
   ];
 
   DateTime parseDateAndTime(String dateStr, String timeStr) {
-  try {
-    final date = DateFormat("dd/MM/yyyy").parse(dateStr);
-    final time = DateFormat("hh:mm a").parse(timeStr);
-    
-    final combinedDateTime = DateTime(date.year, date.month, date.day, time.hour, time.minute);
-    
-    return combinedDateTime;
-  } catch (e) {
-    print("Error parsing date and time: $e");
-    return DateTime(2000); // Or return a default date/time or throw an exception, depending on your use case
+    try {
+      final date = DateFormat("dd/MM/yyyy").parse(dateStr);
+      final time = DateFormat("hh:mm a").parse(timeStr);
+
+      final combinedDateTime =
+          DateTime(date.year, date.month, date.day, time.hour, time.minute);
+
+      return combinedDateTime;
+    } catch (e) {
+      debugPrint("Error parsing date and time: $e");
+      return DateTime(
+          2000); // Or return a default date/time or throw an exception, depending on your use case
+    }
   }
-}
 
-
-Future<void>  getBookedSlots(String date) async {
+  Future<void> getBookedSlots(String date) async {
     Map<String, dynamic> result = await RealTimeDB()
         .getCounsellorsSessionsData(widget.counsellorsName, date);
     List<SessionData> data = [];
@@ -130,13 +131,12 @@ Future<void>  getBookedSlots(String date) async {
       });
     }
 
-    print(data);
-    
     List<DateTimeRange> dateTimeRangeList = [];
 
     for (SessionData sessions in data) {
       DateTime start = parseDateAndTime(sessions.date, sessions.time);
-      dateTimeRangeList.add(DateTimeRange(start: start, end: start.add(const Duration(hours: 1))));
+      dateTimeRangeList.add(DateTimeRange(
+          start: start, end: start.add(const Duration(hours: 1))));
     }
 
     setState(() {
@@ -148,7 +148,7 @@ Future<void>  getBookedSlots(String date) async {
   //   print(DateTime.now());
   //   for (var i = 0; i < 8; i++) {
   //     String date = formatDate(DateTime.now().add(Duration(days: i)));
-  //     await getBookedSlots(date); 
+  //     await getBookedSlots(date);
   //     print(date);
   //   }
   //   setState(() {
@@ -158,28 +158,26 @@ Future<void>  getBookedSlots(String date) async {
 
   // }
   Future<void> getAllBookedSlots() async {
+    final List<String> datesToFetch = [];
 
-  final List<String> datesToFetch = [];
+    for (var i = 0; i < 8; i++) {
+      String date = formatDate(DateTime.now().add(Duration(days: i)));
+      datesToFetch.add(date);
+    }
 
-  for (var i = 0; i < 8; i++) {
-    String date = formatDate(DateTime.now().add(Duration(days: i)));
-    datesToFetch.add(date);
+    try {
+      await Future.wait(datesToFetch.map((date) => getBookedSlots(date)));
+    } catch (error) {
+      debugPrint('Error fetching booked slots in parallel: $error');
+    }
+
+    setState(() {
+      isLoading = false;
+    });
   }
-
-  try {
-    await Future.wait(datesToFetch.map((date) => getBookedSlots(date)));
-  } catch (error) {
-    print('Error fetching booked slots in parallel: $error');
-  }
-
-  setState(() {
-    isLoading = false;
-  });
-
-}
 
   DateTime now = DateTime.now();
-  final lastDay = DateTime.now().add(Duration(days: 7));
+  final lastDay = DateTime.now().add(const Duration(days: 7));
 
   bool isLoading = true;
 
@@ -192,7 +190,6 @@ Future<void>  getBookedSlots(String date) async {
 
   @override
   Widget build(BuildContext context) {
-    print('counsellors name ${widget.counsellorsName}');
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -226,26 +223,30 @@ Future<void>  getBookedSlots(String date) async {
                 ),
               ),
             ),
-
-           isLoading? const CircularProgressIndicator(color: Colors.orange,) :
-            Expanded(
-              child: BookingCalendar(
-                bookingService: BookingService(
-                    bookingStart: DateTime(now.year, now.month, now.day, 9, 0),
-                    bookingEnd: DateTime(now.year, now.month, now.day, 18, 0),
-                    serviceName: 'Sunshine Slot Booking',
-                    serviceDuration: 60),
-                getBookingStream: getBookingStream,
-                uploadBooking: uploadBooking,
-                convertStreamResultToDateTimeRanges: convertStreamResult,
-                lastDay: lastDay,
-                // loadingWidget: cCircularProgressIndicator(),
-                // uploadingWidget: CircularProgressIndicator(),
-                bookingButtonColor: Colors.orange,
-                bookingButtonText: 'CONTINUE',
-                pauseSlots: pauseSlots,
-              ),
-            ),
+            isLoading
+                ? const CircularProgressIndicator(
+                    color: Colors.orange,
+                  )
+                : Expanded(
+                    child: BookingCalendar(
+                      bookingService: BookingService(
+                          bookingStart:
+                              DateTime(now.year, now.month, now.day, 9, 0),
+                          bookingEnd:
+                              DateTime(now.year, now.month, now.day, 18, 0),
+                          serviceName: 'Sunshine Slot Booking',
+                          serviceDuration: 60),
+                      getBookingStream: getBookingStream,
+                      uploadBooking: uploadBooking,
+                      convertStreamResultToDateTimeRanges: convertStreamResult,
+                      lastDay: lastDay,
+                      // loadingWidget: cCircularProgressIndicator(),
+                      // uploadingWidget: CircularProgressIndicator(),
+                      bookingButtonColor: Colors.orange,
+                      bookingButtonText: 'CONTINUE',
+                      pauseSlots: pauseSlots,
+                    ),
+                  ),
           ],
         ),
       ),

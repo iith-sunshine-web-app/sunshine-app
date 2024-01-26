@@ -35,22 +35,22 @@ class _UgHeadsState extends ConsumerState<UgHeads> {
   }
 
   Future<List> getMgmtData() async {
-    List data = await FirestoreData.getData(posArr.elementAt(0),'team-data');
+    List data = await FirestoreData.getData(posArr.elementAt(0), 'team-data');
     return data;
   }
 
   Future<List> getMentorData() async {
-    List data = await FirestoreData.getData(posArr.elementAt(1),'team-data');
+    List data = await FirestoreData.getData(posArr.elementAt(1), 'team-data');
     return data;
   }
 
   Future<List> getBuddyData() async {
-    List data = await FirestoreData.getData(posArr.elementAt(2),'team-data');
+    List data = await FirestoreData.getData(posArr.elementAt(2), 'team-data');
     return data;
   }
 
   Future<List> getWelfData() async {
-    List data = await FirestoreData.getData(posArr.elementAt(3),'team-data');
+    List data = await FirestoreData.getData(posArr.elementAt(3), 'team-data');
     return data;
   }
 
@@ -71,8 +71,6 @@ class _UgHeadsState extends ConsumerState<UgHeads> {
   }
 
   Future<void> isFirstOpen() async {
-    print(DateTime.now());
-
     if (ref.read(teamDataProvider)[posArr.elementAt(0)] == null ||
         ref.read(teamDataProvider)[posArr.elementAt(1)] == null ||
         ref.read(teamDataProvider)[posArr.elementAt(2)] == null ||
@@ -92,8 +90,6 @@ class _UgHeadsState extends ConsumerState<UgHeads> {
     setState(() {
       isLoading = false;
     });
-
-    print(DateTime.now());
   }
 
   @override

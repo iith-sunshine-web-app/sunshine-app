@@ -28,7 +28,6 @@ class _UgBuddiesState extends ConsumerState<UgBuddies> {
 
   getData() async {
   Map<String, List> dataMap = {};
-    print(DateTime.now());
     List<Future<List>> futures = [];
     for (var posItem in pos) {
       futures.add(FirestoreData.getSpecificData('ug-buddy',posItem));
@@ -37,7 +36,6 @@ class _UgBuddiesState extends ConsumerState<UgBuddies> {
     for (int i = 0; i < results.length; i++) {
       dataMap[pos[i]] = results[i];
     }
-    print(DateTime.now());
 
     return dataMap;
   }
@@ -47,7 +45,6 @@ class _UgBuddiesState extends ConsumerState<UgBuddies> {
     // print(dataMap);
     for (int i = 0; i < dataMap.length; i++) {
       List data = dataMap[pos[i]] ?? [];
-      print(data);
       ref.read(ugBuddyDataProvider.notifier).addAllData(pos[i], data);
     }
   }
@@ -72,7 +69,6 @@ class _UgBuddiesState extends ConsumerState<UgBuddies> {
       }
     }
 
-    print(setData.length);
     return Scaffold(
       body: Column(
         children: [

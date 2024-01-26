@@ -28,7 +28,6 @@ class _UgMentorsState extends ConsumerState<UgMentors> {
 
   getData() async {
   Map<String, List> dataMap = {};
-    print(DateTime.now());
     List<Future<List>> futures = [];
     for (var posItem in pos) {
       futures.add(FirestoreData.getSpecificData('ug-mentor',posItem));
@@ -37,7 +36,6 @@ class _UgMentorsState extends ConsumerState<UgMentors> {
     for (int i = 0; i < results.length; i++) {
       dataMap[pos[i]] = results[i];
     }
-    print(DateTime.now());
 
     return dataMap;
   }
@@ -47,7 +45,6 @@ class _UgMentorsState extends ConsumerState<UgMentors> {
     // print(dataMap);
     for (int i = 0; i < dataMap.length; i++) {
       List data = dataMap[pos[i]] ?? [];
-      print(data);
       ref.read(ugMentorDataProvider.notifier).addAllData(pos[i], data);
     }
   }

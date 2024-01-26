@@ -138,7 +138,7 @@ class _BookedSessionsScreenState extends ConsumerState<BookedSessionsScreen> {
     try {
       await Future.wait(datesToFetch.map((date) => getBookedSession(date)));
     } catch (error) {
-      print('Error fetching booked sessions in parallel: $error');
+      debugPrint('Error fetching booked sessions in parallel: $error');
     }
 
     setState(() {
@@ -150,7 +150,6 @@ class _BookedSessionsScreenState extends ConsumerState<BookedSessionsScreen> {
   Widget build(BuildContext context) {
     Map<String, List> bookedSessionData = ref.watch(bookedSessionProvider);
 
-    print(bookedSessionData);
     return Scaffold(
       floatingActionButton:
           isLoading ? const SizedBox.shrink() : floatingActionButton(),
