@@ -86,6 +86,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
       child: Column(
@@ -114,7 +115,7 @@ class HomeScreen extends StatelessWidget {
             children: [
               //first button , "Sunshine Team"
               SizedBox(
-                width: 95,
+                width: size.width * 0.25,
                 height: 159,
                 child: ElevatedButton(
                   onPressed: () {
@@ -142,13 +143,16 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(
                         height: 20.0,
                       ),
-                      const Text("Sunshine\nTeam",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          )),
+                      const FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text("Sunshine\nTeam",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 15.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            )),
+                      ),
                     ],
                   ),
                 ),
@@ -156,7 +160,7 @@ class HomeScreen extends StatelessWidget {
 
               //second button , "Session Booking"
               SizedBox(
-                width: 95,
+                width: size.width * 0.25,
                 height: 159,
                 child: ElevatedButton(
                   onPressed: () {
@@ -183,13 +187,16 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(
                         height: 20.0,
                       ),
-                      const Text("Session\nBooking",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          )),
+                      const FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text("Session\nBooking",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ),
                     ],
                   ),
                 ),
@@ -197,11 +204,10 @@ class HomeScreen extends StatelessWidget {
 
               //third button , "Chat bot"
               SizedBox(
-                width: 95,
+                width: size.width * 0.25,
                 height: 159,
                 child: ElevatedButton(
                   onPressed: () {
-                    // ChatBotService().chatbot("What is lambda?");
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -228,13 +234,16 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(
                         height: 20.0,
                       ),
-                      const Text("Chat\nBot",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          )),
+                       const FittedBox(
+                        fit: BoxFit.scaleDown,
+                         child: Text("Chat\nBot",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            )),
+                       ),
                     ],
                   ),
                 ),
