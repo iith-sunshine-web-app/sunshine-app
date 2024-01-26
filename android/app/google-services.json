@@ -65,66 +65,6 @@
           ]
         }
       }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:104215692812:android:f01e38eba996ec891b9029",
-        "android_client_info": {
-          "package_name": "com.iith.sunshine_iith"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "104215692812-30jr07qg8u5utsftdtg04tud4a4psj1d.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.iith.sunshine_iith",
-            "certificate_hash": "5eb20e5071a1cfe13e441511456b336dc0df23ce"
-          }
-        },
-        {
-          "client_id": "104215692812-3mlkg4lkh1hgqvii3d6r8751re0lcnc8.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.iith.sunshine_iith",
-            "certificate_hash": "88c6e4e5b2bc7ee958ff7972d8854a7ddb31d044"
-          }
-        },
-        {
-          "client_id": "104215692812-tv45ru1biajtmhm64tifvlk191e53vqq.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.iith.sunshine_iith",
-            "certificate_hash": "74c2a200cf90b0018f5eed3dbbe2e026c65c8e75"
-          }
-        },
-        {
-          "client_id": "104215692812-fakd23or4uum94gjuk0qb9m0f35mpkdp.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDBOdTBbbdyg1y9kgYv7yZjmsa6tTF6wn0"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "104215692812-fakd23or4uum94gjuk0qb9m0f35mpkdp.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "104215692812-uqqfaokqk5cqdppac2ngt9vhm8hp404l.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.iith.sunshineIith"
-              }
-            }
-          ]
-        }
-      }
     }
   ],
   "configuration_version": "1"

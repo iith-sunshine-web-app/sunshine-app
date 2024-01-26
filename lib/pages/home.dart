@@ -3,6 +3,8 @@ import 'package:in_app_update/in_app_update.dart';
 import 'package:sunshine_iith/chatbot/chatbot_intro.dart';
 import 'package:sunshine_iith/pages/session_book.dart/session_book_intro.dart';
 import 'package:sunshine_iith/pages/sunshine_teams.dart';
+import 'package:sunshine_iith/services/data_model.dart';
+import 'package:sunshine_iith/services/firestore_database.dart';
 
 import '../widgets/drawer_nav_bar.dart';
 
