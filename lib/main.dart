@@ -6,27 +6,30 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sunshine_iith/firebase_options.dart';
 import 'package:sunshine_iith/pages/loading_splash.dart';
 
-void main() async  {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const ProviderScope(child:  MyApp()));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
+//Color(0xfff2b545)
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Color(0xfff2b545),
+      statusBarColor: Colors.white,
       statusBarBrightness: Brightness.dark,
     ));
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Sunshine IITH',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 244, 197, 54) , primary: const Color(0xfff2b545)),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(255, 244, 197, 54),
+            primary: const Color(0xfff2b545)),
         useMaterial3: true,
       ),
       home: AnimatedSplashScreen(
@@ -36,9 +39,7 @@ class MyApp extends StatelessWidget {
         splash: 'assets/images/sunshine_logo.png',
         splashTransition: SplashTransition.scaleTransition,
         backgroundColor: Colors.white,
-        
-        ),
+      ),
     );
   }
 }
-

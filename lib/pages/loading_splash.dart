@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,8 +34,8 @@ class _LoadingSplashState extends ConsumerState<LoadingSplash> {
     const uuid = Uuid();
     String id = uuid.v1();
     Future.delayed(Duration.zero, () {
-    ref.read(sessionIdProvider.notifier).state = id;
-  });
+      ref.read(sessionIdProvider.notifier).state = id;
+    });
   }
 
   @override
@@ -134,36 +135,39 @@ class _LoadingSplashState extends ConsumerState<LoadingSplash> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        body: Padding(
-          padding: const EdgeInsets.fromLTRB(35, 0, 35, 0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/images/sunshine_9.jpg',
-                height: 250.0,
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 0.0,
+        systemOverlayStyle:
+            const SystemUiOverlayStyle(statusBarColor: Colors.white),
+      ),
+      backgroundColor: Colors.white,
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(35, 0, 35, 0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/sunshine_9.jpg',
+              height: 250.0,
+            ),
+            const SizedBox(height: 30.0),
+            Text(
+              'Welcome!',
+              style: GoogleFonts.openSans(
+                fontSize: 27.0,
+                fontWeight: FontWeight.bold,
               ),
-              const SizedBox(height: 30.0),
-              Text(
-                'Welcome!',
-                style: GoogleFonts.openSans(
-                  fontSize: 27.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 30.0),
-              const Text(
-                'We are Sunshine, your buddies to talk with',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20.0),
-              ),
-              const SizedBox(height: 100.0),
-              showWidget,
-            ],
-          ),
+            ),
+            const SizedBox(height: 30.0),
+            const Text(
+              'We are Sunshine, your buddies to talk with',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 20.0),
+            ),
+            const SizedBox(height: 100.0),
+            showWidget,
+          ],
         ),
       ),
     );

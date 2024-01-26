@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sunshine_iith/const/branch_data.dart';
 import 'package:sunshine_iith/providers/data_provider.dart';
@@ -30,7 +31,7 @@ class _PhDMentorsState extends ConsumerState<PhDMentors> {
     Map<String, List> dataMap = {};
     List<Future<List>> futures = [];
     for (var posItem in pos) {
-       futures.add(FirestoreData.getSpecificData('phd-mentor',posItem));
+      futures.add(FirestoreData.getSpecificData('phd-mentor', posItem));
     }
     List results = await Future.wait(futures);
     for (int i = 0; i < results.length; i++) {
@@ -56,39 +57,44 @@ class _PhDMentorsState extends ConsumerState<PhDMentors> {
       isLoading = false;
     });
   }
-  
 
   @override
   Widget build(BuildContext context) {
     final dataMap = ref.watch(phdMentorDataProvider);
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 0.0,
+        systemOverlayStyle:
+            const SystemUiOverlayStyle(statusBarColor: Colors.white),
+      ),
       body: Column(
         children: [
           const Headers(title: 'PhD Mentors'),
           const SizedBox(
             height: 25.0,
           ),
-          isLoading? 
-          Expanded(child: ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: 50,
-            itemBuilder: (ctx,index){
-              return const ExpansionTileShimmer();
-          })) :
-          Expanded(
-              child: ListView.builder(
-                  itemCount: pos.length,
-                  itemBuilder: ((context, index) {
-                    if (dataMap[pos[index]] != null &&
-                        dataMap[pos[index]]!.isNotEmpty) {
-                      return ExpansionTileWidget(
-                          branchCode: pos[index].toString().toUpperCase(),
-                          branchName: branchName[index],
-                          data: dataMap[pos[index]]!);
-                    } else {
-                      return Container();
-                    }
-                  })))
+          isLoading
+              ? Expanded(
+                  child: ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: 50,
+                      itemBuilder: (ctx, index) {
+                        return const ExpansionTileShimmer();
+                      }))
+              : Expanded(
+                  child: ListView.builder(
+                      itemCount: pos.length,
+                      itemBuilder: ((context, index) {
+                        if (dataMap[pos[index]] != null &&
+                            dataMap[pos[index]]!.isNotEmpty) {
+                          return ExpansionTileWidget(
+                              branchCode: pos[index].toString().toUpperCase(),
+                              branchName: branchName[index],
+                              data: dataMap[pos[index]]!);
+                        } else {
+                          return Container();
+                        }
+                      })))
         ],
       ),
     );

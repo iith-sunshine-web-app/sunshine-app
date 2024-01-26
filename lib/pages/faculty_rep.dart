@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sunshine_iith/const/branch_data.dart';
 import 'package:sunshine_iith/providers/data_provider.dart';
@@ -69,6 +70,11 @@ class _FacultyRepState extends ConsumerState<FacultyRep> {
       }
     }
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 0.0,
+        systemOverlayStyle:
+            const SystemUiOverlayStyle(statusBarColor: Colors.white),
+      ),
       body: SafeArea(
         child: Column(
           children: [

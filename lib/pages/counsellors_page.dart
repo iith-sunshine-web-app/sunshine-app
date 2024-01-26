@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sunshine_iith/providers/data_provider.dart';
 import 'package:sunshine_iith/services/firestore_database.dart';
 import 'package:sunshine_iith/widgets/shimmer/team_card_shimmer.dart';
 import 'package:sunshine_iith/widgets/team_data_widget.dart';
-
 
 // ignore: must_be_immutable
 class CounsellorsPage extends ConsumerStatefulWidget {
@@ -16,7 +16,6 @@ class CounsellorsPage extends ConsumerStatefulWidget {
 }
 
 class _CounsellorsPageState extends ConsumerState<CounsellorsPage> {
-
   List setData = [];
   bool isLoading = true;
 
@@ -25,39 +24,46 @@ class _CounsellorsPageState extends ConsumerState<CounsellorsPage> {
     super.initState();
     isFirstOpen();
   }
-  getCounsellorsData() async{
-    List data = await FirestoreData.getData('counsellors','team-data');
+
+  getCounsellorsData() async {
+    List data = await FirestoreData.getData('counsellors', 'team-data');
     return data;
   }
-  addDataToProvider(List data){
+
+  addDataToProvider(List data) {
     ref.read(teamDataProvider.notifier).addAllData('counsellors', data);
   }
 
-  isFirstOpen()async{
-    if(ref.read(teamDataProvider)['counsellors']==null){
+  isFirstOpen() async {
+    if (ref.read(teamDataProvider)['counsellors'] == null) {
       List list = await getCounsellorsData();
       addDataToProvider(list);
     }
     setState(() {
-        isLoading= false;
-      }); 
+      isLoading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final dataMap = ref.watch(teamDataProvider);
-    List setData = dataMap['counsellors'] ?? [] ;
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
+    List setData = dataMap['counsellors'] ?? [];
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 0.0,
+        systemOverlayStyle:
+            const SystemUiOverlayStyle(statusBarColor: Colors.white),
+      ),
+      body: SafeArea(
+        child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(10, 25, 10, 25),
-              child:  Text(
+              child: Text(
                 'COUNSELLORS',
                 textAlign: TextAlign.center,
-                style:  GoogleFonts.openSans(
+                style: GoogleFonts.openSans(
                   // fontStyle: ,
                   fontSize: 33,
                   fontWeight: FontWeight.w600,
@@ -66,36 +72,31 @@ class _CounsellorsPageState extends ConsumerState<CounsellorsPage> {
             ),
 
             // const SizedBox(height: 35.0,),
-            isLoading?
-            Expanded(
-              child: ListView.builder(
-                itemCount: 3,
-                itemBuilder: (ctx,index){
-                return const Padding(
-                  padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                  child: TeamCardShimmer()
-                  );
-              }),
-            )
-            :
-            Expanded(
-            child: ListView.builder(
-              itemCount: setData.length,
-              itemBuilder: (context,index){
-                return Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-                  child: DataShowingWidget(
-                    name:setData[index]['name'],
-                    email:setData[index]['email'],
-                    phone:setData[index]['phone'],
-                    position:setData[index]['position'],
-                    imageLink:setData[index]['image'],
-
-                  ),
-                  );
-              }
-            )
-            ),
+            isLoading
+                ? Expanded(
+                    child: ListView.builder(
+                        itemCount: 3,
+                        itemBuilder: (ctx, index) {
+                          return const Padding(
+                              padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+                              child: TeamCardShimmer());
+                        }),
+                  )
+                : Expanded(
+                    child: ListView.builder(
+                        itemCount: setData.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+                            child: DataShowingWidget(
+                              name: setData[index]['name'],
+                              email: setData[index]['email'],
+                              phone: setData[index]['phone'],
+                              position: setData[index]['position'],
+                              imageLink: setData[index]['image'],
+                            ),
+                          );
+                        })),
           ],
         ),
       ),

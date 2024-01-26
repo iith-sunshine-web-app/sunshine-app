@@ -11,15 +11,13 @@ class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           toolbarHeight: 0.0,
         ),
         body: const Center(
           child: LoginScreen(),
         ),
-      ),
     );
   }
 }

@@ -9,29 +9,29 @@ class MentorsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const DefaultTabController(
-        length: 3,
-        child: SafeArea(
-          child: Scaffold(
-            body:TabBarView(
-              children: [
-                UgMentors(),
-                PgMentors(),
-                PhDMentors()
-              ],
-            ),
-            bottomNavigationBar: TabBar(
-                indicatorColor: Colors.purple,
-                labelColor: Colors.purple,
-                unselectedLabelColor:  Color.fromARGB(255, 44, 37, 10),
-                tabs: [
-                  Tab(text: 'UG MENTORS',),
-                  Tab(text: 'PG MENTORS',),
-                  Tab(text: 'PhD MENTORS',),
-                ],
-              ),
-              backgroundColor: Color(0xfff2b545),
-          ),
+      length: 3,
+      child: Scaffold(
+        body: TabBarView(
+          children: [UgMentors(), PgMentors(), PhDMentors()],
         ),
-      );
+        bottomNavigationBar: TabBar(
+          indicatorColor: Colors.purple,
+          labelColor: Colors.purple,
+          unselectedLabelColor: Color.fromARGB(255, 44, 37, 10),
+          tabs: [
+            Tab(
+              text: 'UG MENTORS',
+            ),
+            Tab(
+              text: 'PG MENTORS',
+            ),
+            Tab(
+              text: 'PhD MENTORS',
+            ),
+          ],
+        ),
+        backgroundColor: Color(0xfff2b545),
+      ),
+    );
   }
 }

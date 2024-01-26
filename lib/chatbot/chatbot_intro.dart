@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,7 +11,6 @@ class ChatBot extends StatefulWidget {
 }
 
 class _ChatBotState extends State<ChatBot> {
-
   @override
   void initState() {
     setState(() {
@@ -22,14 +20,13 @@ class _ChatBotState extends State<ChatBot> {
     super.initState();
   }
 
-
   String? photoURL = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xfff2b545),
+        backgroundColor: Colors.white,
         toolbarHeight: 0.0,
       ),
       body: SingleChildScrollView(

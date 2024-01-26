@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sunshine_iith/providers/data_provider.dart';
 import 'package:sunshine_iith/services/firestore_database.dart';
@@ -64,6 +65,11 @@ class _MGMTTeamState extends ConsumerState<MGMTTeam> {
     final setData = ref.watch(managementDataDataProvider);
 
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 0.0,
+        systemOverlayStyle:
+            const SystemUiOverlayStyle(statusBarColor: Colors.white),
+      ),
       body: SingleChildScrollView(
         child: 
         isLoading? const HeadsShimmerEffect():
