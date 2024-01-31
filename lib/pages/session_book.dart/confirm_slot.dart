@@ -78,7 +78,7 @@ class _ConfirmSlotState extends ConsumerState<ConfirmSlot> {
                 child: Row(
                   children: [
                     const Padding(
-                      padding: EdgeInsets.only(left: 40),
+                      padding: EdgeInsets.only(left: 20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -119,24 +119,27 @@ class _ConfirmSlotState extends ConsumerState<ConfirmSlot> {
                     ),
                     const Spacer(),
                     Padding(
-                      padding: const EdgeInsets.only(right: 10),
+                      padding: const EdgeInsets.only(right: 20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(8.5),
-                            child: Text(
-                              widget.counsellor.name,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.orange),
+                            padding: const EdgeInsets.fromLTRB(0, 8.5, 0, 8.5),
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                widget.counsellor.name,
+                                // maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.orange),
+                              ),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(8.5),
+                            padding: const EdgeInsets.fromLTRB(0, 8.5, 0, 8.5),
                             child: Text(
                               widget.mode,
                               style: const TextStyle(
@@ -146,7 +149,7 @@ class _ConfirmSlotState extends ConsumerState<ConfirmSlot> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(8.5),
+                            padding: const EdgeInsets.fromLTRB(0, 8.5, 0, 8.5),
                             child: Text(
                               selectedDate ?? '',
                               style: const TextStyle(
@@ -156,7 +159,7 @@ class _ConfirmSlotState extends ConsumerState<ConfirmSlot> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(8.5),
+                            padding: const EdgeInsets.fromLTRB(0, 8.5, 0, 8.5),
                             child: Text(
                               selectedTime ?? '',
                               style: const TextStyle(

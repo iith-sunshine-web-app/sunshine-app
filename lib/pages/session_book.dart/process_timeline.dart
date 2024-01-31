@@ -22,7 +22,6 @@ class _ProcessTimelineState extends ConsumerState<ProcessTimeline> {
   int currStep = 0;
   String selectedTime = 'Choose a slot';
 
-
   var sirOrMadam = ['sir', 'madam'];
 
   String date = '';
@@ -90,7 +89,6 @@ class _ProcessTimelineState extends ConsumerState<ProcessTimeline> {
       }
 
       showModalBottomSheet(
-        
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
               top: Radius.circular(36.0),
@@ -105,8 +103,6 @@ class _ProcessTimelineState extends ConsumerState<ProcessTimeline> {
               mode: mode,
             );
           });
-
-      // Navigator.push(context, MaterialPageRoute(builder: (ctx)=> ConfirmSlot(counsellor: counsellorsData.elementAt(index),mode: mode,)));
     }
   }
 
@@ -117,7 +113,6 @@ class _ProcessTimelineState extends ConsumerState<ProcessTimeline> {
       });
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +160,8 @@ class _ProcessTimelineState extends ConsumerState<ProcessTimeline> {
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
-                              color: currStep >= 0 ? Colors.orange : Colors.grey),
+                              color:
+                                  currStep >= 0 ? Colors.orange : Colors.grey),
                         ),
                         content: Column(
                           children: [
@@ -215,7 +211,8 @@ class _ProcessTimelineState extends ConsumerState<ProcessTimeline> {
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
-                              color: currStep >= 1 ? Colors.orange : Colors.grey),
+                              color:
+                                  currStep >= 1 ? Colors.orange : Colors.grey),
                         ),
                         content: Column(
                           children: [
@@ -254,7 +251,8 @@ class _ProcessTimelineState extends ConsumerState<ProcessTimeline> {
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
-                              color: currStep >= 2 ? Colors.orange : Colors.grey),
+                              color:
+                                  currStep >= 2 ? Colors.orange : Colors.grey),
                         ),
                         content: Column(
                           children: [
@@ -265,7 +263,7 @@ class _ProcessTimelineState extends ConsumerState<ProcessTimeline> {
                                   highlightColor: Colors.transparent,
                                   onTap: () {
                                     int index = 0;
-          
+
                                     if (_valueCounsellors ==
                                         Counsellors.counsellor2) {
                                       index = 1;
@@ -274,19 +272,21 @@ class _ProcessTimelineState extends ConsumerState<ProcessTimeline> {
                                       // s = sirOrMadam.elementAt(0);
                                       index = 2;
                                     }
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                        builder: (ctx) => SelectSlot(
-                                              counsellorsName: counsellorsData
-                                                  .elementAt(index)
-                                                  .name,
-                                            )));
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                            builder: (ctx) => SelectSlot(
+                                                  counsellorsName:
+                                                      counsellorsData
+                                                          .elementAt(index)
+                                                          .name,
+                                                )));
                                   },
                                   child: Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(10, 10, 0, 10),
+                                    padding: const EdgeInsets.fromLTRB(
+                                        10, 10, 0, 10),
                                     child: SizedBox(
                                       width: MediaQuery.of(context).size.width *
-                                          0.75,
+                                          0.7,
                                       child: InputDecorator(
                                         decoration: InputDecoration(
                                           suffixIcon: const Icon(
@@ -295,14 +295,16 @@ class _ProcessTimelineState extends ConsumerState<ProcessTimeline> {
                                           ),
                                           // labelText: 'Time',
                                           border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(
+                                              borderRadius:
+                                                  BorderRadius.circular(
                                                 15.0,
                                               ),
                                               borderSide: const BorderSide(
                                                   // color: Colors.orange,
                                                   width: 1.5)),
                                           enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(
+                                              borderRadius:
+                                                  BorderRadius.circular(
                                                 15.0,
                                               ),
                                               borderSide: const BorderSide(
@@ -334,8 +336,9 @@ class _ProcessTimelineState extends ConsumerState<ProcessTimeline> {
                             style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
-                                color:
-                                    currStep >= 3 ? Colors.orange : Colors.grey),
+                                color: currStep >= 3
+                                    ? Colors.orange
+                                    : Colors.grey),
                           ),
                           content: const Text(
                             'Check your filled data and book your slot with our counsellors!',
@@ -363,8 +366,9 @@ class _ProcessTimelineState extends ConsumerState<ProcessTimeline> {
             backgroundColor: const Color.fromARGB(255, 21, 101, 192),
             elevation: 2,
           ),
-          onPressed: (selectedTime=='Choose a slot' &&currStep==2) ? null:
-          details.onStepContinue,
+          onPressed: (selectedTime == 'Choose a slot' && currStep == 2)
+              ? null
+              : details.onStepContinue,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
             child: Text(

@@ -211,7 +211,7 @@ class _SelectSlotState extends ConsumerState<SelectSlot> {
                     Container(
                       alignment: Alignment.center,
                       child: const Text(
-                        'Choose a slot',
+                        'Choose a Slot',
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w500,

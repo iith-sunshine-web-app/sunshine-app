@@ -3,6 +3,7 @@ import 'package:in_app_update/in_app_update.dart';
 import 'package:sunshine_iith/chatbot/chatbot_intro.dart';
 import 'package:sunshine_iith/pages/session_book.dart/session_book_intro.dart';
 import 'package:sunshine_iith/pages/sunshine_teams.dart';
+import 'package:sunshine_iith/widgets/home_buttons.dart';
 
 import '../widgets/drawer_nav_bar.dart';
 
@@ -113,141 +114,53 @@ class HomeScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              //first button , "Sunshine Team"
-              SizedBox(
-                width: size.width * 0.25,
-                height: 159,
-                child: ElevatedButton(
-                  onPressed: () {
+              HomePageButton(
+                  shadowColor: const Color.fromARGB(255, 92, 64, 251),
+                  height: 159,
+                  width: size.width * 0.25,
+                  color: const Color.fromARGB(255, 217, 229, 250),
+                  icon: Icon(
+                    Icons.people,
+                    size: 35.0,
+                    color: Colors.blue[700],
+                  ),
+                  text: "Sunshine\nTeam",
+                  onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const TeamPage()));
-                    // Navigator.push(context, MaterialPageRoute(builder: (context) => TeamPage(),));
-                  },
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 217, 229, 250),
-                      elevation: 10.0,
-                      shadowColor: const Color.fromARGB(255, 92, 64, 251),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(36.0),
-                      )),
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 25.0,
-                      ),
-                      Icon(
-                        Icons.people,
-                        size: 35.0,
-                        color: Colors.blue[700],
-                      ),
-                      const SizedBox(
-                        height: 20.0,
-                      ),
-                      const FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text("Sunshine\nTeam",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            )),
-                      ),
-                    ],
+                  }),
+              HomePageButton(
+                  width: size.width * 0.25,
+                  height: 159,
+                  color: const Color.fromARGB(255, 229, 255, 228),
+                  icon: Icon(
+                    Icons.schedule,
+                    size: 35.0,
+                    color: Colors.green[700],
                   ),
-                ),
-              ),
-
-              //second button , "Session Booking"
-              SizedBox(
-                width: size.width * 0.25,
-                height: 159,
-                child: ElevatedButton(
-                  onPressed: () {
+                  text: "Session\nBooking",
+                  onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const SessionBookIntro()));
                   },
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 229, 255, 228),
-                      elevation: 10.0,
-                      shadowColor: Colors.green,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(36.0),
-                      )),
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 25.0,
-                      ),
-                      Icon(
-                        Icons.schedule,
-                        size: 35.0,
-                        color: Colors.green[700],
-                      ),
-                      const SizedBox(
-                        height: 20.0,
-                      ),
-                      const FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text("Session\nBooking",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            )),
-                      ),
-                    ],
+                  shadowColor: Colors.green),
+              HomePageButton(
+                  height: 159,
+                  width: size.width * 0.25,
+                  color: const Color.fromARGB(255, 255, 246, 236),
+                  icon: Icon(
+                    Icons.forum,
+                    size: 35.0,
+                    color: Colors.orange[700],
                   ),
-                ),
-              ),
-
-              //third button , "Chat bot"
-              SizedBox(
-                width: size.width * 0.25,
-                height: 159,
-                child: ElevatedButton(
-                  onPressed: () {
+                  text: "Chat\nBot",
+                  onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const ChatBot()));
-                    // Navigator.push(context, MaterialPageRoute(builder: (context)=>const AddData()));
                   },
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 255, 246, 236),
-                      elevation: 10.0,
-                      shadowColor: Colors.orange[500],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(36.0),
-                      )),
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 25.0,
-                      ),
-                      Icon(
-                        Icons.forum,
-                        size: 35.0,
-                        color: Colors.orange[700],
-                      ),
-                      const SizedBox(
-                        height: 20.0,
-                      ),
-                       const FittedBox(
-                        fit: BoxFit.scaleDown,
-                         child: Text("Chat\nBot",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            )),
-                       ),
-                    ],
-                  ),
-                ),
-              ),
+                  shadowColor: Colors.orange[500] ?? Colors.orange)
             ],
           ),
         ],
