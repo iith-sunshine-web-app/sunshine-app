@@ -6,18 +6,19 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sunshine_iith/pages/home.dart';
 import 'package:sunshine_iith/providers/null_provider_logout.dart';
+import 'package:sunshine_iith/widgets/custom_route.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 0.0,
-        ),
-        body: const Center(
-          child: LoginScreen(),
-        ),
+      appBar: AppBar(
+        toolbarHeight: 0.0,
+      ),
+      body: const Center(
+        child: LoginScreen(),
+      ),
     );
   }
 }
@@ -81,7 +82,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     if (isLoggedIn) {
       if (mounted) {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const HomePage()));
+            context, CustomPageRoute(child: const HomePage()));
       }
     }
   }
@@ -130,8 +131,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   if (mounted) {
                     Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomePage()));
+                        CustomPageRoute(
+                            child: const HomePage()));
                   }
                 } else {
                   await logout();

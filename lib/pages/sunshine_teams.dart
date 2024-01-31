@@ -5,7 +5,7 @@ import 'package:sunshine_iith/pages/faculty_rep.dart';
 import 'package:sunshine_iith/pages/fic_page.dart';
 import 'package:sunshine_iith/pages/mentors/mentors.dart';
 import 'package:sunshine_iith/pages/studentheads/student_team.dart';
-
+import 'package:sunshine_iith/widgets/custom_route.dart';
 
 // ignore: must_be_immutable
 class TeamPage extends StatefulWidget {
@@ -54,8 +54,8 @@ class _TeamPageState extends State<TeamPage> {
             //first item
             InkWell(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const FICDataShow()));
+                Navigator.push(
+                    context, CustomPageRoute(child: const FICDataShow()));
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -89,7 +89,7 @@ class _TeamPageState extends State<TeamPage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const CounsellorsPage()),
+                  CustomPageRoute(child: const CounsellorsPage()),
                 );
               },
               child: Column(
@@ -123,10 +123,7 @@ class _TeamPageState extends State<TeamPage> {
             InkWell(
               onTap: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            const FacultyRep()));
+                    context, CustomPageRoute(child: const FacultyRep()));
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -158,8 +155,8 @@ class _TeamPageState extends State<TeamPage> {
             //fourth item
             InkWell(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const StudentTeam()));
+                Navigator.push(
+                    context, CustomPageRoute(child: const StudentTeam()));
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -193,8 +190,8 @@ class _TeamPageState extends State<TeamPage> {
               onTap: () {
                 Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder: (ctx) => const MentorsScreen(),
+                    CustomPageRoute(
+                      child: const MentorsScreen(),
                     ));
               },
               child: Column(
@@ -229,8 +226,8 @@ class _TeamPageState extends State<TeamPage> {
               onTap: () {
                 Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder: (ctx) => const BuddiesScreen(),
+                    CustomPageRoute(
+                      child: const BuddiesScreen(),
                     ));
               },
               child: Column(

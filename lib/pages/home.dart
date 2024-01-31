@@ -3,6 +3,7 @@ import 'package:in_app_update/in_app_update.dart';
 import 'package:sunshine_iith/chatbot/chatbot_intro.dart';
 import 'package:sunshine_iith/pages/session_book.dart/session_book_intro.dart';
 import 'package:sunshine_iith/pages/sunshine_teams.dart';
+import 'package:sunshine_iith/widgets/custom_route.dart';
 import 'package:sunshine_iith/widgets/home_buttons.dart';
 
 import '../widgets/drawer_nav_bar.dart';
@@ -126,8 +127,8 @@ class HomeScreen extends StatelessWidget {
                   ),
                   text: "Sunshine\nTeam",
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const TeamPage()));
+                    Navigator.of(context)
+                        .push(CustomPageRoute(child: const TeamPage()));
                   }),
               HomePageButton(
                   width: size.width * 0.25,
@@ -140,8 +141,8 @@ class HomeScreen extends StatelessWidget {
                   ),
                   text: "Session\nBooking",
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const SessionBookIntro()));
+                    Navigator.of(context)
+                        .push(CustomPageRoute(child: const SessionBookIntro()));
                   },
                   shadowColor: Colors.green),
               HomePageButton(
@@ -156,9 +157,7 @@ class HomeScreen extends StatelessWidget {
                   text: "Chat\nBot",
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ChatBot()));
+                        context, CustomPageRoute(child: const ChatBot()));
                   },
                   shadowColor: Colors.orange[500] ?? Colors.orange)
             ],
