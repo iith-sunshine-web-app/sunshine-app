@@ -78,10 +78,6 @@ class _UgBuddiesState extends ConsumerState<UgBuddies> {
       ),
       body: Column(
         children: [
-          const Headers(title: 'UG Buddies'),
-          const SizedBox(
-            height: 25.0,
-          ),
           isLoading
               ? Expanded(
                   child: ListView.builder(

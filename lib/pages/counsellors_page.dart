@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sunshine_iith/providers/data_provider.dart';
 import 'package:sunshine_iith/services/firestore_database.dart';
+import 'package:sunshine_iith/widgets/headers.dart';
 import 'package:sunshine_iith/widgets/shimmer/team_card_shimmer.dart';
 import 'package:sunshine_iith/widgets/team_data_widget.dart';
 
@@ -58,18 +59,19 @@ class _CounsellorsPageState extends ConsumerState<CounsellorsPage> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10, 25, 10, 25),
-              child: Text(
-                'COUNSELLORS',
-                textAlign: TextAlign.center,
-                style: GoogleFonts.openSans(
-                  // fontStyle: ,
-                  fontSize: 33,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.fromLTRB(10, 25, 10, 25),
+            //   child: Text(
+            //     'COUNSELLORS',
+            //     textAlign: TextAlign.center,
+            //     style: GoogleFonts.openSans(
+            //       // fontStyle: ,
+            //       fontSize: 33,
+            //       fontWeight: FontWeight.w600,
+            //     ),
+            //   ),
+            // ),
+            const Headers(title: 'COUNSELLORS'),
 
             // const SizedBox(height: 35.0,),
             isLoading

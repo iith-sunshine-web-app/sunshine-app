@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sunshine_iith/providers/data_provider.dart';
 import 'package:sunshine_iith/services/firestore_database.dart';
+import 'package:sunshine_iith/widgets/headers.dart';
 import 'package:sunshine_iith/widgets/shimmer/team_card_shimmer.dart';
 import 'package:sunshine_iith/widgets/team_data_widget.dart';
 
@@ -60,21 +61,7 @@ class _FICDataShowState extends ConsumerState<FICDataShow> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.max,
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10, 25, 10, 25),
-              child: Text(
-                "FACULTY IN-CHARGE",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.openSans(
-                  // fontStyle: ,
-                  fontSize: 33,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 15.0,
-            ),
+            const Headers(title: "FACULTY IN-CHARGE"),
             isLoading
                 ? Expanded(
                     child: ListView.builder(

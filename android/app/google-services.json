@@ -8,34 +8,26 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:104215692812:android:c58e84e19fb60d331b9029",
+        "mobilesdk_app_id": "1:104215692812:android:2cde82e8aa5967211b9029",
         "android_client_info": {
-          "package_name": "app.iith.sunshine"
+          "package_name": "com.sunshine.iith"
         }
       },
       "oauth_client": [
         {
-          "client_id": "104215692812-0r6a5dl8reojl3gvm4mjg57oo7oklo9v.apps.googleusercontent.com",
+          "client_id": "104215692812-2lvfcujr4oleqau8af73os7u7thjlv1i.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "app.iith.sunshine",
-            "certificate_hash": "2bf623b88679a46f59de4ed7af3714d700c9a4d7"
+            "package_name": "com.sunshine.iith",
+            "certificate_hash": "8b605964ab2787adb82e41641f8c197bcdbcf0d5"
           }
         },
         {
-          "client_id": "104215692812-b7bu1vmrlfgrb1trih8nft7ck4f9p3gp.apps.googleusercontent.com",
+          "client_id": "104215692812-nl2m4hbb8mooqdu6q841l3rg3tn24hom.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "app.iith.sunshine",
-            "certificate_hash": "5eb20e5071a1cfe13e441511456b336dc0df23ce"
-          }
-        },
-        {
-          "client_id": "104215692812-lhqlghogir5p0emvmvcdbbsdsclrsjdm.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "app.iith.sunshine",
-            "certificate_hash": "fb94e1c5da554311a4225ddf40031db57593fc04"
+            "package_name": "com.sunshine.iith",
+            "certificate_hash": "1b081187fa85b48a0fdd65467b2943b4755ba5b5"
           }
         },
         {

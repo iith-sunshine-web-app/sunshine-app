@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDBOdTBbbdyg1y9kgYv7yZjmsa6tTF6wn0',
-    appId: '1:104215692812:android:c58e84e19fb60d331b9029',
+    appId: '1:104215692812:android:2cde82e8aa5967211b9029',
     messagingSenderId: '104215692812',
     projectId: 'sunshine-iith-newapp',
     databaseURL: 'https://sunshine-iith-newapp-default-rtdb.firebaseio.com',
@@ -65,7 +65,7 @@ class DefaultFirebaseOptions {
     projectId: 'sunshine-iith-newapp',
     databaseURL: 'https://sunshine-iith-newapp-default-rtdb.firebaseio.com',
     storageBucket: 'sunshine-iith-newapp.appspot.com',
-    androidClientId: '104215692812-30jr07qg8u5utsftdtg04tud4a4psj1d.apps.googleusercontent.com',
+    androidClientId: '104215692812-0r6a5dl8reojl3gvm4mjg57oo7oklo9v.apps.googleusercontent.com',
     iosClientId: '104215692812-uqqfaokqk5cqdppac2ngt9vhm8hp404l.apps.googleusercontent.com',
     iosBundleId: 'com.iith.sunshineIith',
   );

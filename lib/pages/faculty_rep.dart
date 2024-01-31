@@ -79,9 +79,6 @@ class _FacultyRepState extends ConsumerState<FacultyRep> {
         child: Column(
           children: [
             const Headers(title: 'FACULTY REPRESENTATIVES'),
-            const SizedBox(
-              height: 25.0,
-            ),
             isLoading? 
             Expanded(child: ListView.builder(
               physics: const NeverScrollableScrollPhysics(),

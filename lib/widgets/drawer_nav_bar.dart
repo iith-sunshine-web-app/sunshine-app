@@ -39,7 +39,8 @@ class _NavBarState extends ConsumerState<NavBar> {
       // shape: CircleBorder(eccentricity: 3),
       child: SingleChildScrollView(
         child: Column(
-          children: [            // ListTile(
+          children: [
+            // ListTile(
 
             UserAccountsDrawerHeader(
               currentAccountPicture: CircleAvatar(
@@ -90,7 +91,7 @@ class _NavBarState extends ConsumerState<NavBar> {
               ),
               onTap: () {
                 Open.browser(
-                  url: "https://sunshine.iith.ac.in/faq.php",
+                  url: "https://sunshine.iith.ac.in/faqs",
                   mode: OpenMode.externalApplication,
                 );
               },
@@ -105,7 +106,7 @@ class _NavBarState extends ConsumerState<NavBar> {
               ),
               onTap: () {
                 Open.browser(
-                  url: "https://sunshine.iith.ac.in/about.php",
+                  url: "https://sunshine.iith.ac.in/aboutus",
                   mode: OpenMode.externalApplication,
                 );
               },
@@ -138,7 +139,6 @@ class _NavBarState extends ConsumerState<NavBar> {
                                   MaterialPageRoute(
                                       builder: (_) => const LoginPage()));
                             });
-
                           },
                           child: const Text('Yes'),
                         ),
@@ -146,7 +146,6 @@ class _NavBarState extends ConsumerState<NavBar> {
                     );
                   }),
             ),
-
           ],
         ),
       ),

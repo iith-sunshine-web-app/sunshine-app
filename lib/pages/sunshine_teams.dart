@@ -78,7 +78,7 @@ class _TeamPageState extends State<TeamPage> {
                     ),
                   ),
                   const SizedBox(
-                    height: 5.0,
+                    height: 2.0,
                   ),
                 ],
               ),
@@ -96,7 +96,7 @@ class _TeamPageState extends State<TeamPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const SizedBox(
-                    height: 5.0,
+                    height: 2.0,
                   ),
                   Container(
                     height: 150.0,
@@ -113,7 +113,7 @@ class _TeamPageState extends State<TeamPage> {
                     ),
                   ),
                   const SizedBox(
-                    height: 5.0,
+                    height: 2.0,
                   ),
                 ],
               ),
@@ -129,7 +129,7 @@ class _TeamPageState extends State<TeamPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const SizedBox(
-                    height: 5.0,
+                    height: 2.0,
                   ),
                   Container(
                     height: 150.0,
@@ -146,7 +146,7 @@ class _TeamPageState extends State<TeamPage> {
                     ),
                   ),
                   const SizedBox(
-                    height: 5.0,
+                    height: 2.0,
                   ),
                 ],
               ),
@@ -162,7 +162,7 @@ class _TeamPageState extends State<TeamPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const SizedBox(
-                    height: 5.0,
+                    height: 2.0,
                   ),
                   Container(
                     height: 150.0,
@@ -179,7 +179,7 @@ class _TeamPageState extends State<TeamPage> {
                     ),
                   ),
                   const SizedBox(
-                    height: 5.0,
+                    height: 2.0,
                   ),
                 ],
               ),
@@ -198,7 +198,7 @@ class _TeamPageState extends State<TeamPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const SizedBox(
-                    height: 5.0,
+                    height: 2.0,
                   ),
                   Container(
                     height: 150.0,
@@ -215,7 +215,7 @@ class _TeamPageState extends State<TeamPage> {
                     ),
                   ),
                   const SizedBox(
-                    height: 5.0,
+                    height: 2.0,
                   ),
                 ],
               ),
@@ -234,7 +234,7 @@ class _TeamPageState extends State<TeamPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const SizedBox(
-                    height: 5.0,
+                    height: 2.0,
                   ),
                   Container(
                     height: 150.0,
@@ -251,7 +251,7 @@ class _TeamPageState extends State<TeamPage> {
                     ),
                   ),
                   const SizedBox(
-                    height: 5.0,
+                    height: 2.0,
                   ),
                 ],
               ),

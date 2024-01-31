@@ -79,9 +79,6 @@ class _PhDBuddiesState extends ConsumerState<PhDBuddies> {
       body: Column(
         children: [
           const Headers(title: 'PhD Buddies'),
-          const SizedBox(
-            height: 25.0,
-          ),
           isLoading
               ? Expanded(
                   child: ListView.builder(
