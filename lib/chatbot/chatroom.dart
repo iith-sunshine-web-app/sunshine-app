@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sunshine_iith/chatbot/chatbot.dart';
+import 'package:sunshine_iith/pages/emergency_contacts.dart';
 import 'package:sunshine_iith/providers/data_provider.dart';
 import 'package:sunshine_iith/providers/message_provider.dart';
+import 'package:sunshine_iith/widgets/custom_route.dart';
 
 class ChatRoom extends ConsumerStatefulWidget {
   final String? userImage;
@@ -43,6 +45,9 @@ class _ChatRoomState extends ConsumerState<ChatRoom> {
     }
   }
 
+  String emergencyText =
+      "You can find all the Emergency Contact Details,\nOpen HomePage -> Side Navbar -> Emergency Contacts";
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width * 0.76;
@@ -52,22 +57,19 @@ class _ChatRoomState extends ConsumerState<ChatRoom> {
           color: Colors.black,
         ),
         centerTitle: true,
-          title: Text(
-            "Sunshine Chatbot", 
-            style: GoogleFonts.openSans(
-              fontWeight: FontWeight.w400,
-              letterSpacing: 1.1,
-              color: Colors.black87,
-            ),
+        title: Text(
+          "Sunshine Chatbot",
+          style: GoogleFonts.openSans(
+            fontWeight: FontWeight.w400,
+            letterSpacing: 1.1,
+            color: Colors.black87,
           ),
-          backgroundColor: const Color(0xfff2b545),
+        ),
+        backgroundColor: const Color(0xfff2b545),
       ),
       body: SafeArea(
           child: Column(
-        children: [
-          _bodyWidget(width),
-          _bootmWidget()
-        ],
+        children: [_bodyWidget(width), _bootmWidget()],
       )),
     );
   }
@@ -103,44 +105,75 @@ class _ChatRoomState extends ConsumerState<ChatRoom> {
                   radius: 14,
                 )
               : Container(),
-          Flex(
-  direction: Axis.horizontal, // or Axis.vertical, depending on your layout
-  children: [
-    Container(
-      constraints: BoxConstraints(
-        maxWidth: width,
-      ),
-      child: Container(
-        margin: const EdgeInsets.fromLTRB(10, 20, 10, 0),
-        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-        decoration: BoxDecoration(
-          color: who == "1"
-              ? const Color(0xff397c31).withOpacity(0.7)
-              : const Color(0xff474d66).withOpacity(0.7),
-          borderRadius: who == "0"
-              ? const BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                  bottomRight: Radius.circular(20))
-              : const BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                  bottomLeft: Radius.circular(20),
-                ),
-        ),
-        child: SelectableText(
-          text,
-          style: GoogleFonts.inter(
-            color: Colors.white,
-            fontSize: 16,
-            letterSpacing: -0.2,
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Flex(
+                direction: Axis.horizontal,
+                children: [
+                  Container(
+                    constraints: BoxConstraints(
+                      maxWidth: width,
+                    ),
+                    child: Container(
+                      margin: const EdgeInsets.fromLTRB(10, 20, 10, 0),
+                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                      decoration: BoxDecoration(
+                        color: who == "1"
+                            ? const Color(0xff397c31).withOpacity(0.7)
+                            : const Color(0xff474d66).withOpacity(0.7),
+                        borderRadius: who == "0"
+                            ? const BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                                bottomRight: Radius.circular(20))
+                            : const BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                                bottomLeft: Radius.circular(20),
+                              ),
+                      ),
+                      child: SelectableText(
+                        text,
+                        style: GoogleFonts.inter(
+                          color: Colors.white,
+                          fontSize: 16,
+                          letterSpacing: -0.2,
+                        ),
+                      ),
+                    ),
+                  ),
+                  // Other widgets
+                ],
+              ),
+              if (who == "0" && text == emergencyText)
+                Container(
+                  margin: const EdgeInsets.only(top: 4),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(context, CustomPageRoute(child: const EmergencyContacts(),startPos: const Offset(0,1)));
+                    },
+                    borderRadius: BorderRadius.circular(36),
+                    child: Container(
+                      padding: const EdgeInsets.fromLTRB(24, 2, 24, 2),
+                      alignment: Alignment.topCenter,
+                      decoration: BoxDecoration(
+                          color: Colors.black12,
+                          borderRadius: BorderRadius.circular(36),
+                          border: Border.all(color: Colors.orange)),
+                      child: const Text(
+                        "Open",
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w600,
+                            fontStyle: FontStyle.italic),
+                      ),
+                    ),
+                  ),
+                )
+            ],
           ),
-        ),
-      ),
-    ),
-    // Other widgets
-  ],
-),
           who == "1"
               ? CircleAvatar(
                   backgroundImage: NetworkImage(photoURL),
@@ -180,8 +213,8 @@ class _ChatRoomState extends ConsumerState<ChatRoom> {
           margin: const EdgeInsets.only(bottom: 4),
           child: IconButton(
               splashColor: Colors.transparent,
-              icon: const Icon(Icons.send_rounded,
-                  color: Colors.blue, size: 40),
+              icon:
+                  const Icon(Icons.send_rounded, color: Colors.blue, size: 40),
               onPressed: () {
                 if (controller.text.toString().trim().isNotEmpty) {
                   String query = controller.text.toString().trim();
@@ -195,4 +228,3 @@ class _ChatRoomState extends ConsumerState<ChatRoom> {
     );
   }
 }
-

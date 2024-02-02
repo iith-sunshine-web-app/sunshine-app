@@ -1,7 +1,7 @@
 import 'package:dialog_flowtter/dialog_flowtter.dart';
 
 class ChatBotService {
-  Future<String?> sendMessage(String query,String sessionId) async {
+  Future<String?> sendMessage(String query, String sessionId) async {
     DialogAuthCredentials credentials =
         await DialogAuthCredentials.fromFile('assets/service.json');
     final DialogFlowtter dialogFlowtter = DialogFlowtter(
