@@ -116,7 +116,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           const SizedBox(height: 60.0),
           ElevatedButton(
             onPressed: () async {
-              // Add your Google login logic here
               await signInWithGoogle();
 
               bool isLoggedIn = await checkLoggedIn();
