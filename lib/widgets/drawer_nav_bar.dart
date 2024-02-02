@@ -5,7 +5,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:open_share_plus/open.dart';
+import 'package:sunshine_iith/pages/emergency_contacts.dart';
 import 'package:sunshine_iith/pages/login.dart';
+import 'package:sunshine_iith/widgets/custom_route.dart';
 
 class NavBar extends ConsumerStatefulWidget {
   const NavBar({super.key});
@@ -109,6 +111,19 @@ class _NavBarState extends ConsumerState<NavBar> {
                   url: "https://sunshine.iith.ac.in/aboutus",
                   mode: OpenMode.externalApplication,
                 );
+              },
+            ),
+
+            ListTile(
+              leading: const Icon(Icons.contact_emergency_outlined),
+              title: const Text(
+                'Emergency Contacts',
+                textAlign: TextAlign.start,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              ),
+              onTap: () {
+                Navigator.push(
+                    context, CustomPageRoute(child: const EmergencyContacts()));
               },
             ),
 

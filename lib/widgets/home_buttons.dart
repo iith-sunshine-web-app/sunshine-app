@@ -26,7 +26,7 @@ class HomePageButton extends StatelessWidget {
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
             color: shadowColor.withOpacity(0.35),
-            offset: Offset(0, 8),
+            offset: const Offset(0, 8),
             blurRadius: 7)
       ], color: color, borderRadius: BorderRadius.circular(36.0)),
       child: Material(
@@ -38,11 +38,11 @@ class HomePageButton extends StatelessWidget {
             children: [
               Container(
                   alignment: Alignment.topCenter,
-                  margin: EdgeInsets.only(top: 18),
+                  margin: const EdgeInsets.only(top: 18),
                   child: icon),
               Container(
                 alignment: Alignment.center,
-                margin: EdgeInsets.only(top: 18),
+                margin: const EdgeInsets.only(top: 18),
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Text(text,
