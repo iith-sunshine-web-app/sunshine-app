@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sunshine_iith/pages/home.dart';
+import 'package:sunshine_iith/providers/data_provider.dart';
 import 'package:sunshine_iith/providers/null_provider_logout.dart';
 import 'package:sunshine_iith/widgets/custom_route.dart';
 
@@ -129,9 +130,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   email = "";
                   if (mounted) {
                     Navigator.pushReplacement(
-                        context,
-                        CustomPageRoute(
-                            child: const HomePage()));
+                        context, CustomPageRoute(child: const HomePage()));
                   }
                 } else {
                   await logout();
@@ -165,6 +164,24 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ),
             ),
           ),
+          const SizedBox(
+            height: 16,
+          ),
+          InkWell(
+            onTap: () {
+              ref.read(isGuestProvider.notifier).state = true;
+              Navigator.pushAndRemoveUntil(context,
+                  CustomPageRoute(child: const HomePage()), (route) => false);
+            },
+            child: const Text(
+              "Continue as a Guest",
+              style: TextStyle(
+                  color: Colors.black87,
+                  fontSize: 14,
+                  decorationColor: Colors.black87,
+                  decoration: TextDecoration.underline),
+            ),
+          )
         ],
       ),
     );

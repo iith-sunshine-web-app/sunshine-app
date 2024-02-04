@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sunshine_iith/chatbot/chatroom.dart';
@@ -11,17 +10,6 @@ class ChatBot extends StatefulWidget {
 }
 
 class _ChatBotState extends State<ChatBot> {
-  @override
-  void initState() {
-    setState(() {
-      photoURL = FirebaseAuth.instance.currentUser!.photoURL;
-    });
-
-    super.initState();
-  }
-
-  String? photoURL = '';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,12 +68,8 @@ class _ChatBotState extends State<ChatBot> {
                     elevation: 2,
                   ),
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: ((context) => ChatRoom(
-                                  userImage: photoURL,
-                                ))));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: ((context) => const ChatRoom())));
                   },
                   child: const Padding(
                     padding: EdgeInsets.fromLTRB(5, 0, 5, 0),

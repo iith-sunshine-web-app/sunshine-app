@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sunshine_iith/pages/login.dart';
 import 'package:sunshine_iith/pages/session_book.dart/process_timeline.dart';
+import 'package:sunshine_iith/providers/data_provider.dart';
+import 'package:sunshine_iith/widgets/custom_route.dart';
 
-class SessionBookIntro extends StatelessWidget {
+class SessionBookIntro extends ConsumerWidget {
   const SessionBookIntro({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Theme(
       data: ThemeData(
         colorScheme: ColorScheme.fromSeed(
@@ -56,10 +60,43 @@ class SessionBookIntro extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const ProcessTimeline()));
+                        if (ref.read(isGuestProvider)) {
+                          showDialog(
+                              context: context,
+                              builder: (ctx) => AlertDialog(
+                                    title: const Text(
+                                      "Log In!",
+                                      style: TextStyle(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                    content: const Text(
+                                      "You have to login with your IITH mail-id to access this feature.",
+                                      style: TextStyle(fontSize: 15),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () {
+                                            ref
+                                                .watch(isGuestProvider.notifier)
+                                                .state = false;
+                                            Navigator.pushAndRemoveUntil(
+                                                context,
+                                                CustomPageRoute(
+                                                    child: const LoginPage(),
+                                                    startPos: const Offset(0, 1)),
+                                                (route) => false);
+                                          },
+                                          child: const Text("Login",style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Color.fromARGB(255, 7, 89, 156)))),
+                                    ],
+                                  ));
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ProcessTimeline()));
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         elevation: 6.0,

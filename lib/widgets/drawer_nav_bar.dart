@@ -7,6 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:open_share_plus/open.dart';
 import 'package:sunshine_iith/pages/emergency_contacts.dart';
 import 'package:sunshine_iith/pages/login.dart';
+import 'package:sunshine_iith/providers/data_provider.dart';
 import 'package:sunshine_iith/widgets/custom_route.dart';
 
 class NavBar extends ConsumerStatefulWidget {
@@ -17,16 +18,25 @@ class NavBar extends ConsumerStatefulWidget {
 }
 
 class _NavBarState extends ConsumerState<NavBar> {
-  String userName = '';
+  String userName = 'Guest-User';
   String email = '';
-  String image = '';
+  String image =
+      'https://firebasestorage.googleapis.com/v0/b/sunshine-iith-newapp.appspot.com/o/default_profile.png?alt=media&token=ddccfbd3-f02c-4f20-918c-bbc143953479';
 
   @override
   void initState() {
-    userName = FirebaseAuth.instance.currentUser!.displayName!;
-    email = FirebaseAuth.instance.currentUser!.email!;
-    image = FirebaseAuth.instance.currentUser!.photoURL!;
     super.initState();
+    fetchData();
+  }
+
+  fetchData() {
+    if (!ref.read(isGuestProvider)) {
+      setState(() {
+        userName = FirebaseAuth.instance.currentUser!.displayName!;
+        email = FirebaseAuth.instance.currentUser!.email!;
+        image = FirebaseAuth.instance.currentUser!.photoURL!;
+      });
+    }
   }
 
   Future<void> logout() async {
@@ -43,11 +53,12 @@ class _NavBarState extends ConsumerState<NavBar> {
         child: Column(
           children: [
             // ListTile(
-
             UserAccountsDrawerHeader(
               currentAccountPicture: CircleAvatar(
                 child: ClipOval(
-                  child: Image.network(image),
+                  child: ref.read(isGuestProvider)
+                      ? Image.asset("assets/images/default_profile.png")
+                      : Image.network(image),
                 ),
               ),
               accountName: Text(
@@ -127,40 +138,62 @@ class _NavBarState extends ConsumerState<NavBar> {
               },
             ),
 
-            ListTile(
-              leading: const FaIcon(FontAwesomeIcons.arrowRightFromBracket),
-              title: const Text(
-                'Sign Out',
-                textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-              ),
-              onTap: () => showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      content: const Text('Are you sure you want to sign out?'),
-                      actions: [
-                        TextButton(
-                          onPressed: () => Navigator.pop(context, 'No'),
-                          child: const Text('No'),
-                        ),
-                        TextButton(
-                          onPressed: () async {
-                            await logout();
+            ref.watch(isGuestProvider)
+                ? ListTile(
+                    leading: const Icon(Icons.login_outlined),
+                    title: const Text(
+                      'Sign In',
+                      textAlign: TextAlign.start,
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                    ),
+                    onTap: () {
+                      ref.read(isGuestProvider.notifier).state = false;
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          CustomPageRoute(
+                              child: const LoginPage(), startPos: const Offset(0, 1)),
+                          (route) => false);
+                    },
+                  )
+                : ListTile(
+                    leading:
+                        const FaIcon(FontAwesomeIcons.arrowRightFromBracket),
+                    title: const Text(
+                      'Sign Out',
+                      textAlign: TextAlign.start,
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                    ),
+                    onTap: () => showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            content: const Text(
+                                'Are you sure you want to sign out?'),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context, 'No'),
+                                child: const Text('No'),
+                              ),
+                              TextButton(
+                                onPressed: () async {
+                                  await logout();
 
-                            Future.delayed(const Duration(microseconds: 0), () {
-                              Navigator.pop(context, 'Yes');
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (_) => const LoginPage()));
-                            });
-                          },
-                          child: const Text('Yes'),
-                        ),
-                      ],
-                    );
-                  }),
-            ),
+                                  Future.delayed(
+                                      const Duration(microseconds: 0), () {
+                                    Navigator.pop(context, 'Yes');
+                                    Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                            builder: (_) => const LoginPage()));
+                                  });
+                                },
+                                child: const Text('Yes'),
+                              ),
+                            ],
+                          );
+                        }),
+                  ),
           ],
         ),
       ),

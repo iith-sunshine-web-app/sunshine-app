@@ -20,9 +20,8 @@ final selectedTimeProvider = StateProvider<String?>((ref) => null);
 final selectedDateProvider = StateProvider<String?>((ref) => null);
 //isAdmin
 final isAdminProvider = StateProvider<bool>((ref) => false);
-// final isControllerProvider = StateProvider<bool>((ref) => false);
-// final adminAsUserProvider = StateProvider<bool>((ref) => false);
-
+//isGuest
+final isGuestProvider = StateProvider<bool>((ref) => false);
 //booked sessions provider
 final bookedSessionProvider = StateNotifierProvider<DataNotifier, Map<String, List>>((ref) => DataNotifier());
 //sessionId

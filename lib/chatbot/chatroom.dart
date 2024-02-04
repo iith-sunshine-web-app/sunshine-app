@@ -8,8 +8,7 @@ import 'package:sunshine_iith/providers/message_provider.dart';
 import 'package:sunshine_iith/widgets/custom_route.dart';
 
 class ChatRoom extends ConsumerStatefulWidget {
-  final String? userImage;
-  const ChatRoom({super.key, this.userImage});
+  const ChatRoom({super.key});
 
   @override
   ConsumerState<ChatRoom> createState() => _ChatRoomState();
@@ -90,8 +89,6 @@ class _ChatRoomState extends ConsumerState<ChatRoom> {
 
   Widget messageWidget(String who, String text, double width) {
     //who==0 -> bot , 1 -> user
-    String photoURL = widget.userImage ??
-        'https://firebasestorage.googleapis.com/v0/b/sunshine-iith-newapp.appspot.com/o/default_profile.png?alt=media&token=ddccfbd3-f02c-4f20-918c-bbc143953479&_gl=1*zaiiha*_ga*NDIzMTA3NTU2LjE2OTU1ODYxNTY.*_ga_CW55HF8NVT*MTY5ODE4MDg5Mi4zNS4xLjE2OTgxODA5NDcuNS4wLjA.';
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 8),
       child: Row(
@@ -151,7 +148,11 @@ class _ChatRoomState extends ConsumerState<ChatRoom> {
                   margin: const EdgeInsets.only(top: 4),
                   child: InkWell(
                     onTap: () {
-                      Navigator.push(context, CustomPageRoute(child: const EmergencyContacts(),startPos: const Offset(0,1)));
+                      Navigator.push(
+                          context,
+                          CustomPageRoute(
+                              child: const EmergencyContacts(),
+                              startPos: const Offset(0, 1)));
                     },
                     borderRadius: BorderRadius.circular(36),
                     child: Container(
@@ -175,8 +176,9 @@ class _ChatRoomState extends ConsumerState<ChatRoom> {
             ],
           ),
           who == "1"
-              ? CircleAvatar(
-                  backgroundImage: NetworkImage(photoURL),
+              ? const CircleAvatar(
+                  backgroundImage:
+                      AssetImage("assets/images/default_profile.png"),
                   radius: 15.5,
                 )
               : Container(),
