@@ -164,24 +164,24 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ),
             ),
           ),
-          const SizedBox(
-            height: 16,
-          ),
-          InkWell(
-            onTap: () {
-              ref.read(isGuestProvider.notifier).state = true;
-              Navigator.pushAndRemoveUntil(context,
-                  CustomPageRoute(child: const HomePage()), (route) => false);
-            },
-            child: const Text(
-              "Continue as a Guest",
-              style: TextStyle(
-                  color: Colors.black87,
-                  fontSize: 14,
-                  decorationColor: Colors.black87,
-                  decoration: TextDecoration.underline),
-            ),
-          )
+          // const SizedBox(
+          //   height: 16,
+          // ),
+          // InkWell(
+          //   onTap: () {
+          //     ref.read(isGuestProvider.notifier).state = true;
+          //     Navigator.pushAndRemoveUntil(context,
+          //         CustomPageRoute(child: const HomePage()), (route) => false);
+          //   },
+          //   child: const Text(
+          //     "Continue as a Guest",
+          //     style: TextStyle(
+          //         color: Colors.black87,
+          //         fontSize: 14,
+          //         decorationColor: Colors.black87,
+          //         decoration: TextDecoration.underline),
+          //   ),
+          // )
         ],
       ),
     );
