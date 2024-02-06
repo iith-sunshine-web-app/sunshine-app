@@ -20,9 +20,10 @@ class BookedSessionsScreen extends ConsumerStatefulWidget {
 class _BookedSessionsScreenState extends ConsumerState<BookedSessionsScreen> {
   Map<String, String> counsellorsName = {
     'maria.morris@admin.iith.ac.in': 'Maria Morris',
-    // 'ms22btech11010@iith.ac.in': 'Maria Morris',
     'yukti.rastogi@admin.iith.ac.in': 'Yukti Rastogi',
     'phani.bhushan@admin.iith.ac.in': 'Phani Bhushan',
+    'ms22btech11010@iith.ac.in': 'Maria Morris',
+    'ce20btech11016@iith.ac.in': 'Maria Morris',
   };
 
   Map<String, DataModel> counsellorsData = {
@@ -63,7 +64,6 @@ class _BookedSessionsScreenState extends ConsumerState<BookedSessionsScreen> {
     });
   }
 
-  // final sessions = List.generate(15, (index) => '09:00 AM');
   String whichDate = '';
 
   String formatDate(DateTime dateTime) {
@@ -122,9 +122,6 @@ class _BookedSessionsScreenState extends ConsumerState<BookedSessionsScreen> {
       }
       ref.read(bookedSessionProvider.notifier).addAllData(date, data);
     }
-    // setState(() {
-    //   bookedSessionData[date] = data;
-    // });
   }
 
   Future<void> getAllBookedSession() async {

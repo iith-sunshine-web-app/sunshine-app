@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sunshine_iith/admin/home_page_admin.dart';
 import 'package:sunshine_iith/pages/home.dart';
-import 'package:sunshine_iith/providers/data_provider.dart';
 import 'package:sunshine_iith/providers/null_provider_logout.dart';
 import 'package:sunshine_iith/widgets/custom_route.dart';
 
@@ -88,9 +88,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     }
   }
 
+  List<String> adminEmails = [
+    'maria.morris@admin.iith.ac.in',
+    'yukti.rastogi@admin.iith.ac.in',
+    'phani.bhushan@admin.iith.ac.in',
+    'ms22btech11010@iith.ac.in',
+  ];
+
   @override
   Widget build(BuildContext context) {
-    // isLoggedIn();
     return Padding(
       padding: const EdgeInsets.fromLTRB(35, 0, 35, 0),
       child: Column(
@@ -127,17 +133,22 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   await logout();
                   _showSnackBar('Erorr!');
                 } else if (email.contains('iith.ac.in')) {
-                  email = "";
                   if (mounted) {
-                    Navigator.pushReplacement(
-                        context, CustomPageRoute(child: const HomePage()));
+                    if (adminEmails.contains(email)) {
+                      email = "";
+                      Navigator.pushReplacement(context,
+                          CustomPageRoute(child: const AdminHomePage()));
+                    } else {
+                      email = "";
+                      Navigator.pushReplacement(
+                          context, CustomPageRoute(child: const HomePage()));
+                    }
                   }
                 } else {
                   await logout();
                   _showSnackBar('Please Login with IITH email-Id');
                 }
               }
-              // if (!mounted) return;
             },
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.all(16.0),

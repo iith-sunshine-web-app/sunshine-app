@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sunshine_iith/admin/booked_sessions.dart';
 import 'package:sunshine_iith/chatbot/chatbot_intro.dart';
 import 'package:sunshine_iith/pages/sunshine_teams.dart';
+import 'package:sunshine_iith/widgets/custom_route.dart';
+import 'package:sunshine_iith/widgets/home_buttons.dart';
 
 import '../widgets/drawer_nav_bar.dart';
 
@@ -51,6 +53,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
       child: Column(
@@ -78,132 +81,177 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               //first button , "Sunshine Team"
-              SizedBox(
-                width: 95,
-                height: 159,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const TeamPage()));
-                    // Navigator.push(context, MaterialPageRoute(builder: (context) => TeamPage(),));
-                  },
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 217, 229, 250),
-                      elevation: 10.0,
-                      shadowColor: const Color.fromARGB(255, 92, 64, 251),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(36.0),
-                      )),
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 25.0,
-                      ),
-                      Icon(
-                        Icons.people,
-                        size: 35.0,
-                        color: Colors.blue[700],
-                      ),
-                      const SizedBox(
-                        height: 20.0,
-                      ),
-                      const Text("Sunshine\nTeam",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          )),
-                    ],
+              // SizedBox(
+              //   width: 95,
+              //   height: 159,
+              //   child: ElevatedButton(
+              //     onPressed: () {
+              //       Navigator.of(context).push(MaterialPageRoute(
+              //           builder: (context) => const TeamPage()));
+              //       // Navigator.push(context, MaterialPageRoute(builder: (context) => TeamPage(),));
+              //     },
+              //     style: ElevatedButton.styleFrom(
+              //         backgroundColor: const Color.fromARGB(255, 217, 229, 250),
+              //         elevation: 10.0,
+              //         shadowColor: const Color.fromARGB(255, 92, 64, 251),
+              //         shape: RoundedRectangleBorder(
+              //           borderRadius: BorderRadius.circular(36.0),
+              //         )),
+              //     child: Column(
+              //       children: [
+              //         const SizedBox(
+              //           height: 25.0,
+              //         ),
+              //         Icon(
+              //           Icons.people,
+              //           size: 35.0,
+              //           color: Colors.blue[700],
+              //         ),
+              //         const SizedBox(
+              //           height: 20.0,
+              //         ),
+              //         const Text("Sunshine\nTeam",
+              //             textAlign: TextAlign.center,
+              //             style: TextStyle(
+              //               fontSize: 15.0,
+              //               fontWeight: FontWeight.bold,
+              //               color: Colors.black,
+              //             )),
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              HomePageButton(
+                  shadowColor: const Color.fromARGB(255, 92, 64, 251),
+                  height: 159,
+                  width: size.width * 0.25,
+                  color: const Color.fromARGB(255, 217, 229, 250),
+                  icon: Icon(
+                    Icons.people,
+                    size: 35.0,
+                    color: Colors.blue[700],
                   ),
-                ),
-              ),
+                  text: "Sunshine\nTeam",
+                  onTap: () {
+                    Navigator.of(context)
+                        .push(CustomPageRoute(child: const TeamPage()));
+                  }),
+              HomePageButton(
+                  width: size.width * 0.25,
+                  height: 159,
+                  color: const Color.fromARGB(255, 229, 255, 228),
+                  icon: Icon(
+                    Icons.schedule,
+                    size: 35.0,
+                    color: Colors.green[700],
+                  ),
+                  text: "Booked\nSessions",
+                  onTap: () {
+                    Navigator.of(context).push(
+                        CustomPageRoute(child: const BookedSessionsScreen()));
+                  },
+                  shadowColor: Colors.green),
+              HomePageButton(
+                  height: 159,
+                  width: size.width * 0.25,
+                  color: const Color.fromARGB(255, 255, 246, 236),
+                  icon: Icon(
+                    Icons.forum,
+                    size: 35.0,
+                    color: Colors.orange[700],
+                  ),
+                  text: "Chat\nBot",
+                  onTap: () {
+                    Navigator.push(
+                        context, CustomPageRoute(child: const ChatBot()));
+                  },
+                  shadowColor: Colors.orange[500] ?? Colors.orange)
 
               //second button , "Session Booking"
-              SizedBox(
-                width: 95,
-                height: 159,
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SessionBookIntro()));
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const BookedSessionsScreen()));
-                  },
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 229, 255, 228),
-                      elevation: 10.0,
-                      shadowColor: Colors.green,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(36.0),
-                      )),
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 25.0,
-                      ),
-                      Icon(
-                        Icons.schedule,
-                        size: 35.0,
-                        color: Colors.green[700],
-                      ),
-                      const SizedBox(
-                        height: 20.0,
-                      ),
-                      const Text("Booked\nSessions",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 14.0,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          )),
-                    ],
-                  ),
-                ),
-              ),
+              // SizedBox(
+              //   width: 95,
+              //   height: 159,
+              //   child: ElevatedButton(
+              //     onPressed: () {
+              //       // Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SessionBookIntro()));
+              //       Navigator.of(context).push(MaterialPageRoute(
+              //           builder: (context) => const BookedSessionsScreen()));
+              //     },
+              //     style: ElevatedButton.styleFrom(
+              //         backgroundColor: const Color.fromARGB(255, 229, 255, 228),
+              //         elevation: 10.0,
+              //         shadowColor: Colors.green,
+              //         shape: RoundedRectangleBorder(
+              //           borderRadius: BorderRadius.circular(36.0),
+              //         )),
+              //     child: Column(
+              //       children: [
+              //         const SizedBox(
+              //           height: 25.0,
+              //         ),
+              //         Icon(
+              //           Icons.schedule,
+              //           size: 35.0,
+              //           color: Colors.green[700],
+              //         ),
+              //         const SizedBox(
+              //           height: 20.0,
+              //         ),
+              //         const Text("Booked\nSessions",
+              //             textAlign: TextAlign.center,
+              //             style: TextStyle(
+              //               fontSize: 14.0,
+              //               color: Colors.black,
+              //               fontWeight: FontWeight.bold,
+              //             )),
+              //       ],
+              //     ),
+              //   ),
+              // ),
 
               //third button , "Chat bot"
-              SizedBox(
-                width: 95,
-                height: 159,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ChatBot()));
-                    // Navigator.push(context, MaterialPageRoute(builder: (context)=>const AddData()));
-                  },
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 255, 246, 236),
-                      elevation: 10.0,
-                      shadowColor: Colors.orange[500],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(36.0),
-                      )),
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 25.0,
-                      ),
-                      Icon(
-                        Icons.forum,
-                        size: 35.0,
-                        color: Colors.orange[700],
-                      ),
-                      const SizedBox(
-                        height: 20.0,
-                      ),
-                      const Text("Chat\nBot",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          )),
-                    ],
-                  ),
-                ),
-              ),
+              // SizedBox(
+              //   width: 95,
+              //   height: 159,
+              //   child: ElevatedButton(
+              //     onPressed: () {
+              //       Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //               builder: (context) => const ChatBot()));
+              //       // Navigator.push(context, MaterialPageRoute(builder: (context)=>const AddData()));
+              //     },
+              //     style: ElevatedButton.styleFrom(
+              //         backgroundColor: const Color.fromARGB(255, 255, 246, 236),
+              //         elevation: 10.0,
+              //         shadowColor: Colors.orange[500],
+              //         shape: RoundedRectangleBorder(
+              //           borderRadius: BorderRadius.circular(36.0),
+              //         )),
+              //     child: Column(
+              //       children: [
+              //         const SizedBox(
+              //           height: 25.0,
+              //         ),
+              //         Icon(
+              //           Icons.forum,
+              //           size: 35.0,
+              //           color: Colors.orange[700],
+              //         ),
+              //         const SizedBox(
+              //           height: 20.0,
+              //         ),
+              //         const Text("Chat\nBot",
+              //             textAlign: TextAlign.center,
+              //             style: TextStyle(
+              //               fontSize: 16.0,
+              //               color: Colors.black,
+              //               fontWeight: FontWeight.bold,
+              //             )),
+              //       ],
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ],
