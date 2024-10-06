@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+   import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sunshine_iith/providers/data_provider.dart';
@@ -18,9 +18,9 @@ class _MGMTTeamState extends ConsumerState<MGMTTeam> {
   
 
   bool isLoading = true;
-  List<String> posArr = ['web-app-team' , 'finance-team', 'publicity-team' , 'content-team', 'photo-team', 'des-team', 'newsletter-team', 'logistics-team', 'video-team'];
-  List<String> typeArr = ['Web & App Dev Team' , 'Finance Managers' , 'Publicity Team', 'Content Team' , 'Photography Team',
-   'Design Team' ,'Newsletter Team', 'Logistics Team','Video Editorial Team'];
+  List<String> posArr = ['web-app-team' , 'finance-team', 'publicity-team' , 'content-team', 'des-team', 'newsletter-team', 'logistics-team','photo_video'];
+  List<String> typeArr = ['Web & App Dev Team' , 'Finance Managers' , 'Publicity Team', 'Content Team' ,
+   'Design Team' ,'Newsletter Team', 'Logistics Team','Photography, Videography and Editing'];
 
   @override
   void initState() {
@@ -100,10 +100,6 @@ class _MGMTTeamState extends ConsumerState<MGMTTeam> {
 
             textWidget(typeArr.elementAt(7)),
             detailsWidget(setData[posArr[7]]!),
-
-            textWidget(typeArr.elementAt(8)),
-            detailsWidget(setData[posArr[8]]!),
-
           ] ,
             
           
