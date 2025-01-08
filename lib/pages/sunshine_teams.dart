@@ -5,6 +5,7 @@ import 'package:sunshine_iith/pages/faculty_rep.dart';
 import 'package:sunshine_iith/pages/fic_page.dart';
 import 'package:sunshine_iith/pages/mentors/mentors.dart';
 import 'package:sunshine_iith/pages/studentheads/student_team.dart';
+import 'package:sunshine_iith/pages/wellbeing_team/wellbeing.dart';
 import 'package:sunshine_iith/widgets/custom_route.dart';
 
 // ignore: must_be_immutable
@@ -27,7 +28,8 @@ class _TeamPageState extends State<TeamPage> {
     'FACULTY REPRESENTATIVES',
     'STUDENT HEADS',
     'MENTORS',
-    'BUDDIES'
+    'BUDDIES',
+    'WELL-BEING TEAM'
   ];
 
   // var arrName = ['Bhaskar Mandal', 'Test Person 1' , 'Test Person 2', 'Test Person 3'];
@@ -228,6 +230,42 @@ class _TeamPageState extends State<TeamPage> {
                     context,
                     CustomPageRoute(
                       child: const BuddiesScreen(),
+                    ));
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(
+                    height: 2.0,
+                  ),
+                  Container(
+                    height: 150.0,
+                    color: const Color.fromARGB(255, 253, 154, 36),
+                    child: Center(
+                      child: Text(
+                        arrListItem[5],
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          letterSpacing: 0.025,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 2.0,
+                  ),
+                ],
+              ),
+            ),
+
+            //SEVENTH
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    CustomPageRoute(
+                      child: const WellBeingScreen(),
                     ));
               },
               child: Column(
